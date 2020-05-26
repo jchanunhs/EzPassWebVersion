@@ -12,14 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class LoginControl {
+public class LoginControl{
 
-    @RequestMapping(value = "/LoginControl", method = RequestMethod.GET)
-    public ModelAndView Login(HttpServletRequest request, HttpServletResponse response, ModelAndView modelAndView, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "/LoginControl", method = RequestMethod.POST)
+    public ModelAndView Login(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
 
         String User = request.getParameter("Username");
         String PW = request.getParameter("Password");
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         Account acct = new Account(User, PW);
         Customer cus = new Customer();
         if (acct.signIn() && cus.checkExist(User)) { //set session attributes and redirect to user main page
@@ -35,17 +35,17 @@ public class LoginControl {
             session.setAttribute("Phone", cus.getPhone());
             session.setAttribute("Email", cus.getEmail());
             session.setAttribute("Balance", cus.getBalance());
-            modelAndView.setViewName("redirect:/Main");
+            mv.setViewName("redirect:/Main");
         } else if (acct.signIn()) {
             redirectAttributes.addFlashAttribute("Username", User);
             redirectAttributes.addFlashAttribute("Name", acct.getName());
-            modelAndView.setViewName("redirect:/CreateProfile");
+            mv.setViewName("redirect:/CreateProfile");
         } else { //wrong information
             redirectAttributes.addFlashAttribute("message", "Error: Invalid Username or Password!");
-            modelAndView.setViewName("redirect:/index");
+            mv.setViewName("redirect:/index");
         }
 
-        return modelAndView;
+        return mv;
     }
 
 }

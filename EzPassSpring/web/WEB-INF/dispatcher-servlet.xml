@@ -29,5 +29,16 @@
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/views/"
           p:suffix=".jsp" />
+    
+    <!-- prevent back button from displaying old information -->
+    <mvc:interceptors>
+    <bean id="webContentInterceptor" 
+          class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+        <property name="cacheSeconds" value="0"/>
+        <property name="useExpiresHeader" value="true"/>
+        <property name="useCacheControlHeader" value="true"/>
+        <property name="useCacheControlNoStore" value="true"/>
+    </bean>
+</mvc:interceptors>
 
 </beans>

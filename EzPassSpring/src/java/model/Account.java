@@ -31,10 +31,6 @@ public class Account {
 
     }
 
-    public String getUsername(){ //for change password
-        return Username;
-    }
-    
     public String getName() {
         try {
             DBConnection ToDB = new DBConnection();

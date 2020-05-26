@@ -90,9 +90,7 @@
                         
                         <%}%>
                         </table>
-                    <div align="center">
-                        <a href="javascript:window.close();">Log Off</a>
-                    </div>
+        
                     <div id = "date"> </div>
 
                 </main>

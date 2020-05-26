@@ -27,7 +27,7 @@
                 <div id = "space"> </div>
                 <main> 
                     <h1 align ="center">Sign In</h1>
-                    <form name="SignIn" action="${pageContext.request.contextPath}/LoginControl" method ="get"> 
+                    <form name="SignIn" action="${pageContext.request.contextPath}/LoginControl" method ="post"> 
                         <label for="Username">Username: </label>
                         <input type="text" name="Username"><br>
                         <label for="Password">Password: </label>
