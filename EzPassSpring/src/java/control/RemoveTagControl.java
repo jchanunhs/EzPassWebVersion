@@ -11,18 +11,18 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class RemoveTagControl{
-@RequestMapping(value = "/RemoveTagControl", method = RequestMethod.POST)
+public class RemoveTagControl {
+
+    @RequestMapping(value = "/RemoveTagControl", method = RequestMethod.POST)
     public ModelAndView RemoveTag(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
-     HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         String CID = (String) session.getAttribute("CID");
         String TC = request.getParameter("TagCode");
         EzTag ez = new EzTag(TC, CID);
         mv.setViewName("redirect:/RemoveTag");
-        if (ez.checkTag() && ez.removeTag()) {
+        if (ez.removeTag()) {
             redirectAttributes.addFlashAttribute("message", "EzTag was removed successfully!");
-        }
-        else{
+        } else {
             redirectAttributes.addFlashAttribute("message", "Error: The Ez Tag that you entered is invalid. Please try again.");
         }
         return mv;

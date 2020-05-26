@@ -11,11 +11,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class RemoveVehicleControl{
+public class RemoveVehicleControl {
 
     @RequestMapping(value = "/RemoveVehicleControl", method = RequestMethod.POST)
     public ModelAndView RemoveVehicle(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         String CID = (String) session.getAttribute("CID");
         String license = request.getParameter("LicensePlateNumber");
         Vehicle vehicle = new Vehicle(CID, license);

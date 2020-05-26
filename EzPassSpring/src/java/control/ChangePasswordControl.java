@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class ChangePasswordControl{
+public class ChangePasswordControl {
 
     @RequestMapping(value = "/ChangePasswordControl", method = RequestMethod.POST)
     public ModelAndView ChangePassword(HttpServletRequest request, RedirectAttributes redirectAttributes, ModelAndView mv) {
@@ -19,7 +19,7 @@ public class ChangePasswordControl{
         String old = request.getParameter("Old");
         String NewPass = request.getParameter("New");
         Account acct = new Account(Username, old);
-        
+
         if (acct.changePassword(NewPass)) { //change password
             session.invalidate();
             redirectAttributes.addFlashAttribute("message", "Your password was changed successfully. Please relog with your new password.");

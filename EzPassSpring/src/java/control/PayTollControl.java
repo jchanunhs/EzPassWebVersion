@@ -14,10 +14,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class PayTollControl {
-    
+
     @RequestMapping(value = "/PayTollControl", method = RequestMethod.POST)
     public ModelAndView PayToll(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
-     HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         String CID = (String) session.getAttribute("CID");
         String TC = request.getParameter("TagCode");
         String TP = request.getParameter("TollPlaza");
@@ -33,20 +33,18 @@ public class PayTollControl {
         float oldBal = cus.getBalance();
         float newBal = oldBal - TA_FLT; //subtract old balance with charge toll amount
         mv.setViewName("redirect:/PayTolls");
-        if (tag.checkTag()) { 
+        if (tag.checkTag()) {
             if (tran.recordTransaction() && cus.charge(newBal)) {
-                redirectAttributes.addFlashAttribute("message","Pay toll was successful! Your new balance is: " + newBal);
+                redirectAttributes.addFlashAttribute("message", "Pay toll was successful! Your new balance is: " + newBal);
                 session.setAttribute("Balance", newBal);
-            }
-            else{ //transaction failed
-                redirectAttributes.addFlashAttribute("message","Error: Unable to process payments at this time");
+            } else { //transaction failed
+                redirectAttributes.addFlashAttribute("message", "Error: Unable to process payments at this time");
             }
 
-        }
-        else{//invalid tag
-            redirectAttributes.addFlashAttribute("message","Error: Pay toll failed because Tag Code was invalid!");
+        } else {//invalid tag
+            redirectAttributes.addFlashAttribute("message", "Error: Pay toll failed because Tag Code was invalid!");
         }
         return mv;
     }
-    
+
 }

@@ -12,14 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class LoginControl{
+public class LoginControl {
 
     @RequestMapping(value = "/LoginControl", method = RequestMethod.POST)
     public ModelAndView Login(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
 
         String User = request.getParameter("Username");
         String PW = request.getParameter("Password");
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         Account acct = new Account(User, PW);
         Customer cus = new Customer();
         if (acct.signIn() && cus.checkExist(User)) { //set session attributes and redirect to user main page
@@ -37,8 +37,8 @@ public class LoginControl{
             session.setAttribute("Balance", cus.getBalance());
             mv.setViewName("redirect:/Main");
         } else if (acct.signIn()) {
-            redirectAttributes.addFlashAttribute("Username", User);
-            redirectAttributes.addFlashAttribute("Name", acct.getName());
+            session.setAttribute("Username", User);
+            session.setAttribute("Name", acct.getName());
             mv.setViewName("redirect:/CreateProfile");
         } else { //wrong information
             redirectAttributes.addFlashAttribute("message", "Error: Invalid Username or Password!");

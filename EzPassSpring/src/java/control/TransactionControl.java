@@ -11,10 +11,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class TransactionControl {
-    
+
     @RequestMapping(value = "/TransactionControl", method = RequestMethod.POST)
     public ModelAndView ViewTransactionDate(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
-     HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         String before = request.getParameter("before");
         String after = request.getParameter("after");
         redirectAttributes.addFlashAttribute("before", before);
@@ -22,5 +22,5 @@ public class TransactionControl {
         mv.setViewName("redirect:/ViewDateTransactions");
         return mv;
     }
-    
+
 }
