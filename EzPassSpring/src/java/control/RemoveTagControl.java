@@ -23,7 +23,7 @@ public class RemoveTagControl {
         if (ez.removeTag()) {
             redirectAttributes.addFlashAttribute("message", "EzTag was removed successfully!");
         } else {
-            redirectAttributes.addFlashAttribute("message", "Error: The Ez Tag that you entered is invalid. Please try again.");
+            redirectAttributes.addFlashAttribute("message", "Error: Either EzTag is invalid or it's currently linked to a vehicle and has been used to pay tolls in the past. If you believe this is a mistake please contact help desk.");
         }
         return mv;
     }

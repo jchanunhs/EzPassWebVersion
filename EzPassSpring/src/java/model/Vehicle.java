@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
 public class Vehicle {
 
     private String LicensePlateNumber;
@@ -109,16 +108,16 @@ public class Vehicle {
         return done;
     }
 
- public ArrayList<String> getVehicles() { //populate list with vehicles
-    ArrayList<String> vehicles = new ArrayList<String>();
-     
+    public ArrayList<String> getVehicles() { //populate list with vehicles
+        ArrayList<String> vehicles = new ArrayList<String>();
+
         try {
 
             DBConnection ToDB = new DBConnection(); //Have a connection to the DB
             Connection DBConn = ToDB.openConn();
             Statement Stmt = DBConn.createStatement();
             String SQL_Command = "SELECT * FROM Vehicle WHERE CustomerID ='" + CustomerID + "'"; //fetch all license plate numbers 
-            ResultSet Rslt = Stmt.executeQuery(SQL_Command); 
+            ResultSet Rslt = Stmt.executeQuery(SQL_Command);
             while (Rslt.next()) {
                 vehicles.add(Rslt.getString("LicensePlateNumber"));
             }

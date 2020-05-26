@@ -5,7 +5,7 @@ import java.sql.*;
 public class Account {
 
     private String CustomerID, Username, Password, Password1, Name;
-    
+
     //Create account
     public Account(String UN, String PassW, String PassW1, String NM) {
         Username = UN;
@@ -13,19 +13,19 @@ public class Account {
         Password1 = PassW1;
         Name = NM;
     }
-    
+
     //Login
     public Account(String UN, String PassW) {
         Username = UN;
         Password = PassW;
 
     }
-    
+
     //change account information based on CID
     public Account(String CID) {
         CustomerID = CID;
     }
-    
+
     //default constructor
     public Account() {
 
@@ -59,7 +59,7 @@ public class Account {
         }
         return Name;
     }
-    
+
     public String getCustomerID() {
         try {
             DBConnection ToDB = new DBConnection();
@@ -97,7 +97,7 @@ public class Account {
                 Connection DBConn = ToDB.openConn();
                 Statement Stmt = DBConn.createStatement();
                 String SQL_Command = "SELECT Username FROM Account WHERE Username ='" + Username + "'"; //SQL query command to check if username already taken
-                ResultSet Rslt = Stmt.executeQuery(SQL_Command); 
+                ResultSet Rslt = Stmt.executeQuery(SQL_Command);
                 done = done && !Rslt.next();
                 if (done) { //if username not taken, insert into db
                     SQL_Command = "INSERT INTO Account(Username, Password, Name) VALUES ('" + Username + "','" + Password + "','" + Name + "')"; //Save the username, password and Name
@@ -123,8 +123,8 @@ public class Account {
         }
         return done;
     }
-    
-        public boolean UsernameTaken() { //Check if username is taken
+
+    public boolean UsernameTaken() { //Check if username is taken
         boolean done = !Username.equals("") && !Password.equals("") && !Password1.equals("") && Password.equals(Password1);
         try {
             if (done) {
@@ -132,9 +132,9 @@ public class Account {
                 Connection DBConn = ToDB.openConn();
                 Statement Stmt = DBConn.createStatement();
                 String SQL_Command = "SELECT Username FROM Account WHERE Username ='" + Username + "'"; //SQL query command to check if username already taken
-                ResultSet Rslt = Stmt.executeQuery(SQL_Command); 
+                ResultSet Rslt = Stmt.executeQuery(SQL_Command);
                 done = Rslt.next();
-                
+
                 Stmt.close();
                 ToDB.closeConn();
             }
@@ -163,7 +163,7 @@ public class Account {
             Connection DBConn = ToDB.openConn();
             Statement Stmt = DBConn.createStatement();
             String SQL_Command = "SELECT * FROM Account WHERE Username ='" + Username + "' AND Password ='" + Password + "'"; //Check if username
-            ResultSet Rslt = Stmt.executeQuery(SQL_Command); 
+            ResultSet Rslt = Stmt.executeQuery(SQL_Command);
             done = Rslt.next();
             if (done) {
                 SQL_Command = "UPDATE Account SET Password='" + NewPassword + "' WHERE Username ='" + Username + "'"; //update password to new password

@@ -17,7 +17,6 @@ public class Transaction {
     private String TollPlaza;
     private int TollLaneNumber;
     private String CustomerID;
-    
 
     //Constructor to add transaction
     public Transaction(String TCode, float TAmt, String TPlaza, int TLN, String CID) {
@@ -178,4 +177,3 @@ public class Transaction {
     }
 
 }
-

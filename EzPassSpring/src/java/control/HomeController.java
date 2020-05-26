@@ -15,13 +15,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
     @RequestMapping("/index")
-    public String home() {
-        return "index";
+    public String home(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
+            return "index";
+        } else {
+            return "redirect:/Main";
+        }
     }
 
     @RequestMapping("/SignUp")
-    public String SignUp() {
-        return "SignUp";
+    public String SignUp(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("Username") != null) {  //check if user has logged in successfully
+            return "redirect:/index";
+        } else {
+            return "SignUp";
+        }
     }
 
     @RequestMapping("/")
@@ -37,10 +47,11 @@ public class HomeController {
     @RequestMapping("/CreateProfile")
     public String CreateProfile(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
-            return "redirect:/index";
-        } else {
+        if (session.getAttribute("Username") != null && session.getAttribute("CID")== null) { //check if user logged in and created profile
             return "CreateProfile";
+        }
+        else{
+            return "redirect:/index";
         }
     }
 

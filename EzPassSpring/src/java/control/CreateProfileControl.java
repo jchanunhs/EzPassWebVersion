@@ -31,7 +31,7 @@ public class CreateProfileControl {
         if (cus.createProfile()) { //create the profile 
             redirectAttributes.addFlashAttribute("message", "Created profile successfully! Please relog to your account!");
         } else {
-            redirectAttributes.addFlashAttribute("message", "Error: Created profile failed unexpectly!");
+            redirectAttributes.addFlashAttribute("message", "Error: Created profile failed unexpectly! If this occurs multiple times please contact help desk.");
         }
         return mv;
     }

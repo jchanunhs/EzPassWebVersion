@@ -32,7 +32,7 @@ public class RechargeControl {
         if (cus.recharge(newBal) && card.addCreditCard()) {
             redirectAttributes.addFlashAttribute("message", "Recharge successfully! Your new balance is: " + newBal);
         } else {
-            redirectAttributes.addFlashAttribute("message", "Error: Recharge failed. Please try again.");
+            redirectAttributes.addFlashAttribute("message", "Error: Recharge failed. If this occurs multiple times, please contact help desk.");
         }
 
         return mv;

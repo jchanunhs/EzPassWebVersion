@@ -38,7 +38,7 @@ public class PayTollControl {
                 redirectAttributes.addFlashAttribute("message", "Pay toll was successful! Your new balance is: " + newBal);
                 session.setAttribute("Balance", newBal);
             } else { //transaction failed
-                redirectAttributes.addFlashAttribute("message", "Error: Unable to process payments at this time");
+                redirectAttributes.addFlashAttribute("message", "Error: Unable to process payments at this time. If this occurs multiple times please contact help desk.");
             }
 
         } else {//invalid tag

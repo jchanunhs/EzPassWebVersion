@@ -30,7 +30,7 @@ public class SignUpControl {
         }
         else{
             mv.setViewName("redirect:/SignUp");
-            redirectAttributes.addFlashAttribute("message","Error: Signup failed unexpectedly");
+            redirectAttributes.addFlashAttribute("message","Error: Signup failed unexpectedly. If this occurs multiple times please contact help desk.");
         }      
         return mv;
     }
