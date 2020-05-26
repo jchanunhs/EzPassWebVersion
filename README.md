@@ -10,5 +10,5 @@ Web-based version of the EzPassApplication and was created using Spring MVC.
 - The other controllers handle form submissions and redirects users to back to their respective webpage. 
 - Users will be redirected to the index page if they try to access the user pages without logging in yet. 
 
-/EzPassSpring/src/java contains the controls and model objects.
-/EzPassSpring/web/WEB-INF/views contains the view objects (jsp).
+- /EzPassSpring/src/java contains the controls and model objects.
+- /EzPassSpring/web/WEB-INF/views contains the view objects (jsp).
