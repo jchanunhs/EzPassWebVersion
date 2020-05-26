@@ -16,7 +16,7 @@ public class RemoveTagControl {
     @RequestMapping(value = "/RemoveTagControl", method = RequestMethod.POST)
     public ModelAndView RemoveTag(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
-        String CID = (String) session.getAttribute("CID");
+        String CID = (String)session.getAttribute("CID");
         String TC = request.getParameter("TagCode");
         EzTag ez = new EzTag(TC, CID);
         mv.setViewName("redirect:/RemoveTag");
