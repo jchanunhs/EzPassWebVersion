@@ -1,7 +1,7 @@
 # EzPassSpring
 Web-based version of the EzPassApplication and was created using Spring MVC and Java 8 SE and EE.
 
-= EzPassSpring/web/WEB-INF/views - contains the JSPs. 
+-  EzPassSpring/web/WEB-INF/views - contains the JSPs. 
 
 - EzPassSpring/web/resouces - contains the CSS and images used for the web application.
 
