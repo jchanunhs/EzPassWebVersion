@@ -1,13 +1,13 @@
 # EzPassSpring
 Web-based version of the EzPassApplication and was created using Spring MVC and Java 8 SE and EE.
 
-EzPassSpring/web/WEB-INF/views - contains the JSPs. 
+= EzPassSpring/web/WEB-INF/views - contains the JSPs. 
 
-EzPassSpring/web/resouces - contains the CSS and images used for the web application.
+- EzPassSpring/web/resouces - contains the CSS and images used for the web application.
 
-EzPassSpring/src/java/control - contains the control objects for form submissions and website navigations.
+- EzPassSpring/src/java/control - contains the control objects for form submissions and website navigations.
 
-EzPassSpring/src/java/model - contains the model objects.
+- EzPassSpring/src/java/model - contains the model objects.
 
 - error.jsp will be displayed when user enters invalid url
 - Home controller contains request mappings of the webpages that don't have forms.
