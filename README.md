@@ -1,5 +1,5 @@
 # EzPassSpring
-Web-based version of the EzPassApplication and was created using Spring MVC.
+Web-based version of the EzPassApplication and was created using Spring MVC and Java 8 SE and EE.
 
 - Users need to sign up for an account and create their profile.
 - After profile is created, they can login again and view their main profile page. 
