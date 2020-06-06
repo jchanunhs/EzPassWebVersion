@@ -31,6 +31,7 @@ public class RechargeControl {
         mv.setViewName("redirect:/Recharge");
         if (cus.recharge(newBal) && card.addCreditCard()) {
             redirectAttributes.addFlashAttribute("message", "Recharge successfully! Your new balance is: " + newBal);
+            session.setAttribute("Balance", newBal);
         } else {
             redirectAttributes.addFlashAttribute("message", "Error: Recharge failed. If this occurs multiple times, please contact help desk.");
         }

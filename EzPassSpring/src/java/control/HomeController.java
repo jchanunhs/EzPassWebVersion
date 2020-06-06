@@ -40,7 +40,7 @@ public class HomeController {
         if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
             return "redirect:/index";
         } else {
-            return "Main";
+            return "redirect:/Main";
         }
     }
 
