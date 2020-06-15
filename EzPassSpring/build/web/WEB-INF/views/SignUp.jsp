@@ -27,7 +27,7 @@
                     </aside>
                 </div>
 
-                <div id = "space"> </div>
+
 
                 <main> 
                     <h1 align ="center">Sign Up</h1>
@@ -57,46 +57,46 @@
 
 
             <footer><small><em>
-                        <br>Copyright © 2020 EzPassWebApplication</br>
+                        Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
 
         </div>
 
-        
+
         <script language="JavaScript">
 
-    function checkInputs()
-    {
-        var Prompts = "";
-        Username = document.SignUp.Username.value;
-        Password = document.SignUp.Password.value;
-        Password1 = document.SignUp.Password1.value;
-        Name = document.SignUp.Name.value;
-        if (Username == "" || Password == "" || Password1 == "" || Name == "") {
-            if (Username == "")
-                Prompts += "Please enter your username!\n";
-            if (Password == "")
-                Prompts += "Please enter your password!\n";
-            if (Password1 == "")
-                Prompts += "Please re-enter your password!\n";
-            if (Name == "")
-                Prompts += "Please enter your name!\n";
-            if (Prompts != "")
-                window.alert(Prompts);
-        } else if (Password != Password1) {
-            window.alert("Your entered passwords are not same. Please enter the same one!");
-        } else {
-            document.SignUp.submit();
-        }
-    }
+            function checkInputs()
+            {
+                var Prompts = "";
+                Username = document.SignUp.Username.value;
+                Password = document.SignUp.Password.value;
+                Password1 = document.SignUp.Password1.value;
+                Name = document.SignUp.Name.value;
+                if (Username == "" || Password == "" || Password1 == "" || Name == "") {
+                    if (Username == "")
+                        Prompts += "Please enter your username!\n";
+                    if (Password == "")
+                        Prompts += "Please enter your password!\n";
+                    if (Password1 == "")
+                        Prompts += "Please re-enter your password!\n";
+                    if (Name == "")
+                        Prompts += "Please enter your name!\n";
+                    if (Prompts != "")
+                        window.alert(Prompts);
+                } else if (Password != Password1) {
+                    window.alert("Your entered passwords are not same. Please enter the same one!");
+                } else {
+                    document.SignUp.submit();
+                }
+            }
 
-</script>
+        </script>
 
-<script>
-    var d = new Date();
-    document.getElementById("date").innerHTML = d;
-</script>
+        <script>
+            var d = new Date();
+            document.getElementById("date").innerHTML = d;
+        </script>
     </body> 
 </html>
 

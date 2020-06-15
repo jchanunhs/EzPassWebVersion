@@ -30,7 +30,7 @@
 
                 <div>
                     <aside>
-                       <div class = "flexVertical">
+                        <div class = "flexVertical">
                             <div class = "links">Website Directories</div>
                             <a href='${pageContext.request.contextPath}/Main'class = "active-link">Profile</a>
                             <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
@@ -41,14 +41,14 @@
                     </aside>
                 </div>
 
-                <div id = "space"> </div>
+
 
                 <main> 
                     <h1 align ="center">Recharge</h1>
 
                     <form name="Recharge" action="${pageContext.request.contextPath}/RechargeControl" method="post">
                         <label for="CustomerID">Customer ID:</label>
-                        <input type="text" name="CustomerID" value="<%=(String)session.getAttribute("CID")%>"readonly><br>
+                        <input type="text" name="CustomerID" value="<%=(String) session.getAttribute("CID")%>"readonly><br>
                         <label for="CurrentBalance">Current Balance:</label>
                         <input type="text" name="CurrentBalance" value="<%=String.valueOf(cus.getBalance())%>"readonly><br>
                         <label for="CardNumber">Card Number:</label>
@@ -66,19 +66,19 @@
                         <input type="reset" value="Reset">
 
                     </form>
-                      <% if (request.getAttribute("message") != null) {%>
+                    <% if (request.getAttribute("message") != null) {%>
                     <div id="message"><%=request.getAttribute("message")%></div>    
                     <%}%>
-                        <table>
-                            <tr>
-                                <th>Credit ID</th>
-                                <th>Card Number</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Credit Amount</th>
-                            </tr>
+                    <table>
+                        <tr>
+                            <th>Credit ID</th>
+                            <th>Card Number</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Credit Amount</th>
+                        </tr>
                         <%
-                            for(int i = 0; i < CreditID_list.size(); i++){                       
+                            for (int i = 0; i < CreditID_list.size(); i++) {
                         %>
                         <tr>
                             <td><%=CreditID_list.get(i)%></td>
@@ -87,10 +87,10 @@
                             <td><%=time_list.get(i)%></td>
                             <td><%=cd_amt.get(i)%></td>
                         </tr>
-                        
+
                         <%}%>
-                        </table>
-        
+                    </table>
+
                     <div id = "date"> </div>
 
                 </main>
@@ -98,40 +98,38 @@
             </div>
 
             <footer><small><em>
-                        <br>Copyright © 2020 EzPassWebApplication</br>
+                        Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
 
         </div>
 
-<script language="JavaScript">
+        <script language="JavaScript">
 
-    function checkInputs()
-    {
-        var Prompts = "";
-        CardNumber = document.Recharge.CardNumber.value;
-        Name = document.Recharge.Name.value;
-        EXP = document.Recharge.EXP.value;
-        CVV = document.Recharge.CVV.value;
-        Credit = document.Recharge.Credit.value;
-        if(isNaN(Credit)){
-            window.alert("Add to balance must be a number!");
-        }
-        else if (CardNumber == "" || Name == "" || EXP == "" || CVV == "" || Credit == "") {
-            window.alert("One or more fields are empty! Please fill out all information!");
-        }
-        else {
-            document.Recharge.submit();
-        }
-    }
+            function checkInputs()
+            {
+                var Prompts = "";
+                CardNumber = document.Recharge.CardNumber.value;
+                Name = document.Recharge.Name.value;
+                EXP = document.Recharge.EXP.value;
+                CVV = document.Recharge.CVV.value;
+                Credit = document.Recharge.Credit.value;
+                if (isNaN(Credit)) {
+                    window.alert("Add to balance must be a number!");
+                } else if (CardNumber == "" || Name == "" || EXP == "" || CVV == "" || Credit == "") {
+                    window.alert("One or more fields are empty! Please fill out all information!");
+                } else {
+                    document.Recharge.submit();
+                }
+            }
 
-</script>
+        </script>
 
-<script>
-    var d = new Date();
-    document.getElementById("date").innerHTML = d;
-</script>                        
-                        
+        <script>
+            var d = new Date();
+            document.getElementById("date").innerHTML = d;
+        </script>                        
+
     </body> 
 </html>
 

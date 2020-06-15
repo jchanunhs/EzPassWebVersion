@@ -33,7 +33,7 @@
                     </aside>
                 </div>
 
-                <div id = "space"> </div>
+
 
                 <main> 
 
@@ -59,7 +59,7 @@
 
 
             <footer><small><em>
-                        <br>Copyright © 2020 EzPassWebApplication</br>
+                        Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
 

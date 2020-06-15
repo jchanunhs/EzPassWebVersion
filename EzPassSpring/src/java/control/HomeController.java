@@ -38,7 +38,7 @@ public class HomeController {
     public String root(HttpServletRequest request) { //first session
         HttpSession session = request.getSession();
         if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
-            return "redirect:/index";
+            return "index";
         } else {
             return "redirect:/Main";
         }

@@ -29,7 +29,7 @@
                     </aside>
                 </div>
 
-                <div id = "space"> </div>
+
 
                 <main> 
                     <h1 align ="center">Add Vehicle</h1>
@@ -62,7 +62,7 @@
             </div>
 
             <footer><small><em>
-                        <br>Copyright © 2020 EzPassWebApplication</br>
+                        Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
 

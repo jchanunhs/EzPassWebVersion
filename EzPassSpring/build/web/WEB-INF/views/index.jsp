@@ -20,11 +20,12 @@
                             <div class = "links">Website Directories</div>
                             <a href = "${pageContext.request.contextPath}/index" class = "active-link">Login</a>
                             <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
-                            
                         </div>
                     </aside>
                 </div>
-                <div id = "space"> </div>
+
+
+
                 <main> 
                     <h1 align ="center">Sign In</h1>
                     <form name="SignIn" action="${pageContext.request.contextPath}/LoginControl" method ="post"> 
@@ -36,19 +37,23 @@
                         <input type="button" value="Login" onClick="checkInputs()">
                         <input type="reset" value="Reset">
                     </form>
-                        
+
                     <% if (request.getAttribute("message") != null) {%>
                     <div id="message"><%=request.getAttribute("message")%></div>    
                     <%}%>
-              
+
                     <div id = "date"> </div>
 
                 </main>
+
+
+
             </div>
             <footer><small><em>
-                        <br>Copyright © 2020 EzPassWebApplication</br>
+                        Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
+
         </div>
 
         <script language="JavaScript">

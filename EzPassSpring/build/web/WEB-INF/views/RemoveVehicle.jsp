@@ -29,7 +29,7 @@
                     </aside>
                 </div>
 
-                <div id = "space"> </div>
+
 
                 <main> 
                     <h1 align ="center">Remove Vehicle</h1>
@@ -42,7 +42,7 @@
                         <input type="reset" value="Reset">
 
                     </form>
-                   <% if (request.getAttribute("message") != null) {%>
+                    <% if (request.getAttribute("message") != null) {%>
                     <div id="message"><%=request.getAttribute("message")%></div>    
                     <%}%>
                     <div id = "date"> </div>
@@ -52,7 +52,7 @@
             </div>
 
             <footer><small><em>
-                        <br>Copyright © 2020 EzPassWebApplication</br>
+                        Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
 
@@ -79,6 +79,6 @@
             var d = new Date();
             document.getElementById("date").innerHTML = d;
         </script>
-        
+
     </body> 
 </html>

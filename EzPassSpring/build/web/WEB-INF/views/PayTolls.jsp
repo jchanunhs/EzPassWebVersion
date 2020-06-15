@@ -29,14 +29,14 @@
                     </aside>
                 </div>
 
-                <div id = "space"> </div>
+
 
                 <main> 
                     <h1 align ="center">Pay Toll</h1>
 
                     <form name="PayToll" action="${pageContext.request.contextPath}/PayTollControl" method="post">
                         <label for="CustomerID">Customer ID:</label>
-                        <input type="text" name="CustomerID" value="<%=(String)session.getAttribute("CID")%>"readonly><br>
+                        <input type="text" name="CustomerID" value="<%=(String) session.getAttribute("CID")%>"readonly><br>
                         <label for="TagCode">Tag Code:</label>
                         <input type="text" name="TagCode"><br>
                         <label for="TollPlaza">Toll Plaza:</label>
@@ -61,7 +61,7 @@
             </div>
 
             <footer><small><em>
-                        <br>Copyright © 2020 EzPassWebApplication</br>
+                        Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
 
