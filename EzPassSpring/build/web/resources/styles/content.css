@@ -1,126 +1,121 @@
 header, nav, main, footer { 
-display: block; 
+    display: block; 
 }
 
 header{
-background-color: lightblue;
-text-shadow: 2px 2px 2px gray;
-font-family: Arial, "Times New Roman", sans-serif;
-font-size: 30px;
-padding-top:20px;
-padding-bottom:20px;
-font-weight: bold;
-margin-bottom:5px;
-width: 1024px;
-text-align: center;
+    background-color: lightblue;
+    text-shadow: 2px 2px 2px gray;
+    font-family: Arial, "Times New Roman", sans-serif;
+    font-size: 30px;
+    padding-top:20px;
+    padding-bottom:20px;
+    font-weight: bold;
+    margin-bottom:5px;
+    width: 1024px;
+    text-align: center;
 }
 
 body{
-  background-image: url("../images/background.jpg");
-  background-repeat: no-repeat;
-  background-position: center; 
-  background-attachment: fixed;
+    background-image: url("../images/background.jpg");
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-attachment: fixed;
 }
 
 aside {
-  height: 100%;
-  width: 160px;
-  background-color: cyan;
-  text-align: center;
-  margin-right:5px;
+    height: 100%;
+    width: 160px;
+    background-color: cyan;
+    text-align: center;
+    margin-right:5px;
 }
 
 aside a {
-  padding-top: 5px; 
-  padding-bottom: 5px;
-  text-decoration: none;
-  font-size: 20px;
-  font-family: Arial, "Times New Roman", sans-serif;
-  color: black;
-  display: block;
+    padding-top: 5px; 
+    padding-bottom: 5px;
+    text-decoration: none;
+    font-size: 20px;
+    font-family: Arial, "Times New Roman", sans-serif;
+    color: black;
+    display: block;
 }
 
 .active-link{
-background-color: green;
+    background-color: green;
 }
 
 aside a:hover {
-  background-color: lightblue;
-  text-decoration: underline;
+    background-color: lightblue;
+    text-decoration: underline;
 }
 
 .links{
-  padding-top: 10px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  text-decoration: underline;
-  font-size: 20px;
-  color: black;
-  display: block;
-  font-weight: bold;
-  font-family: Arial, "Times New Roman", sans-serif;
-  text-align: center;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-decoration: underline;
+    font-size: 20px;
+    color: black;
+    display: block;
+    font-weight: bold;
+    font-family: Arial, "Times New Roman", sans-serif;
+    text-align: center;
 }
 
 main {
-  background-color: white;
-  font-family: Arial, "Times New Roman", sans-serif;
-  width: 859px;
+    background-color: white;
+    font-family: Arial, "Times New Roman", sans-serif;
+    width: 859px;
 }
 
 footer{
-background-color: lightblue;
-font-family: Arial, "Times New Roman", sans-serif;
-margin-top: 5px;
-width: 1024px;
-text-align: center;
-padding-top:10px;
+    background-color: lightblue;
+    font-family: Arial, "Times New Roman", sans-serif;
+    margin-top: 5px;
+    width: 1024px;
+    text-align: center;
+    padding-top:10px;
 }
 
 .flexVertical{
-display:flex;
-flex-direction:column;
+    display:flex;
+    flex-direction:column;
 }
 
 .flexHorizontal{
-display: flex;
-flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 
 table {
-border-style: solid;
-border:2px;
-border-collapse: collapse;
-margin-left: auto;
-margin-right: auto;
-margin-bottom: 10px;
+    border-style: solid;
+    border:2px;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
 }
 
 td, th{
-padding: 10px;
-border: 1px;
-border-color: cyan;
-border-style: solid;
-text-align: center;
+    padding: 10px;
+    border: 1px;
+    border-color: cyan;
+    border-style: solid;
+    text-align: center;
 }
 
 #wrapper { 
-           color: black;         
-           margin-right: auto;
-	   margin-left: auto;
-           min-width: 700px;
-           max-width: 1024px;
+    margin-right: auto;
+    margin-left: auto;
+    min-width: 700px;
+    max-width: 1024px;
 }
 
 #date{
-padding-left: 5px;
-padding-top: 10px;
-}
-
-#space{
-margin-left:5px;
+    padding-left: 5px;
+    padding-top: 10px;
 }
 
 
@@ -134,14 +129,14 @@ margin-left:5px;
 
 
 input,select {
-margin-bottom: 10px;
+    margin-bottom: 10px;
 
 }
 
 form{
-text-align:center;
-padding-bottom: 10px;
-padding-top: 10px;
+    text-align:center;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 

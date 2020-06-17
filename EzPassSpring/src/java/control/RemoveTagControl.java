@@ -24,7 +24,7 @@ public class RemoveTagControl {
             redirectAttributes.addFlashAttribute("message", "EzTag was removed successfully!");
         } //if fails to add tag, we try to figure out why it happened
         else if (!ez.checkTag()) {
-            redirectAttributes.addFlashAttribute("message", "Error: Tag code is invalid");
+            redirectAttributes.addFlashAttribute("message", "Error: The tag code you entered is invalid");
         } else {
             redirectAttributes.addFlashAttribute("message", "Error: Either EzTag is currently associated with a vehicle or has been used to pay tolls in the past. If you believe this is a mistake please contact help desk.");
         }

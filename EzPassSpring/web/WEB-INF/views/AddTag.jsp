@@ -36,7 +36,7 @@
 
                     <form name="AddTag" action="${pageContext.request.contextPath}/AddTagControl" method="post">
                         <label for="CustomerID">Customer ID:</label>
-                        <input type="text" name="CustomerID" value="<%=(String) session.getAttribute("CID")%>"readonly><br>
+                        <input type="text" name="CustomerID" value="<%=session.getAttribute("CID")%>"readonly><br>
                         <label for="TagCode">Tag Code:</label>
                         <input type="text" name="TagCode"><br>
                         <label for="TagType">Tag Type:</label>

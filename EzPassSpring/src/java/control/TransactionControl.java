@@ -17,9 +17,13 @@ public class TransactionControl {
         HttpSession session = request.getSession();
         String before = request.getParameter("before");
         String after = request.getParameter("after");
-        redirectAttributes.addFlashAttribute("before", before);
-        redirectAttributes.addFlashAttribute("after", after);
-        mv.setViewName("redirect:/ViewDateTransactions");
+        if (before.equals("") && after.equals("")) {
+            mv.setViewName("redirect:/Transactions");
+        } else {
+            redirectAttributes.addFlashAttribute("before", before);
+            redirectAttributes.addFlashAttribute("after", after);
+            mv.setViewName("redirect:/ViewDateTransactions");
+        }
         return mv;
     }
 

@@ -1,8 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.CreditCard"%>
 <%@page import="model.Customer"%>
-<%Customer cus = new Customer((String) session.getAttribute("CID"));
-    cus.setData();
+<%
     CreditCard card = new CreditCard((String) session.getAttribute("CID"));
     ArrayList<String> CreditID_list = card.getAllTransactions("CreditID");
     ArrayList<String> CN_list = card.getAllTransactions("CardNumber");
@@ -48,9 +47,9 @@
 
                     <form name="Recharge" action="${pageContext.request.contextPath}/RechargeControl" method="post">
                         <label for="CustomerID">Customer ID:</label>
-                        <input type="text" name="CustomerID" value="<%=(String) session.getAttribute("CID")%>"readonly><br>
+                        <input type="text" name="CustomerID" value="<%=session.getAttribute("CID")%>"readonly><br>
                         <label for="CurrentBalance">Current Balance:</label>
-                        <input type="text" name="CurrentBalance" value="<%=String.valueOf(cus.getBalance())%>"readonly><br>
+                        <input type="text" name="CurrentBalance" value="<%=session.getAttribute("Balance")%>"readonly><br>
                         <label for="CardNumber">Card Number:</label>
                         <input type="text" name="CardNumber"><br>
                         <label for="Name">Name on card:</label>

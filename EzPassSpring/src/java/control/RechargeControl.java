@@ -33,7 +33,7 @@ public class RechargeControl {
             redirectAttributes.addFlashAttribute("message", "Recharge successfully! Your new balance is: " + newBal);
             session.setAttribute("Balance", newBal);
         } else {
-            redirectAttributes.addFlashAttribute("message", "Error: Recharge failed. If this occurs multiple times, please contact help desk.");
+            redirectAttributes.addFlashAttribute("message", "Error: Recharge failed unexpectly! If this occurs multiple times, please contact help desk.");
         }
 
         return mv;
