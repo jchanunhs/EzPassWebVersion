@@ -12,29 +12,19 @@
     <body>
         <div id="wrapper">
 
-
             <header>Ez Pass Web Application</header>
-
-
 
             <div class = "flexHorizontal">
 
-                <div>
-                    <aside>
-                        <div class = "flexVertical">
-                            <div class = "links">Website Directories</div>
+                <aside>
+                    <div class = "flexVertical">
+                        <div class = "links">Website Directories</div>
 
-
-                        </div>
-                    </aside>
-                </div>
-
-
-
+                    </div>
+                </aside>
 
                 <main> 
                     <h1 align ="center">Customer Profile</h1>
-
 
                     <form name="CreateProfile" action="${pageContext.request.contextPath}/CreateProfileControl" method="post">
                         <label for="Name">Customer Name:</label>
@@ -60,7 +50,6 @@
                     <div id = "date"> </div>
 
                 </main>
-
 
             </div>
 

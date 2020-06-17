@@ -20,20 +20,16 @@
 
             <div class = "flexHorizontal">
 
-                <div>
-                    <aside>
-                        <div class = "flexVertical">
-                            <div class = "links">Website Directories</div>
-                            <a href='${pageContext.request.contextPath}/Main'>Profile</a>
-                            <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
-                            <a href='${pageContext.request.contextPath}/EzTag'class = "active-link">EzTags</a>
-                            <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
-                            <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
-                        </div>
-                    </aside>
-                </div>
-
-
+                <aside>
+                    <div class = "flexVertical">
+                        <div class = "links">Website Directories</div>
+                        <a href='${pageContext.request.contextPath}/Main'>Profile</a>
+                        <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
+                        <a href='${pageContext.request.contextPath}/EzTag'class = "active-link">EzTags</a>
+                        <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
+                        <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
+                    </div>
+                </aside>               
 
                 <main> 
 
@@ -54,9 +50,7 @@
 
                 </main>
 
-
             </div>
-
 
             <footer><small><em>
                         Copyright © 2020 EzPassWebApplication<br>

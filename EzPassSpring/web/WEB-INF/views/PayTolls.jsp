@@ -16,20 +16,16 @@
 
             <div class = "flexHorizontal">
 
-                <div>
-                    <aside>
-                        <div class = "flexVertical">
-                            <div class = "links">Website Directories</div>
-                            <a href='${pageContext.request.contextPath}/Main'>Profile</a>
-                            <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
-                            <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
-                            <a href='${pageContext.request.contextPath}/PayTolls'class = "active-link">Pay Tolls</a>
-                            <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
-                        </div>
-                    </aside>
-                </div>
-
-
+                <aside>
+                    <div class = "flexVertical">
+                        <div class = "links">Website Directories</div>
+                        <a href='${pageContext.request.contextPath}/Main'>Profile</a>
+                        <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
+                        <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
+                        <a href='${pageContext.request.contextPath}/PayTolls'class = "active-link">Pay Tolls</a>
+                        <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
+                    </div>
+                </aside>
 
                 <main> 
                     <h1 align ="center">Pay Toll</h1>

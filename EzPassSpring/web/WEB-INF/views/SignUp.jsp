@@ -12,22 +12,17 @@
     <body>
         <div id="wrapper">
 
-
             <header>Ez Pass Web Application</header>
 
             <div class = "flexHorizontal">
 
-                <div>
-                    <aside>
-                        <div class = "flexVertical">
-                            <div class = "links">Website Directories</div>
-                            <a href = "${pageContext.request.contextPath}/index" >Login</a>
-                            <a href = "${pageContext.request.contextPath}/SignUp" class = "active-link">Sign Up</a>
-                        </div>
-                    </aside>
-                </div>
-
-
+                <aside>
+                    <div class = "flexVertical">
+                        <div class = "links">Website Directories</div>
+                        <a href = "${pageContext.request.contextPath}/index" >Login</a>
+                        <a href = "${pageContext.request.contextPath}/SignUp" class = "active-link">Sign Up</a>
+                    </div>
+                </aside>
 
                 <main> 
                     <h1 align ="center">Sign Up</h1>
@@ -55,14 +50,12 @@
 
             </div>
 
-
             <footer><small><em>
                         Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
 
         </div>
-
 
         <script language="JavaScript">
 

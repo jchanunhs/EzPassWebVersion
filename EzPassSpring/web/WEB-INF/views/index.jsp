@@ -14,17 +14,13 @@
             <header>Ez Pass Web Application</header>
             <div class = "flexHorizontal">
 
-                <div>
-                    <aside>
-                        <div class = "flexVertical">
-                            <div class = "links">Website Directories</div>
-                            <a href = "${pageContext.request.contextPath}/index" class = "active-link">Login</a>
-                            <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
-                        </div>
-                    </aside>
-                </div>
-
-
+                <aside>
+                    <div class = "flexVertical">
+                        <div class = "links">Website Directories</div>
+                        <a href = "${pageContext.request.contextPath}/index" class = "active-link">Login</a>
+                        <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
+                    </div>
+                </aside>
 
                 <main> 
                     <h1 align ="center">Sign In</h1>
@@ -45,8 +41,6 @@
                     <div id = "date"> </div>
 
                 </main>
-
-
 
             </div>
             <footer><small><em>

@@ -14,29 +14,26 @@
             <header>Ez Pass Web Application</header>
             <div class = "flexHorizontal">
 
-                <div>
-                    <aside>
-                        <div class = "flexVertical">
-                            <div class = "links">Website Directories</div>
-                            <a href = "${pageContext.request.contextPath}/index" class = "active-link">Login</a>
-                            <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
-                        </div>
-                    </aside>
-                </div>
+                <aside>
+                    <div class = "flexVertical">
+                        <div class = "links">Website Directories</div>
+                        <a href = "${pageContext.request.contextPath}/index" class = "active-link">Login</a>
+                        <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
+                    </div>
+                </aside>
 
                 <main> 
-                    <p align ="center">Invalid URL</p>
+                    <h1 align ="center">Invalid URL</h1>
 
                     <div id = "date"> </div>
-
                 </main>
+
             </div>
             <footer><small><em>
                         Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
         </div>
-
 
         <script>
             var d = new Date();

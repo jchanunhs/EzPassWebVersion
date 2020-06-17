@@ -27,20 +27,16 @@
 
             <div class = "flexHorizontal">
 
-                <div>
-                    <aside>
-                        <div class = "flexVertical">
-                            <div class = "links">Website Directories</div>
-                            <a href='${pageContext.request.contextPath}/Main'class = "active-link">Profile</a>
-                            <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
-                            <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
-                            <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
-                            <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
-                        </div>
-                    </aside>
-                </div>
-
-
+                <aside>
+                    <div class = "flexVertical">
+                        <div class = "links">Website Directories</div>
+                        <a href='${pageContext.request.contextPath}/Main'class = "active-link">Profile</a>
+                        <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
+                        <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
+                        <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
+                        <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
+                    </div>
+                </aside>
 
                 <main> 
                     <h1 align ="center">Recharge</h1>
