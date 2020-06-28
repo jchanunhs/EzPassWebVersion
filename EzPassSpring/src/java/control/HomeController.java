@@ -99,28 +99,6 @@ public class HomeController {
         }
     }
 
-    @RequestMapping("/AddVehicle")
-    public String AddVehicle(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            return "redirect:/index";
-        } else {
-            return "AddVehicle";
-        }
-    }
-
-    @RequestMapping("/RemoveVehicle")
-    public String RemoveVehicle(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            return "redirect:/index";
-        } else {
-            return "RemoveVehicle";
-        }
-    }
-
     @RequestMapping("/EzTag")
     public String EzTag(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -129,28 +107,6 @@ public class HomeController {
             return "redirect:/index";
         } else {
             return "EzTag";
-        }
-    }
-
-    @RequestMapping("/AddTag")
-    public String AddEzTag(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            return "redirect:/index";
-        } else {
-            return "AddTag";
-        }
-    }
-
-    @RequestMapping("/RemoveTag")
-    public String RemoveEzTag(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            return "redirect:/index";
-        } else {
-            return "RemoveTag";
         }
     }
 

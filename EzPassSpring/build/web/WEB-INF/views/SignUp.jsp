@@ -17,7 +17,7 @@
             <div class = "flexHorizontal">
 
                 <aside>
-                    <div class = "flexVertical">
+                    <div class = "navbar">
                         <div class = "links">Website Directories</div>
                         <a href = "${pageContext.request.contextPath}/index" >Login</a>
                         <a href = "${pageContext.request.contextPath}/SignUp" class = "active-link">Sign Up</a>

@@ -19,7 +19,7 @@ public class RemoveTagControl {
         String CID = (String) session.getAttribute("CID");
         String TC = request.getParameter("TagCode");
         EzTag ez = new EzTag(TC, CID);
-        mv.setViewName("redirect:/RemoveTag");
+        mv.setViewName("redirect:/EzTag#tab-3");
         if (ez.removeTag()) {
             redirectAttributes.addFlashAttribute("message", "EzTag was removed successfully!");
         } //if fails to add tag, we try to figure out why it happened

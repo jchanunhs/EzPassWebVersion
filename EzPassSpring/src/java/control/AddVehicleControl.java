@@ -26,7 +26,7 @@ public class AddVehicleControl{
         String tagcode = request.getParameter("TagCode");
         Vehicle vehicle = new Vehicle(license, make, model, year, color, tagcode, CID);
         EzTag tag = new EzTag(tagcode, CID);
-        mv.setViewName("redirect:/AddVehicle");
+        mv.setViewName("redirect:/Vehicle#tab-2");
         if (tag.checkTag()) { //check if CID owns this tag
             if (vehicle.addVehicle()) { //attempt to add vehicle to db
                 redirectAttributes.addFlashAttribute("message", "Vehicle was added successfully!");

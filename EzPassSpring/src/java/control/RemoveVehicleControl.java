@@ -19,7 +19,7 @@ public class RemoveVehicleControl {
         String CID = (String) session.getAttribute("CID");
         String license = request.getParameter("LicensePlateNumber");
         Vehicle vehicle = new Vehicle(CID, license);
-        mv.setViewName("redirect:/RemoveVehicle");
+        mv.setViewName("redirect:/Vehicle#tab-3");
         if (vehicle.removeVehicle()) { //attempt to remove vehicle
             redirectAttributes.addFlashAttribute("message", "Vehicle removed successfully!");
         } else {

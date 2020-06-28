@@ -17,7 +17,7 @@
             <div class = "flexHorizontal">
 
                 <aside>
-                    <div class = "flexVertical">
+                    <div class = "navbar">
                         <div class = "links">Website Directories</div>
 
                     </div>

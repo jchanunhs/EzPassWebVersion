@@ -26,7 +26,7 @@ public class AddTagControl{
         String TC = request.getParameter("TagCode");
         String TT = request.getParameter("TagType");
         EzTag ez = new EzTag(TC, TT, IssueDate, CID);
-        mv.setViewName("redirect:/AddTag");
+        mv.setViewName("redirect:/EzTag#tab-2");
         if (ez.addTag()) {
             redirectAttributes.addFlashAttribute("message", "Ez Tag was added successfully!");
         } else {
