@@ -3,14 +3,14 @@ Web-based version of the EzPassApplication and was created using Spring MVC and 
 
 - error.jsp is displayed when user enters invalid url.
 - Home controller contains request mappings of the webpages that don't have forms
-- The other controllers handle form submissions and redirects users to back to their respective webpage. 
+- The other controllers handle form submissions and redirects users to back to their respective webpage with a success/fail message. 
 - Users will be redirected to the index page if they try to access other pages without logging in yet. 
 
 There are 5 URLs in the sidebar
 
 Main
--Displays customer profile.
--Users will be able to recharge their account, change password and log off.
+- Displays customer profile.
+- Users will be able to recharge their account, change password and log off.
 
 Vehicle.
 - Displays a list of vehicles.
