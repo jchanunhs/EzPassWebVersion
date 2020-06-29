@@ -14,15 +14,15 @@
 
             <header>Ez Pass Web Application</header>
 
-            <div class = "flexHorizontal">
+            <div id ="content-wrapper">
 
                 <aside>
                     <div class = "navbar">
-                        <div class = "links">Website Directories</div>
+                        <div class = "navtitle">Website Directories</div>
                         <a href='${pageContext.request.contextPath}/Main'>Profile</a>
                         <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
                         <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
-                        <a href='${pageContext.request.contextPath}/PayTolls'class = "active-link">Pay Tolls</a>
+                        <a href='${pageContext.request.contextPath}/PayTolls'id = "active-link">Pay Tolls</a>
                         <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
                     </div>
                 </aside>

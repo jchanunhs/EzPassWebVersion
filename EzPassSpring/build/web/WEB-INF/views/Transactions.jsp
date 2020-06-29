@@ -27,16 +27,16 @@
 
             <header>Ez Pass Web Application</header>
 
-            <div class = "flexHorizontal">
+            <div id ="content-wrapper">
 
                 <aside>
                     <div class = "navbar">
-                        <div class = "links">Website Directories</div>
+                        <div class = "navtitle">Website Directories</div>
                         <a href='${pageContext.request.contextPath}/Main'>Profile</a>
                         <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
                         <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
                         <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
-                        <a href='${pageContext.request.contextPath}/Transactions'class = "active-link">Transactions</a>
+                        <a href='${pageContext.request.contextPath}/Transactions'id = "active-link">Transactions</a>
                     </div>
                 </aside>
 

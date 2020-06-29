@@ -1,3 +1,5 @@
+
+
 body{
     background-image: url("../images/background.jpg");
     background-repeat: no-repeat;
@@ -35,7 +37,7 @@ aside a {
     color: black;
 }
 
-.active-link{
+#active-link{
     background-color: lightyellow;
 }
 
@@ -44,7 +46,7 @@ aside a:hover {
     text-decoration: underline;
 }
 
-.links{
+.navtitle{
     padding-top: 10px;
     padding-bottom: 5px;
     text-decoration: underline;
@@ -76,7 +78,7 @@ footer{
     flex-direction:column;
 }
 
-.flexHorizontal{
+#content-wrapper{
     display: flex;
     flex-direction: row;
 }
@@ -87,7 +89,7 @@ table {
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom:10px;
+    margin-bottom:5px;
 }
 
 td, th{
@@ -103,12 +105,6 @@ td, th{
     margin-left: auto;
     max-width: 1024px;
 }
-
-#date{
-    padding-left: 5px;
-    padding-top: 10px;
-}
-
 
 #message{
     font-size: 20px;
@@ -128,5 +124,52 @@ form{
 }
 
 
+@media screen and (max-width: 600px) {
 
+header{
+    margin-bottom:0px;
+}
+    
+.navbar{
+    display:flex;
+    flex-direction:row;
+}
+
+#content-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.navtitle{
+    display: none;
+}
+
+aside {
+    height: auto;
+    background-color: cyan;
+    text-align: center;
+    width:100%;
+}
+
+aside a {
+    padding-left:5px;
+    padding-right:5px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+main{
+    width:100%;
+}
+
+footer{
+    margin-top:0px;
+}
+
+td, th{
+    padding: 0px;
+    font-size:15px;
+}
+
+}
 

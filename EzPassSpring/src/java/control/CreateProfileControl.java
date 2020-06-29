@@ -30,6 +30,7 @@ public class CreateProfileControl {
         mv.setViewName("redirect:/index");
         if (cus.createProfile()) { //create the profile 
             redirectAttributes.addFlashAttribute("message", "Created profile successfully! Please relog to your account!");
+            session.invalidate();
         } else {
             redirectAttributes.addFlashAttribute("message", "Error: Created profile failed unexpectly! If this occurs multiple times please contact help desk.");
         }

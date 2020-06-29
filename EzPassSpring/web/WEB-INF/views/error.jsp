@@ -12,12 +12,12 @@
     <body>
         <div id="wrapper">
             <header>Ez Pass Web Application</header>
-            <div class = "flexHorizontal">
+            <div id ="content-wrapper">
 
                 <aside>
                     <div class = "navbar">
-                        <div class = "links">Website Directories</div>
-                        <a href = "${pageContext.request.contextPath}/index" class = "active-link">Login</a>
+                        <div class = "navtitle">Website Directories</div>
+                        <a href = "${pageContext.request.contextPath}/index" id = "active-link">Login</a>
                         <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
                     </div>
                 </aside>

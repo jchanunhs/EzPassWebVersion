@@ -14,13 +14,13 @@
 
             <header>Ez Pass Web Application</header>
 
-            <div class = "flexHorizontal">
+            <div id ="content-wrapper">
 
                 <aside>
                     <div class = "navbar">
-                        <div class = "links">Website Directories</div>
+                        <div class = "navtitle">Website Directories</div>
                         <a href = "${pageContext.request.contextPath}/index" >Login</a>
-                        <a href = "${pageContext.request.contextPath}/SignUp" class = "active-link">Sign Up</a>
+                        <a href = "${pageContext.request.contextPath}/SignUp" id = "active-link">Sign Up</a>
                     </div>
                 </aside>
 

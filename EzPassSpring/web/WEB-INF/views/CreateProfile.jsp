@@ -14,11 +14,11 @@
 
             <header>Ez Pass Web Application</header>
 
-            <div class = "flexHorizontal">
+            <div id ="content-wrapper">
 
                 <aside>
                     <div class = "navbar">
-                        <div class = "links">Website Directories</div>
+                        <div class = "navtitle">Website Directories</div>
 
                     </div>
                 </aside>
