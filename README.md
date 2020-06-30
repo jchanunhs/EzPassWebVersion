@@ -1,6 +1,9 @@
 # EzPassSpring
 Web-based version of the EzPassApplication and was created using Spring MVC and Java EE 7 Web.
 
+- JSP was used as the view for the web application.
+- JQueryUI was used to create the tabs and accordion for the webpage.
+- SQL Server was used to store user's data.
 - error.jsp is displayed when user enters invalid url.
 - Home controller contains request mappings of the webpages that don't have forms
 - The other controllers handle form submissions and redirects users to back to their respective webpage with a success/fail message. 
