@@ -28,14 +28,14 @@
 
             <div id ="content-wrapper">
 
-                <aside class = "navbar">
-                    <div class = "navtitle">Website Directories</div>
+                <nav>
+                    <div id = "navtitle">Website Directories</div>
                     <a href='${pageContext.request.contextPath}/Main'>Profile</a>
                     <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
                     <a href='${pageContext.request.contextPath}/EzTag'id = "active-link">EzTags</a>
                     <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
                     <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
-                </aside>               
+                </nav>               
 
                 <main> 
 

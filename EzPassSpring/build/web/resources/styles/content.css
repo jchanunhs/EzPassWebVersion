@@ -18,12 +18,17 @@ header{
     width:100%;
 }
 
-aside {
+nav {
     background-color: cyan;
     text-align: center;
+    display:flex;
+    flex-direction:column;
+    width: 15%;
+    margin-right:5px;
+    height: auto;
 }
 
-.navbar a {
+nav a {
     padding-top: 5px; 
     padding-bottom: 5px;
     text-decoration: none;
@@ -32,16 +37,21 @@ aside {
     color: black;
 }
 
-#active-link{
-    background-color: lightyellow;
-}
-
-aside a:hover {
+nav a:hover {
     background-color: lightblue;
     text-decoration: underline;
 }
 
-.navtitle{
+nav a:active{
+    background-color: lightyellow;
+}
+
+
+#active-link{
+    background-color: lightyellow;
+}
+
+#navtitle{
     padding-top: 5px;
     padding-bottom: 5px;
     text-decoration: underline;
@@ -67,13 +77,6 @@ footer{
     width:100%;
 }
 
-.navbar{
-    display:flex;
-    flex-direction:column;
-    width: 15%;
-    margin-right:5px;
-    height: auto;
-}
 
 #content-wrapper{
     display: flex;
@@ -179,11 +182,14 @@ form{
 
 @media screen and (max-width: 700px) {
 
-    header{
-        margin-bottom:0px;
+    header{margin-bottom:0px;}
+
+    #content-wrapper{
+        display: flex;
+        flex-direction: column;
     }
 
-    .navbar{
+    nav{
         display:flex;
         flex-direction:row;
         justify-content: center;
@@ -191,31 +197,18 @@ form{
         margin-right:0px; 
     }
 
-    #content-wrapper{
-        display: flex;
-        flex-direction: column;
-    }
-
-    .navtitle{
-        display: none;
-    }
-
-    .navbar a {
+    nav a {
         padding-left:15px;
         padding-right:15px;
     }
 
-    main{
-        width:100%;
-    }
+    #navtitle{display: none;}
 
-    footer{
-        margin-top:0px;
-    }
+    main{width:100%;}
 
-    td, th{
-        padding: 5px;
-    }
+    footer{margin-top:0px;}
+
+    td, th{padding: 5px;}
 
     .overlay {
         font-size: 10px;

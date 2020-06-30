@@ -23,12 +23,12 @@
 
             <div id ="content-wrapper">
                 
-                <aside class = "navbar">
-                    <div class = "navtitle">Website Directories</div>
+                <nav>
+                    <div id = "navtitle">Website Directories</div>
                     <a href = "${pageContext.request.contextPath}/index">Login</a>
                     <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
                     <a href = "${pageContext.request.contextPath}/faq" id = "active-link">FAQ</a>
-                </aside>
+                </nav>
 
                 <main> 
                     <h1 align ="center">Frequently Asked Questions</h1>

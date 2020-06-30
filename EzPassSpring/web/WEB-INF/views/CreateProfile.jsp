@@ -16,10 +16,10 @@
 
             <div id ="content-wrapper">
 
-                <aside class = "navbar">
-                    <div class = "navtitle">Website Directories</div>
+                <nav>
+                    <div id = "navtitle">Website Directories</div>
 
-                </aside>
+                </nav>
 
                 <main> 
                     <h1 align ="center">Customer Profile</h1>
