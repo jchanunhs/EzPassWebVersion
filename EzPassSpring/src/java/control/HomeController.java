@@ -43,6 +43,14 @@ public class HomeController {
             return "redirect:/Main";
         }
     }
+    
+    @RequestMapping("/faq")
+    public String faq(HttpServletRequest request) { //first session
+        HttpSession session = request.getSession();
+        return "faq";
+    }
+    
+    
 
     @RequestMapping("/CreateProfile")
     public String CreateProfile(HttpServletRequest request) {

@@ -16,12 +16,11 @@
 
             <div id ="content-wrapper">
 
-                <aside>
-                    <div class = "navbar">
-                        <div class = "navtitle">Website Directories</div>
-                        <a href = "${pageContext.request.contextPath}/index" >Login</a>
-                        <a href = "${pageContext.request.contextPath}/SignUp" id = "active-link">Sign Up</a>
-                    </div>
+                <aside class = "navbar">
+                    <div class = "navtitle">Website Directories</div>
+                    <a href = "${pageContext.request.contextPath}/index" >Login</a>
+                    <a href = "${pageContext.request.contextPath}/SignUp" id = "active-link">Sign Up</a>
+                    <a href = "${pageContext.request.contextPath}/faq">FAQ</a>
                 </aside>
 
                 <main> 

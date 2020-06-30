@@ -16,11 +16,9 @@
 
             <div id ="content-wrapper">
 
-                <aside>
-                    <div class = "navbar">
-                        <div class = "navtitle">Website Directories</div>
+                <aside class = "navbar">
+                    <div class = "navtitle">Website Directories</div>
 
-                    </div>
                 </aside>
 
                 <main> 

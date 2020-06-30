@@ -16,15 +16,13 @@
 
             <div id ="content-wrapper">
 
-                <aside>
-                    <div class = "navbar">
-                        <div class = "navtitle">Website Directories</div>
-                        <a href='${pageContext.request.contextPath}/Main'id = "active-link">Profile</a>
-                        <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
-                        <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
-                        <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
-                        <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
-                    </div>
+                <aside class = "navbar">
+                    <div class = "navtitle">Website Directories</div>
+                    <a href='${pageContext.request.contextPath}/Main'id = "active-link">Profile</a>
+                    <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
+                    <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
+                    <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
+                    <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
                 </aside>
 
                 <main> 
@@ -48,6 +46,7 @@
                         <label for="Balance">Balance:</label>
                         <input type="text" name="Balance" value="<%=String.valueOf(session.getAttribute("Balance"))%>" readonly><br>        
                     </form>
+
                     <div align="center">
                         <a href='${pageContext.request.contextPath}/ChangePassword'>Change Password</a>
                         <a href='${pageContext.request.contextPath}/Recharge'>Recharge Account</a>

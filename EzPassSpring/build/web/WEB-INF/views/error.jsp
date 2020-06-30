@@ -14,18 +14,20 @@
             <header>Ez Pass Web Application</header>
             <div id ="content-wrapper">
 
-                <aside>
-                    <div class = "navbar">
-                        <div class = "navtitle">Website Directories</div>
-                        <a href = "${pageContext.request.contextPath}/index" id = "active-link">Login</a>
-                        <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
-                    </div>
+                <aside class = "navbar">
+                    <div class = "navtitle">Website Directories</div>
+                    <a href = "${pageContext.request.contextPath}/index" id = "active-link">Login</a>
+                    <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
+                    <a href = "${pageContext.request.contextPath}/faq">FAQ</a>
                 </aside>
 
                 <main> 
                     <h1 align ="center">Invalid URL</h1>
-
-                    <div id = "date"> </div>
+                    
+                    <img src="${pageContext.request.contextPath}/resources/images/404.jpg" alt="ErrorLogo" class = "animate transition">
+                         
+                    
+                    <div id = "date"></div>
                 </main>
 
             </div>
