@@ -3,10 +3,11 @@ body{
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position:top;
+    background-size:cover;
 }
 
 header{
-    background-color: lightblue;
+    background-color: lavender;
     text-shadow: 2px 2px 2px gray;
     font-family: Arial, "Times New Roman", sans-serif;
     font-size: 30px;
@@ -19,7 +20,7 @@ header{
 }
 
 nav {
-    background-color: cyan;
+    background-color: lavender;
     text-align: center;
     display:flex;
     flex-direction:column;
@@ -34,21 +35,22 @@ nav a {
     text-decoration: none;
     font-size: 20px;
     font-family: Arial, "Times New Roman", sans-serif;
-    color: black;
+    color:black;
 }
 
 nav a:hover {
-    background-color: lightblue;
+    background-color: lightyellow;
     text-decoration: underline;
+    font-weight:bold;
 }
 
 nav a:active{
-    background-color: lightyellow;
+    background-color: lightgreen;
 }
 
 
 #active-link{
-    background-color: lightyellow;
+    background-color: lightgreen;
 }
 
 #navtitle{
@@ -56,7 +58,6 @@ nav a:active{
     padding-bottom: 5px;
     text-decoration: underline;
     font-size: 20px;
-    color: black;
     font-weight: bold;
     font-family: Arial, "Times New Roman", sans-serif;
     text-align: center;
@@ -69,12 +70,14 @@ main {
 }
 
 footer{
-    background-color: lightblue;
+    background-color: lavender;
     font-family: Arial, "Times New Roman", sans-serif;
     margin-top: 5px;
     text-align: center;
     padding-top:10px;
     width:100%;
+    font-size:15px;
+    font-weight:bold;
 }
 
 
@@ -94,7 +97,7 @@ table {
 td, th{
     padding: 5px;
     border: 1px;
-    border-color: cyan;
+    border-color: lavender;
     border-style: solid;
     text-align: center;
 }
@@ -195,6 +198,8 @@ form{
         justify-content: center;
         width:100%;
         margin-right:0px; 
+        border-top:2px solid black;
+        border-bottom:2px solid black;
     }
 
     nav a {
