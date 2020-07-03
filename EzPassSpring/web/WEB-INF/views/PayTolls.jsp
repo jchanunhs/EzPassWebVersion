@@ -8,14 +8,10 @@
         <meta name="author" content="Jason Chan">
         <meta name="description" content="Web implementation of the EzPassApplication">
     </head>
-
     <body>
         <div id="wrapper">
-
             <header>Ez Pass Web Application</header>
-
             <div id ="content-wrapper">
-
                 <nav>
                     <div id = "navtitle">Website Directories</div>
                     <a href='${pageContext.request.contextPath}/Main'>Profile</a>
@@ -24,10 +20,8 @@
                     <a href='${pageContext.request.contextPath}/PayTolls'id = "active-link">Pay Tolls</a>
                     <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
                 </nav>
-
                 <main> 
                     <h1 align ="center">Pay Toll</h1>
-
                     <form name="PayToll" action="${pageContext.request.contextPath}/PayTollControl" method="post">
                         <label for="CustomerID">Customer ID:</label>
                         <input type="text" name="CustomerID" value="<%=(String) session.getAttribute("CID")%>"readonly><br>
@@ -39,26 +33,19 @@
                         <input type="text" name="TollLane"><br>
                         <label for="TollAmount">Toll Amount:</label>
                         <input type="text" name="TollAmount"><br>
-
-
                         <input type="button" value="Pay Toll" onClick="checkInputs()">
                         <input type="reset" value="Reset">
-
                     </form>
                     <% if (request.getAttribute("message") != null) {%>
                     <div id="message"><%=request.getAttribute("message")%></div>    
                     <%}%>
                     <div id = "date"> </div>
-
                 </main>
-
             </div>
-
             <footer><small><em>
                         Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
-
         </div>
         <script language="JavaScript">
 
@@ -79,7 +66,6 @@
             }
 
         </script>
-
         <script>
             var d = new Date();
             document.getElementById("date").innerHTML = d;

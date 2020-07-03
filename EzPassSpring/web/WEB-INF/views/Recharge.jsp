@@ -19,14 +19,10 @@
         <meta name="author" content="Jason Chan">
         <meta name="description" content="Web implementation of the EzPassApplication">
     </head>
-
     <body>
         <div id="wrapper">
-
             <header>Ez Pass Web Application</header>
-
             <div id ="content-wrapper">
-
                 <nav>
                     <div id = "navtitle">Website Directories</div>
                     <a href='${pageContext.request.contextPath}/Main'id = "active-link">Profile</a>
@@ -35,10 +31,8 @@
                     <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
                     <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
                 </nav>
-
                 <main> 
                     <h1 align ="center">Recharge</h1>
-
                     <form name="Recharge" action="${pageContext.request.contextPath}/RechargeControl" method="post">
                         <label for="CustomerID">Customer ID:</label>
                         <input type="text" name="CustomerID" value="<%=session.getAttribute("CID")%>"readonly><br>
@@ -54,10 +48,8 @@
                         <input type="text" name="CVV"><br>
                         <label for="Credit">Add to balance:</label>
                         <input type="text" name="Credit"><br>
-
                         <input type="button" value="Recharge" onClick="checkInputs()">
                         <input type="reset" value="Reset">
-
                     </form>
                     <% if (request.getAttribute("message") != null) {%>
                     <div id="message"><%=request.getAttribute("message")%></div>    
@@ -80,23 +72,16 @@
                             <td><%=time_list.get(i)%></td>
                             <td><%=cd_amt.get(i)%></td>
                         </tr>
-
                         <%}%>
                     </table>
-
                     <div id = "date"> </div>
-
                 </main>
-
             </div>
-
             <footer><small><em>
                         Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
-
         </div>
-
         <script language="JavaScript">
 
             function checkInputs()
@@ -117,7 +102,6 @@
             }
 
         </script>
-
         <script>
             var d = new Date();
             document.getElementById("date").innerHTML = d;

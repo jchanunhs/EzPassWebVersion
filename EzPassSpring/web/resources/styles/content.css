@@ -45,7 +45,8 @@ nav a:hover {
 }
 
 nav a:active{
-    background-color: lightgreen;
+    color:green;
+    text-decoration: underline;
 }
 
 

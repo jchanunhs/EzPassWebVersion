@@ -20,22 +20,18 @@
     <body>
         <div id="wrapper">
             <header>Ez Pass Web Application</header>
-
             <div id ="content-wrapper">
-                
                 <nav>
                     <div id = "navtitle">Website Directories</div>
                     <a href = "${pageContext.request.contextPath}/index">Login</a>
                     <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
                     <a href = "${pageContext.request.contextPath}/faq" id = "active-link">FAQ</a>
                 </nav>
-
                 <main> 
                     <h1 align ="center">Frequently Asked Questions</h1>
                     <div id = "accordion">
                         <h2>Why should I get an Ez Pass</h2>
                         <div>Having an Ez Pass makes it more convenient when paying tolls. It makes it faster to pay tolls and if you're doing carpool, it reduces the toll price as well!<br>
-
                             <div class="imgcontainer">
                                 <img src="${pageContext.request.contextPath}/resources/images/ezpassonly.jpg" alt="EzOnlyLogo" class="imgoverlay">
                                 <div class="overlay">Make your toll experience easier!</div>
@@ -60,20 +56,16 @@
                         <div>You can call help desk and request a change of address.</div>
                         <h2>What happens if my account balance is low or in the negatives</h2>
                         <div>If your account balance is insufficient, a bill will be sent to your address to pay for the tolls.</div>
-
                     </div>           
                     <div id = "date"> </div>
-
                 </main>
             </div>
-
             <footer><small><em>
                         Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
 
         </div>
-
         <script>
             var d = new Date();
             document.getElementById("date").innerHTML = d;

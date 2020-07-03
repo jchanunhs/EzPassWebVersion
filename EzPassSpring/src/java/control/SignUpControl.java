@@ -18,21 +18,18 @@ public class SignUpControl {
         String Password = request.getParameter("Password");
         String Password1 = request.getParameter("Password1");
         String Name = request.getParameter("Name");
-        Account acct = new Account(Username, Password,Password1, Name);
-        
-        if(acct.UsernameTaken()){
-            mv.setViewName("redirect:/SignUp");
-            redirectAttributes.addFlashAttribute("message","Error: Username is taken. Please try another username.");
-        }
-        else if(acct.signUp()){
+        Account acct = new Account(Username, Password, Password1, Name);
+        if (acct.signUp()) {
             mv.setViewName("redirect:/index");
-            redirectAttributes.addFlashAttribute("message","Account creation was successful! Please login to your new account!");
-        }
-        else{
+            redirectAttributes.addFlashAttribute("message", "Account creation was successful! Please login to your new account!");
+        } else if (acct.UsernameTaken()) {
             mv.setViewName("redirect:/SignUp");
-            redirectAttributes.addFlashAttribute("message","Error: Signup failed unexpectedly. If this occurs multiple times please contact help desk.");
-        }      
+            redirectAttributes.addFlashAttribute("message", "Error: Username is taken. Please try another username.");
+        } else {
+            mv.setViewName("redirect:/SignUp");
+            redirectAttributes.addFlashAttribute("message", "Error: Signup failed unexpectedly. If this occurs multiple times please contact help desk.");
+        }
         return mv;
     }
-    
+
 }

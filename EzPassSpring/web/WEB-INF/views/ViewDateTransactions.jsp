@@ -12,7 +12,6 @@
     ArrayList<String> TLN_list = tran.getTransactions(before, after, "TollLaneNumber");
     ArrayList<String> TA_list = tran.getTransactions(before, after, "TollAmount");
 %>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -23,14 +22,10 @@
         <meta name="author" content="Jason Chan">
         <meta name="description" content="Web implementation of the EzPassApplication">
     </head>
-
     <body>
         <div id="wrapper">
-
             <header>Ez Pass Web Application</header>
-
             <div id ="content-wrapper">
-
                 <nav>
                     <div id = "navtitle">Website Directories</div>
                     <a href='${pageContext.request.contextPath}/Main'>Profile</a>
@@ -39,10 +34,8 @@
                     <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
                     <a href='${pageContext.request.contextPath}/Transactions'id = "active-link">Transactions</a>
                 </nav>
-
                 <main> 
                     <h1 align ="center">Transactions</h1>
-
                     <form name="Transaction" action="${pageContext.request.contextPath}/TransactionControl" method="post">
                         <label for="CustomerID">Customer ID:</label>
                         <input type="text" name="CustomerID" value="<%=(String) session.getAttribute("CID")%>"readonly><br>
@@ -50,10 +43,8 @@
                         <input type="text" name="before"><br>
                         <label for="after">Date to:</label>
                         <input type="text" name="after"><br>
-
                         <input type="button" value="View Transaction" onClick="checkInputs()">
                         <input type="reset" value="Reset">
-
                     </form>
                     <table>
                         <tr>
@@ -77,22 +68,16 @@
                             <td><%=TLN_list.get(i)%></td>
                             <td><%=TA_list.get(i)%></td>
                         </tr>
-
                         <%}%>
                     </table>
                     <div id = "date"> </div>
-
                 </main>
-
             </div>
-
             <footer><small><em>
                         Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
-
         </div>
-
         <script language="JavaScript">
 
             function checkInputs()
@@ -109,11 +94,9 @@
             }
 
         </script>
-
         <script>
             var d = new Date();
             document.getElementById("date").innerHTML = d;
         </script>       
-
     </body> 
 </html>

@@ -8,22 +8,15 @@
         <meta name="author" content="Jason Chan">
         <meta name="description" content="Web implementation of the EzPassApplication">
     </head>
-
     <body>
         <div id="wrapper">
-
             <header>Ez Pass Web Application</header>
-
             <div id ="content-wrapper">
-
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-
                 </nav>
-
                 <main> 
                     <h1 align ="center">Customer Profile</h1>
-
                     <form name="CreateProfile" action="${pageContext.request.contextPath}/CreateProfileControl" method="post">
                         <label for="Name">Customer Name:</label>
                         <input type="text" name="Name" value="<%=(String) session.getAttribute("Name")%>"readonly><br>
@@ -43,20 +36,15 @@
                         <input type="text" name="Balance"><br>   
                         <input type="button" value="Create Profile" onClick="checkInputs()">
                         <input type="reset" value="Reset">
-
                     </form>                              
                     <div id = "date"> </div>
-
                 </main>
-
             </div>
-
             <footer><small><em>
                         Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
         </div>
-
         <script language="JavaScript">
 
             function checkInputs()
@@ -78,12 +66,10 @@
             }
 
         </script>
-
         <script>
             var d = new Date();
             document.getElementById("date").innerHTML = d;
         </script>
-
     </body> 
 </html>
 

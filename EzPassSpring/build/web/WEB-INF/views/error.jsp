@@ -13,30 +13,23 @@
         <div id="wrapper">
             <header>Ez Pass Web Application</header>
             <div id ="content-wrapper">
-
                 <nav>
                     <div id = "navtitle">Website Directories</div>
                     <a href = "${pageContext.request.contextPath}/index" id = "active-link">Login</a>
                     <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
                     <a href = "${pageContext.request.contextPath}/faq">FAQ</a>
                 </nav>
-
                 <main> 
                     <h1 align ="center">Invalid URL</h1>
-                    
-                    <img src="${pageContext.request.contextPath}/resources/images/404.jpg" alt="ErrorLogo" class = "animate transition">
-                         
-                    
+                    <img src="${pageContext.request.contextPath}/resources/images/404.jpg" alt="ErrorLogo" class = "animate transition">    
                     <div id = "date"></div>
                 </main>
-
             </div>
             <footer><small><em>
                         Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
         </div>
-
         <script>
             var d = new Date();
             document.getElementById("date").innerHTML = d;

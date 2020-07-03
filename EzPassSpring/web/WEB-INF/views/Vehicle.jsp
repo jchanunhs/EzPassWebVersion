@@ -22,14 +22,10 @@
             });
         </script>
     </head>
-
     <body>
         <div id="wrapper">
-
             <header>Ez Pass Web Application</header>
-
             <div id ="content-wrapper">
-
                 <nav>
                     <div id = "navtitle">Website Directories</div>
                     <a href='${pageContext.request.contextPath}/Main'>Profile</a>
@@ -38,18 +34,14 @@
                     <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
                     <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>       
                 </nav>
-
                 <main> 
-
                     <h1 align ="center">Vehicles</h1>
-
                     <div id ="tabs">
                         <ul>
                             <li><a href="#tab-1">Your Vehicles</a></li>
                             <li><a href="#tab-2">Add Vehicle</a></li>
                             <li><a href="#tab-3">Remove Vehicle</a></li>
                         </ul>
-
                         <div id = "tab-1">
                             <table>
                                 <tr><th>License Plate Number</th></tr>
@@ -59,7 +51,6 @@
                                 <%}%>
                             </table>
                         </div>
-
                         <div id = "tab-2">
                             <form name="AddVehicle" action="${pageContext.request.contextPath}/AddVehicleControl" method="post">
                                 <label for="LicensePlateNumber">License Plate Number:</label>
@@ -78,7 +69,6 @@
                                 <input type="reset" value="Reset">
                             </form>
                         </div>
-
                         <div id = "tab-3">
                             <form name="RemoveVehicle" action="${pageContext.request.contextPath}/RemoveVehicleControl" method="post">
                                 <label for="LicensePlateNumber">License Plate Number:</label>
@@ -87,19 +77,13 @@
                                 <input type="reset" value="Reset">
                             </form>
                         </div>
-
                     </div>
-
                     <% if (request.getAttribute("message") != null) {%>
                     <div id="message"><%=request.getAttribute("message")%></div>    
                     <%}%>
-
                     <div id = "date"> </div>
-
                 </main>
-
             </div>
-
             <footer><small><em>
                         Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>

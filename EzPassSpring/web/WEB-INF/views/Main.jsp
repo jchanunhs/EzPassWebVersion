@@ -8,14 +8,10 @@
         <meta name="author" content="Jason Chan">
         <meta name="description" content="Web implementation of the EzPassApplication">
     </head>
-
     <body>
         <div id="wrapper">
-
             <header>Ez Pass Web Application</header>
-
             <div id ="content-wrapper">
-
                 <nav>
                     <div id = "navtitle">Website Directories</div>
                     <a href='${pageContext.request.contextPath}/Main'id = "active-link">Profile</a>
@@ -24,10 +20,8 @@
                     <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
                     <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
                 </nav>
-
                 <main> 
                     <h1 align ="center">Customer Profile</h1>
-
                     <form>
                         <label for="Name">Customer Name:</label>
                         <input type="text" name="Name" value="<%= session.getAttribute("Name")%>" readonly><br>
@@ -46,18 +40,14 @@
                         <label for="Balance">Balance:</label>
                         <input type="text" name="Balance" value="<%=String.valueOf(session.getAttribute("Balance"))%>" readonly><br>        
                     </form>
-
                     <div align="center">
                         <a href='${pageContext.request.contextPath}/ChangePassword'>Change Password</a>
                         <a href='${pageContext.request.contextPath}/Recharge'>Recharge Account</a>
                         <a href="${pageContext.request.contextPath}/LogOutControl">Log Off</a>
                     </div>
                     <div id = "date"> </div>
-
                 </main>
-
             </div>
-
             <footer><small><em>
                         Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
