@@ -81,6 +81,12 @@ footer{
     font-weight:bold;
 }
 
+#wrapper { 
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1024px;
+    min-width: 610px;
+}
 
 #content-wrapper{
     display: flex;
@@ -101,12 +107,6 @@ td, th{
     border-color: lavender;
     border-style: solid;
     text-align: center;
-}
-
-#wrapper { 
-    margin-right: auto;
-    margin-left: auto;
-    max-width: 1024px;
 }
 
 #message{
