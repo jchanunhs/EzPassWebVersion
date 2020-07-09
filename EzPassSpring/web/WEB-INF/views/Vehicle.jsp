@@ -1,9 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.Vehicle"%>
-<%
-    Vehicle vehicle = new Vehicle((String) session.getAttribute("CID"));
-    ArrayList<String> vehicle_list = vehicle.getVehicles();
-%>
+<%ArrayList<String> vehicle_list = (ArrayList<String>)request.getAttribute("vehicle_list");%>
 <!DOCTYPE html>
 <html lang="en">
     <head>

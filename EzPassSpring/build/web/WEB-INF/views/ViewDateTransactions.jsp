@@ -82,15 +82,7 @@
 
             function checkInputs()
             {
-                var Prompts = "";
-                before = document.Transaction.before.value;
-                after = document.Transaction.after.value;
-
-                if (before == "" || after == "") {
-                    window.alert("One or more fields are empty! Please fill out all information!");
-                } else {
-                    document.Transaction.submit();
-                }
+                document.Transaction.submit();
             }
 
         </script>

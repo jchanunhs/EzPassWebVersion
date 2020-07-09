@@ -1,14 +1,12 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.Transaction"%>
 <%
-    Transaction tran = new Transaction((String) session.getAttribute("CID"));
-    ArrayList<String> TID_list = tran.getAllTransactions("TransactionID");
-    ArrayList<String> TC_list = tran.getAllTransactions("TagCode");
-    ArrayList<String> TD_list = tran.getAllTransactions("TransactionDate");
-    ArrayList<String> TT_list = tran.getAllTransactions("TransactionTime");
-    ArrayList<String> TP_list = tran.getAllTransactions("TollPlaza");
-    ArrayList<String> TLN_list = tran.getAllTransactions("TollLaneNumber");
-    ArrayList<String> TA_list = tran.getAllTransactions("TollAmount");
+    ArrayList<String> TID_list = (ArrayList<String>) request.getAttribute("TID");
+    ArrayList<String> TC_list = (ArrayList<String>) request.getAttribute("TC");
+    ArrayList<String> TD_list = (ArrayList<String>) request.getAttribute("TD");
+    ArrayList<String> TT_list = (ArrayList<String>) request.getAttribute("TT");
+    ArrayList<String> TP_list = (ArrayList<String>) request.getAttribute("TP");
+    ArrayList<String> TLN_list = (ArrayList<String>) request.getAttribute("TLN");
+    ArrayList<String> TA_list = (ArrayList<String>) request.getAttribute("TA");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +39,7 @@
                         <input type="text" name="before"><br>
                         <label for="after">Date to:</label>
                         <input type="text" name="after"><br>
-                        <input type="button" value="View Transaction" onClick="checkInputs()">
+                        <input type="submit" value="View Transaction">
                         <input type="reset" value="Reset">
                     </form>
                     <table>
@@ -76,23 +74,6 @@
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
         </div>
-        <script language="JavaScript">
-
-            function checkInputs()
-            {
-                var Prompts = "";
-                before = document.Transaction.before.value;
-                after = document.Transaction.after.value;
-
-
-                if (before == "" || after == "") {
-                    window.alert("One or more fields are empty! Please fill out all information!");
-                } else {
-                    document.Transaction.submit();
-                }
-            }
-
-        </script>
         <script>
             var d = new Date();
             document.getElementById("date").innerHTML = d;

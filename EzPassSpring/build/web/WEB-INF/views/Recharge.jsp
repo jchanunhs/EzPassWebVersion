@@ -1,13 +1,10 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.CreditCard"%>
-<%@page import="model.Customer"%>
 <%
-    CreditCard card = new CreditCard((String) session.getAttribute("CID"));
-    ArrayList<String> CreditID_list = card.getAllTransactions("CreditID");
-    ArrayList<String> CN_list = card.getAllTransactions("CardNumber");
-    ArrayList<String> date_list = card.getAllTransactions("Date");
-    ArrayList<String> time_list = card.getAllTransactions("Time");
-    ArrayList<String> cd_amt = card.getAllTransactions("CreditAmount");
+    ArrayList<String> CreditID_list = (ArrayList<String>) request.getAttribute("CreditID");
+    ArrayList<String> CN_list = (ArrayList<String>) request.getAttribute("CardNumber");
+    ArrayList<String> date_list = (ArrayList<String>) request.getAttribute("Date");
+    ArrayList<String> time_list = (ArrayList<String>) request.getAttribute("Time");
+    ArrayList<String> cd_amt = (ArrayList<String>) request.getAttribute("CreditAmt");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,7 +103,6 @@
             var d = new Date();
             document.getElementById("date").innerHTML = d;
         </script>                        
-
     </body> 
 </html>
 

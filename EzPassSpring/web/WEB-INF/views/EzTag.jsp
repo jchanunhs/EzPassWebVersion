@@ -1,7 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.EzTag"%>
-<%EzTag ez = new EzTag((String) session.getAttribute("CID"));
-    ArrayList<String> ez_list = ez.getTags();%>
+<%ArrayList<String> ez_list = (ArrayList<String>)request.getAttribute("ez_list");%>
 <!DOCTYPE html>
 <html lang="en">
     <head>

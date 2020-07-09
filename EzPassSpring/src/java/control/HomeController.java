@@ -8,8 +8,11 @@ if username and CID are both not empty, that means user logged in and profile is
  */
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import model.EzTag;
+import model.Vehicle;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
@@ -43,22 +46,19 @@ public class HomeController {
             return "redirect:/Main";
         }
     }
-    
+
     @RequestMapping("/faq")
     public String faq(HttpServletRequest request) { //first session
         HttpSession session = request.getSession();
         return "faq";
     }
-    
-    
 
     @RequestMapping("/CreateProfile")
     public String CreateProfile(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (session.getAttribute("Username") != null && session.getAttribute("CID")== null) { //check if user logged in and created profile
+        if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in and created profile
             return "CreateProfile";
-        }
-        else{
+        } else {
             return "redirect:/index";
         }
     }
@@ -85,37 +85,34 @@ public class HomeController {
         }
     }
 
-    @RequestMapping("/Recharge")
-    public String Recharge(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            return "redirect:/index";
-        } else {
-            return "Recharge";
-        }
-    }
-
     @RequestMapping("/Vehicle")
-    public String Vehicle(HttpServletRequest request) {
+    public ModelAndView Vehicle(HttpServletRequest request) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         //check if user has logged in successfully AND created profile
         if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            return "redirect:/index";
+            mv.setViewName("redirect:/index");
         } else {
-            return "Vehicle";
+            mv.setViewName("Vehicle");
+            Vehicle vehicle = new Vehicle((String) session.getAttribute("CID"));
+            mv.addObject("vehicle_list", vehicle.getVehicles());
         }
+        return mv;
     }
 
     @RequestMapping("/EzTag")
-    public String EzTag(HttpServletRequest request) {
+    public ModelAndView EzTag(HttpServletRequest request) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         //check if user has logged in successfully AND created profile
         if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            return "redirect:/index";
+            mv.setViewName("redirect:/index");
         } else {
-            return "EzTag";
+            mv.setViewName("EzTag");
+            EzTag ez = new EzTag((String) session.getAttribute("CID"));
+            mv.addObject("ez_list", ez.getTags());
         }
+        return mv;
     }
 
     @RequestMapping("/PayTolls")
@@ -126,17 +123,6 @@ public class HomeController {
             return "redirect:/index";
         } else {
             return "PayTolls";
-        }
-    }
-
-    @RequestMapping("/Transactions")
-    public String Transactions(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            return "redirect:/index";
-        } else {
-            return "Transactions";
         }
     }
 

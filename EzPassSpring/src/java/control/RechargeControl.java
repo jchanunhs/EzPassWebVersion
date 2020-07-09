@@ -1,5 +1,6 @@
 package control;
 
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.CreditCard;
@@ -36,6 +37,30 @@ public class RechargeControl {
             redirectAttributes.addFlashAttribute("message", "Error: Recharge failed unexpectly! If this occurs multiple times, please contact help desk.");
         }
 
+        return mv;
+    }
+
+    @RequestMapping("/Recharge")
+    public ModelAndView Recharge(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
+        //check if user has logged in successfully AND created profile
+        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
+            mv.setViewName("redirect:/index");
+        } else {
+            CreditCard card = new CreditCard((String) session.getAttribute("CID"));
+            ArrayList<String> CreditID_list = card.getAllTransactions("CreditID");
+            ArrayList<String> CN_list = card.getAllTransactions("CardNumber");
+            ArrayList<String> date_list = card.getAllTransactions("Date");
+            ArrayList<String> time_list = card.getAllTransactions("Time");
+            ArrayList<String> cd_amt = card.getAllTransactions("CreditAmount");
+            mv.addObject("CreditID", CreditID_list);
+            mv.addObject("CardNumber", CN_list);
+            mv.addObject("Date", date_list);
+            mv.addObject("Time", time_list);
+            mv.addObject("CreditAmt", cd_amt);
+            mv.setViewName("Recharge");
+        }
         return mv;
     }
 
