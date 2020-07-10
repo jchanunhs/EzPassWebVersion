@@ -43,7 +43,7 @@
                     <div align="center">
                         <a href='${pageContext.request.contextPath}/ChangePassword'>Change Password</a>
                         <a href='${pageContext.request.contextPath}/Recharge'>Recharge Account</a>
-                        <a href="${pageContext.request.contextPath}/LogOutControl">Log Off</a>
+                        <a href="${pageContext.request.contextPath}/Logout">Log Off</a>
                     </div>
                     <div id = "date"> </div>
                 </main>

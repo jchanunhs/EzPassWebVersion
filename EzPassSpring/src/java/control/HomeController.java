@@ -1,42 +1,23 @@
 package control;
 
 /*
-This controller contains all the mappings for the website directories. 
 if the username is empty, that means user did not log in
 if username is not empty, but CID is empty, that means  user logged in but needs to create profile
 if username and CID are both not empty, that means user logged in and profile is already created
  */
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Account;
 import model.Customer;
-import model.EzTag;
-import model.Vehicle;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class HomeController {
-
-    @RequestMapping("/index")
-    public String home(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
-            return "index";
-        } else {
-            return "redirect:/Main";
-        }
-    }
-
-    @RequestMapping("/SignUp")
-    public String SignUp(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("Username") != null) {  //check if user has logged in successfully
-            return "redirect:/index";
-        } else {
-            return "SignUp";
-        }
-    }
 
     @RequestMapping("/")
     public String root(HttpServletRequest request) { //first session
@@ -54,6 +35,72 @@ public class HomeController {
         return "faq";
     }
 
+    @RequestMapping("/index")
+    public String home(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
+            return "index";
+        } else {
+            return "redirect:/Main";
+        }
+    }
+
+    @RequestMapping(value = "/LoginControl", method = RequestMethod.POST)
+    public ModelAndView Login(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
+
+        String User = request.getParameter("Username");
+        String PW = request.getParameter("Password");
+        HttpSession session = request.getSession();
+        Account acct = new Account(User, PW);
+        Customer cus = new Customer();
+        if (acct.signIn() && cus.checkExist(User)) { //set session attributes and redirect to user main page
+            cus = new Customer(acct.getCustomerID());
+            cus.setData();
+            session.setAttribute("Username", User); //for change password
+            session.setAttribute("CID", cus.getCustomerID());
+            mv.setViewName("redirect:/Main");
+        } else if (acct.signIn()) {
+            session.setAttribute("Username", User);
+            session.setAttribute("Name", acct.getName());
+            mv.setViewName("redirect:/CreateProfile");
+        } else { //wrong information
+            redirectAttributes.addFlashAttribute("message", "Error: Invalid Username or Password!");
+            mv.setViewName("redirect:/index");
+        }
+
+        return mv;
+    }
+
+    @RequestMapping("/SignUp")
+    public String SignUp(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("Username") != null) {  //check if user has logged in successfully
+            return "redirect:/index";
+        } else {
+            return "SignUp";
+        }
+    }
+
+    @RequestMapping(value = "/SignUpControl", method = RequestMethod.POST)
+    public ModelAndView SignUp(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
+        String Username = request.getParameter("Username");
+        String Password = request.getParameter("Password");
+        String Password1 = request.getParameter("Password1");
+        String Name = request.getParameter("Name");
+        Account acct = new Account(Username, Password, Password1, Name);
+        if (acct.signUp()) {
+            mv.setViewName("redirect:/index");
+            redirectAttributes.addFlashAttribute("message", "Account creation was successful! Please login to your new account!");
+        } else if (acct.UsernameTaken()) {
+            mv.setViewName("redirect:/SignUp");
+            redirectAttributes.addFlashAttribute("message", "Error: Username is taken. Please try another username.");
+        } else {
+            mv.setViewName("redirect:/SignUp");
+            redirectAttributes.addFlashAttribute("message", "Error: Signup failed unexpectedly. If this occurs multiple times please contact help desk.");
+        }
+        return mv;
+    }
+
     @RequestMapping("/CreateProfile")
     public String CreateProfile(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -64,79 +111,28 @@ public class HomeController {
         }
     }
 
-    @RequestMapping("/Main")
-    public ModelAndView Main(HttpServletRequest request) {
+    @RequestMapping(value = "/CreateProfileControl", method = RequestMethod.POST)
+    public ModelAndView CreateProfile(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
-        ModelAndView mv = new ModelAndView();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            mv.setViewName("redirect:/index");
+        String UName = (String) session.getAttribute("Username");
+        String Name = request.getParameter("Name");
+        String Street = request.getParameter("Street");
+        String City = request.getParameter("City");
+        String State = request.getParameter("State");
+        String Zip = request.getParameter("Zip");
+        String Phone = request.getParameter("Phone");
+        String Email = request.getParameter("Email");
+        String Balance = request.getParameter("Balance");
+        float bal = Float.parseFloat(Balance);
+        Customer cus = new Customer(Name, Street, City, State, Zip, Phone, Email, bal, UName);
+        mv.setViewName("redirect:/index");
+        if (cus.createProfile()) { //create the profile 
+            redirectAttributes.addFlashAttribute("message", "Created profile successfully! Please relog to your account!");
+            session.invalidate();
         } else {
-            Customer cus = new Customer((String) session.getAttribute("CID"));
-            cus.setData();
-            mv.addObject("Name", cus.getName());
-            mv.addObject("Street", cus.getStreet());
-            mv.addObject("City", cus.getCity());
-            mv.addObject("State", cus.getState());
-            mv.addObject("Zip", cus.getZip());
-            mv.addObject("Phone", cus.getPhone());
-            mv.addObject("Email", cus.getEmail());
-            mv.addObject("Balance", String.valueOf(cus.getBalance()));
-            mv.setViewName("Main");
+            redirectAttributes.addFlashAttribute("message", "Error: Created profile failed unexpectly! If this occurs multiple times please contact help desk.");
         }
         return mv;
-    }
-
-    @RequestMapping("/ChangePassword")
-    public String ChangePassword(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            return "redirect:/index";
-        } else {
-            return "ChangePassword";
-        }
-    }
-
-    @RequestMapping("/Vehicle")
-    public ModelAndView Vehicle(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        ModelAndView mv = new ModelAndView();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            mv.setViewName("redirect:/index");
-        } else {
-            mv.setViewName("Vehicle");
-            Vehicle vehicle = new Vehicle((String) session.getAttribute("CID"));
-            mv.addObject("vehicle_list", vehicle.getVehicles());
-        }
-        return mv;
-    }
-
-    @RequestMapping("/EzTag")
-    public ModelAndView EzTag(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        ModelAndView mv = new ModelAndView();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            mv.setViewName("redirect:/index");
-        } else {
-            mv.setViewName("EzTag");
-            EzTag ez = new EzTag((String) session.getAttribute("CID"));
-            mv.addObject("ez_list", ez.getTags());
-        }
-        return mv;
-    }
-
-    @RequestMapping("/PayTolls")
-    public String PayTolls(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            return "redirect:/index";
-        } else {
-            return "PayTolls";
-        }
     }
 
 }

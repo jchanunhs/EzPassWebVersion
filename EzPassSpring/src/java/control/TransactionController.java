@@ -11,8 +11,36 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class TransactionControl {
-
+public class TransactionController {
+    
+    @RequestMapping("/Transactions")
+    public ModelAndView Transactions(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
+        //check if user has logged in successfully AND created profile
+        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
+            mv.setViewName("redirect:/index");
+        } else {
+            Transaction tran = new Transaction((String) session.getAttribute("CID"));
+            ArrayList<String> TID_list = tran.getAllTransactions("TransactionID");
+            ArrayList<String> TC_list = tran.getAllTransactions("TagCode");
+            ArrayList<String> TD_list = tran.getAllTransactions("TransactionDate");
+            ArrayList<String> TT_list = tran.getAllTransactions("TransactionTime");
+            ArrayList<String> TP_list = tran.getAllTransactions("TollPlaza");
+            ArrayList<String> TLN_list = tran.getAllTransactions("TollLaneNumber");
+            ArrayList<String> TA_list = tran.getAllTransactions("TollAmount");
+            mv.addObject("TID", TID_list);
+            mv.addObject("TC", TC_list);
+            mv.addObject("TD", TD_list);
+            mv.addObject("TT", TT_list);
+            mv.addObject("TP", TP_list);
+            mv.addObject("TLN", TLN_list);
+            mv.addObject("TA", TA_list);
+            mv.setViewName("Transactions");
+        }
+        return mv;
+    }
+    
     @RequestMapping(value = "/ViewTransactionDates", method = RequestMethod.POST)
     public ModelAndView ViewTransactionDate(HttpServletRequest request, HttpServletResponse response, ModelAndView mv) {
         HttpSession session = request.getSession();
@@ -53,33 +81,5 @@ public class TransactionControl {
         }
         return mv;
     }
-
-    @RequestMapping("/Transactions")
-    public ModelAndView Transactions(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        ModelAndView mv = new ModelAndView();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            mv.setViewName("redirect:/index");
-        } else {
-            Transaction tran = new Transaction((String) session.getAttribute("CID"));
-            ArrayList<String> TID_list = tran.getAllTransactions("TransactionID");
-            ArrayList<String> TC_list = tran.getAllTransactions("TagCode");
-            ArrayList<String> TD_list = tran.getAllTransactions("TransactionDate");
-            ArrayList<String> TT_list = tran.getAllTransactions("TransactionTime");
-            ArrayList<String> TP_list = tran.getAllTransactions("TollPlaza");
-            ArrayList<String> TLN_list = tran.getAllTransactions("TollLaneNumber");
-            ArrayList<String> TA_list = tran.getAllTransactions("TollAmount");
-            mv.addObject("TID", TID_list);
-            mv.addObject("TC", TC_list);
-            mv.addObject("TD", TD_list);
-            mv.addObject("TT", TT_list);
-            mv.addObject("TP", TP_list);
-            mv.addObject("TLN", TLN_list);
-            mv.addObject("TA", TA_list);
-            mv.setViewName("Transactions");
-        }
-        return mv;
-    }
-
+    
 }

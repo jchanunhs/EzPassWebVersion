@@ -13,8 +13,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class PayTollControl {
-
+public class PayTollController {
+    
+    @RequestMapping("/PayTolls")
+    public String PayTolls(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        //check if user has logged in successfully AND created profile
+        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
+            return "redirect:/index";
+        } else {
+            return "PayTolls";
+        }
+    }
+    
     @RequestMapping(value = "/PayTollControl", method = RequestMethod.POST)
     public ModelAndView PayToll(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
@@ -45,5 +56,5 @@ public class PayTollControl {
         }
         return mv;
     }
-
+    
 }
