@@ -36,7 +36,6 @@ public class PayTollControl {
         if (tag.checkTag()) {
             if (tran.recordTransaction() && cus.charge(newBal)) {
                 redirectAttributes.addFlashAttribute("message", "Pay toll was successful! Your new balance is: " + newBal + ". Have a nice trip! ");
-                session.setAttribute("Balance", newBal);
             } else { //transaction failed
                 redirectAttributes.addFlashAttribute("message", "Error: Unable to process payments at this time. If this occurs multiple times please contact help desk.");
             }

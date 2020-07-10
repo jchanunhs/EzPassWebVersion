@@ -34,7 +34,7 @@
                         <label for="CustomerID">Customer ID:</label>
                         <input type="text" name="CustomerID" value="<%=session.getAttribute("CID")%>"readonly><br>
                         <label for="CurrentBalance">Current Balance:</label>
-                        <input type="text" name="CurrentBalance" value="<%=session.getAttribute("Balance")%>"readonly><br>
+                        <input type="text" name="CurrentBalance" value="<%=(String) request.getAttribute("Balance")%>"readonly><br>
                         <label for="CardNumber">Card Number:</label>
                         <input type="text" name="CardNumber"><br>
                         <label for="Name">Name on card:</label>

@@ -32,7 +32,7 @@
                 </nav>
                 <main> 
                     <h1 align ="center">Transactions</h1>
-                    <form name="Transaction" action="${pageContext.request.contextPath}/TransactionControl" method="post">
+                    <form name="Transaction" action="${pageContext.request.contextPath}/ViewTransactionDates" method="post">
                         <label for="CustomerID">Customer ID:</label>
                         <input type="text" name="CustomerID" value="<%=(String) session.getAttribute("CID")%>"readonly><br>
                         <label for="before">Date from:</label>

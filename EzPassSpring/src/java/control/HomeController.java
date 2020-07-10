@@ -8,6 +8,7 @@ if username and CID are both not empty, that means user logged in and profile is
  */
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import model.Customer;
 import model.EzTag;
 import model.Vehicle;
 import org.springframework.stereotype.Controller;
@@ -64,14 +65,26 @@ public class HomeController {
     }
 
     @RequestMapping("/Main")
-    public String Main(HttpServletRequest request) {
+    public ModelAndView Main(HttpServletRequest request) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         //check if user has logged in successfully AND created profile
         if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            return "redirect:/index";
+            mv.setViewName("redirect:/index");
         } else {
-            return "Main";
+            Customer cus = new Customer((String) session.getAttribute("CID"));
+            cus.setData();
+            mv.addObject("Name", cus.getName());
+            mv.addObject("Street", cus.getStreet());
+            mv.addObject("City", cus.getCity());
+            mv.addObject("State", cus.getState());
+            mv.addObject("Zip", cus.getZip());
+            mv.addObject("Phone", cus.getPhone());
+            mv.addObject("Email", cus.getEmail());
+            mv.addObject("Balance", String.valueOf(cus.getBalance()));
+            mv.setViewName("Main");
         }
+        return mv;
     }
 
     @RequestMapping("/ChangePassword")
@@ -123,17 +136,6 @@ public class HomeController {
             return "redirect:/index";
         } else {
             return "PayTolls";
-        }
-    }
-
-    @RequestMapping("/ViewDateTransactions")
-    public String ViewDateTransactions(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            return "redirect:/index";
-        } else {
-            return "ViewDateTransactions";
         }
     }
 

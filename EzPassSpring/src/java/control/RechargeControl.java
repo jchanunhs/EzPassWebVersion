@@ -32,7 +32,6 @@ public class RechargeControl {
         mv.setViewName("redirect:/Recharge");
         if (cus.recharge(newBal) && card.addCreditCard()) {
             redirectAttributes.addFlashAttribute("message", "Recharge successfully! Your new balance is: " + newBal);
-            session.setAttribute("Balance", newBal);
         } else {
             redirectAttributes.addFlashAttribute("message", "Error: Recharge failed unexpectly! If this occurs multiple times, please contact help desk.");
         }
@@ -59,6 +58,9 @@ public class RechargeControl {
             mv.addObject("Date", date_list);
             mv.addObject("Time", time_list);
             mv.addObject("CreditAmt", cd_amt);
+            Customer cus = new Customer((String) session.getAttribute("CID"));
+            cus.setData();
+            mv.addObject("Balance", String.valueOf(cus.getBalance()));
             mv.setViewName("Recharge");
         }
         return mv;

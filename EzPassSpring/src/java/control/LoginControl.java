@@ -27,14 +27,6 @@ public class LoginControl {
             cus.setData();
             session.setAttribute("Username", User); //for change password
             session.setAttribute("CID", cus.getCustomerID());
-            session.setAttribute("Name", cus.getName());
-            session.setAttribute("Street", cus.getStreet());
-            session.setAttribute("City", cus.getCity());
-            session.setAttribute("State", cus.getState());
-            session.setAttribute("Zip", cus.getZip());
-            session.setAttribute("Phone", cus.getPhone());
-            session.setAttribute("Email", cus.getEmail());
-            session.setAttribute("Balance", cus.getBalance());
             mv.setViewName("redirect:/Main");
         } else if (acct.signIn()) {
             session.setAttribute("Username", User);

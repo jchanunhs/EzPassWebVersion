@@ -24,21 +24,21 @@
                     <h1 align ="center">Customer Profile</h1>
                     <form>
                         <label for="Name">Customer Name:</label>
-                        <input type="text" name="Name" value="<%= session.getAttribute("Name")%>" readonly><br>
+                        <input type="text" name="Name" value="<%=(String) request.getAttribute("Name")%>" readonly><br>
                         <label for="Street">Street:</label>
-                        <input type="text" name="Street" value="<%= session.getAttribute("Street")%>" readonly><br>
+                        <input type="text" name="Street" value="<%=(String) request.getAttribute("Street")%>" readonly><br>
                         <label for="City">City:</label>
-                        <input type="text" name="City" value="<%= session.getAttribute("City")%>" readonly><br>
+                        <input type="text" name="City" value="<%=(String) request.getAttribute("City")%>" readonly><br>
                         <label for="State">State:</label>
-                        <input type="text" name="State" value="<%= session.getAttribute("State")%>" readonly><br>                                  
+                        <input type="text" name="State" value="<%=(String) request.getAttribute("State")%>" readonly><br>                                  
                         <label for="Zip">Zip:</label>
-                        <input type="text" name="Zip" value="<%= session.getAttribute("Zip")%>" readonly><br>
+                        <input type="text" name="Zip" value="<%=(String) request.getAttribute("Zip")%>" readonly><br>
                         <label for="Phone">Phone:</label>
-                        <input type="text" name="Phone" value="<%= session.getAttribute("Phone")%>" readonly><br>
+                        <input type="text" name="Phone" value="<%=(String) request.getAttribute("Phone")%>" readonly><br>
                         <label for="Email">Email:</label>
-                        <input type="text" name="Email" value="<%= session.getAttribute("Email")%>" readonly><br>
+                        <input type="text" name="Email" value="<%=(String) request.getAttribute("Email")%>" readonly><br>
                         <label for="Balance">Balance:</label>
-                        <input type="text" name="Balance" value="<%=String.valueOf(session.getAttribute("Balance"))%>" readonly><br>        
+                        <input type="text" name="Balance" value="<%=(String) request.getAttribute("Balance")%>" readonly><br>        
                     </form>
                     <div align="center">
                         <a href='${pageContext.request.contextPath}/ChangePassword'>Change Password</a>
