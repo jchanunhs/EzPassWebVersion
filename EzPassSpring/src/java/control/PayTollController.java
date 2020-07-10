@@ -37,7 +37,7 @@ public class PayTollController {
 
         int TL_INT = Integer.parseInt(TL); //Toll lane is int in database
         float TA_FLT = Float.parseFloat(TA); // Toll amount is float
-        Transaction tran = new Transaction(TC, TA_FLT, TP, TL_INT, CID);
+        Transaction trans = new Transaction(TC, TA_FLT, TP, TL_INT, CID);
         EzTag tag = new EzTag(TC, CID); //check if tag code belongs to customer
         Customer cus = new Customer(CID);
         cus.setData();
@@ -45,8 +45,8 @@ public class PayTollController {
         float newBal = oldBal - TA_FLT; //subtract old balance with charge toll amount
         mv.setViewName("redirect:/PayTolls");
         if (tag.checkTag()) {
-            if (tran.recordTransaction() && cus.charge(newBal)) {
-                redirectAttributes.addFlashAttribute("message", "Pay toll was successful! Your new balance is: " + newBal + ". Have a nice trip! ");
+            if (trans.recordTransaction() && cus.updateBalance(newBal)) {
+                redirectAttributes.addFlashAttribute("message", "Pay toll was successful! Your Transaction ID is " + trans.getTransactionID() + " and your new balance is " + newBal + ". Have a nice trip! ");
             } else { //transaction failed
                 redirectAttributes.addFlashAttribute("message", "Error: Unable to process payments at this time. If this occurs multiple times please contact help desk.");
             }

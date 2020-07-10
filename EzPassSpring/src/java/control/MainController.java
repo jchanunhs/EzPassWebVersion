@@ -111,8 +111,8 @@ public class MainController {
         float oldBal = cus.getBalance();
         float newBal = oldBal + Credit_FLT; //add the balance together
         mv.setViewName("redirect:/Recharge");
-        if (cus.recharge(newBal) && card.addCreditCard()) {
-            redirectAttributes.addFlashAttribute("message", "Recharge successfully! Your new balance is: " + newBal);
+        if (cus.updateBalance(newBal) && card.addCreditCard()) {
+            redirectAttributes.addFlashAttribute("message", "Recharge successfully! Your Transaction ID is " + card.getCreditID() + " and your new balance is: " + newBal);
         } else {
             redirectAttributes.addFlashAttribute("message", "Error: Recharge failed unexpectly! If this occurs multiple times, please contact help desk.");
         }
