@@ -40,7 +40,6 @@ public class PayTollController {
         Transaction trans = new Transaction(TC, TA_FLT, TP, TL_INT, CID);
         EzTag tag = new EzTag(TC, CID); //check if tag code belongs to customer
         Customer cus = new Customer(CID);
-        cus.setData();
         float oldBal = cus.getBalance();
         float newBal = oldBal - TA_FLT; //subtract old balance with charge toll amount
         mv.setViewName("redirect:/PayTolls");

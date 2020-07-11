@@ -36,6 +36,7 @@ public class Customer {
 
     public Customer(String CID) {
         CustomerID = CID;
+        this.setData();
     }
 
     public boolean createProfile() {

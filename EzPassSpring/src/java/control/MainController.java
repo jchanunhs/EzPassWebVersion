@@ -24,7 +24,6 @@ public class MainController {
             mv.setViewName("redirect:/index");
         } else {
             Customer cus = new Customer((String) session.getAttribute("CID"));
-            cus.setData();
             mv.addObject("Name", cus.getName());
             mv.addObject("Street", cus.getStreet());
             mv.addObject("City", cus.getCity());
@@ -88,7 +87,6 @@ public class MainController {
             mv.addObject("Time", time_list);
             mv.addObject("CreditAmt", cd_amt);
             Customer cus = new Customer((String) session.getAttribute("CID"));
-            cus.setData();
             mv.addObject("Balance", String.valueOf(cus.getBalance()));
             mv.setViewName("Recharge");
         }
@@ -107,7 +105,6 @@ public class MainController {
         float Credit_FLT = Float.parseFloat(Credit);
         CreditCard card = new CreditCard(CN, NM, EXPDate, CVV, CID, Credit_FLT); // add payment information
         Customer cus = new Customer(CID); // get current balance
-        cus.setData();//data set based on customer id
         float oldBal = cus.getBalance();
         float newBal = oldBal + Credit_FLT; //add the balance together
         mv.setViewName("redirect:/Recharge");

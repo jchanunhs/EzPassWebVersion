@@ -55,7 +55,6 @@ public class HomeController {
         Customer cus = new Customer();
         if (acct.signIn() && cus.checkExist(User)) { //set session attributes and redirect to user main page
             cus = new Customer(acct.getCustomerID());
-            cus.setData();
             session.setAttribute("Username", User); //for change password
             session.setAttribute("CID", cus.getCustomerID());
             mv.setViewName("redirect:/Main");
