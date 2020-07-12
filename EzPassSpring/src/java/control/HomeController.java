@@ -45,22 +45,20 @@ public class HomeController {
         }
     }
 
-    @RequestMapping(value = "/LoginControl", method = RequestMethod.POST)
+   @RequestMapping(value = "/LoginControl", method = RequestMethod.POST)
     public ModelAndView Login(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
 
         String User = request.getParameter("Username");
         String PW = request.getParameter("Password");
         HttpSession session = request.getSession();
-        Account acct = new Account(User, PW);
-        Customer cus = new Customer();
-        if (acct.signIn() && cus.checkExist(User)) { //set session attributes and redirect to user main page
-            cus = new Customer(acct.getCustomerID());
+        Account Acct = new Account(User, PW);
+        if (Acct.signIn()&& Acct.getCustomerID()!=null) { //set session attributes and redirect to user main page
             session.setAttribute("Username", User); //for change password
-            session.setAttribute("CID", cus.getCustomerID());
+            session.setAttribute("CID", Acct.getCustomerID());
             mv.setViewName("redirect:/Main");
-        } else if (acct.signIn()) {
+        } else if (Acct.signIn()) {
             session.setAttribute("Username", User);
-            session.setAttribute("Name", acct.getName());
+            session.setAttribute("Name", Acct.getName());
             mv.setViewName("redirect:/CreateProfile");
         } else { //wrong information
             redirectAttributes.addFlashAttribute("message", "Error: Invalid Username or Password!");
@@ -69,14 +67,14 @@ public class HomeController {
 
         return mv;
     }
-
+    
     @RequestMapping("/SignUp")
     public String SignUp(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (session.getAttribute("Username") != null) {  //check if user has logged in successfully
-            return "redirect:/index";
-        } else {
+        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
             return "SignUp";
+        } else {
+            return "redirect:/Main";
         }
     }
 
