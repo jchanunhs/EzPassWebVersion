@@ -26,10 +26,12 @@ public class AdminController {
     public ModelAndView AdminLogin(HttpServletRequest request) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
-        if (session.getAttribute("AdminID") == null) { //if admin is not logged on, view the login page
-            mv.setViewName("AdminLogin");
-        } else {     //if admin is logged on, redirect to verify customer information
+        if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") != null) {
+            mv.setViewName("redirect:/Admin/UpdateCustomerProfile");
+        } else if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") == null) {
             mv.setViewName("redirect:/Admin/VerifyInformation");
+        } else {
+            mv.setViewName("AdminLogin");
         }
         return mv;
     }
@@ -55,10 +57,9 @@ public class AdminController {
     public ModelAndView AdminVerifyInformation(HttpServletRequest request) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
-        if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") != null) { 
-            mv.addObject("AdminCIDInput", session.getAttribute("AdminCIDInput"));
-            mv.setViewName("AdminUpdateProfile");
-        } else if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") == null) { 
+        if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") != null) {
+            mv.setViewName("redirect:/Admin/UpdateCustomerProfile");
+        } else if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") == null) {
             mv.setViewName("AdminVerify");
         } else {
             mv.setViewName("redirect:/AdminLogin");
@@ -87,8 +88,7 @@ public class AdminController {
     public ModelAndView AdminUpdateProfile(HttpServletRequest request) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
-        if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") != null) {  
-            mv.addObject("AdminCIDInput", session.getAttribute("AdminCIDInput"));
+        if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") != null) {
             mv.setViewName("AdminUpdateProfile");
         } else if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") == null) {
             mv.setViewName("redirect:/Admin/VerifyInformation");
@@ -109,7 +109,7 @@ public class AdminController {
         String Phone = request.getParameter("Phone");
         String Email = request.getParameter("Email");
         Customer cus = new Customer(CID);
-        String prompt = ""; 
+        String prompt = "";
         if (!Street.equals("") && !City.equals("") && !State.equals("") && !Zip.equals("")) { // update address
             if (cus.updateAddress(Street, City, State, Zip)) {
                 prompt += "Customer address was updated successfully! ";
@@ -143,7 +143,6 @@ public class AdminController {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
         if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") != null) {
-            mv.addObject("AdminCIDInput", session.getAttribute("AdminCIDInput"));
             mv.setViewName("AdminUpdateTag");
         } else if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") == null) {
             mv.setViewName("redirect:/Admin/VerifyInformation");
@@ -164,7 +163,7 @@ public class AdminController {
         if (tag.checkTag()) { //check if old tag matches customer id
             if (!NewTag.equals("") && !NewTagType.equals("")) { //if input for new tag code and tag type not empty, update both
                 if (tag.updateTagCode(NewTag)) {
-                    tag = new EzTag(NewTag, CID);
+                    tag = new EzTag(NewTag, CID); //after updating tagcode, we need to use the new tagcode and update tag type
                     if (tag.updateTagType(NewTagType)) {
                         redirectAttributes.addFlashAttribute("message", "Tag code and tag type were updated successfully");
                     }
