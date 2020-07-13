@@ -14,7 +14,7 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-                    <a href='${pageContext.request.contextPath}/Main'>Profile</a>
+                    <a href='${pageContext.request.contextPath}/Profile'>Profile</a>
                     <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
                     <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
                     <a href='${pageContext.request.contextPath}/PayTolls'id = "active-link">Pay Tolls</a>
@@ -51,7 +51,6 @@
 
             function checkInputs()
             {
-                var Prompts = "";
                 TagCode = document.PayToll.TagCode.value;
                 TollPlaza = document.PayToll.TollPlaza.value;
                 TollLane = document.PayToll.TollLane.value;

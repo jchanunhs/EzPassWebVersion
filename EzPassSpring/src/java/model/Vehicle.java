@@ -32,7 +32,7 @@ public class Vehicle {
     }
 
     //Constructor to remove vehicle
-    public Vehicle(String CID, String LicensePlate) {
+    public Vehicle(String LicensePlate, String CID) {
         LicensePlateNumber = LicensePlate;
         CustomerID = CID;
     }
@@ -110,9 +110,7 @@ public class Vehicle {
 
     public ArrayList<String> getVehicles() { //populate list with vehicles
         ArrayList<String> vehicles = new ArrayList<String>();
-
         try {
-
             DBConnection ToDB = new DBConnection(); //Have a connection to the DB
             Connection DBConn = ToDB.openConn();
             Statement Stmt = DBConn.createStatement();
@@ -121,7 +119,6 @@ public class Vehicle {
             while (Rslt.next()) {
                 vehicles.add(Rslt.getString("LicensePlateNumber"));
             }
-
             Stmt.close();
             ToDB.closeConn();
         } catch (java.sql.SQLException e) {

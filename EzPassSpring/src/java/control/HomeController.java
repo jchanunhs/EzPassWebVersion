@@ -25,7 +25,7 @@ public class HomeController {
         if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
             return "index";
         } else {
-            return "redirect:/Main";
+            return "redirect:/Profile";
         }
     }
 
@@ -41,7 +41,7 @@ public class HomeController {
         if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
             return "index";
         } else {
-            return "redirect:/Main";
+            return "redirect:/Profile";
         }
     }
 
@@ -55,7 +55,7 @@ public class HomeController {
         if (Acct.signIn()&& Acct.getCustomerID()!=null) { //set session attributes and redirect to user main page
             session.setAttribute("Username", User); //for change password
             session.setAttribute("CID", Acct.getCustomerID());
-            mv.setViewName("redirect:/Main");
+            mv.setViewName("redirect:/Profile");
         } else if (Acct.signIn()) {
             session.setAttribute("Username", User);
             session.setAttribute("Name", Acct.getName());
@@ -74,7 +74,7 @@ public class HomeController {
         if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
             return "SignUp";
         } else {
-            return "redirect:/Main";
+            return "redirect:/Profile";
         }
     }
 

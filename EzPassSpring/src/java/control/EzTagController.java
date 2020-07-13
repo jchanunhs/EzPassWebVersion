@@ -1,7 +1,5 @@
 package control;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -32,14 +30,11 @@ public class EzTagController {
 
     @RequestMapping(value = "/AddTagControl", method = RequestMethod.POST)
     public ModelAndView AddTag(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         String CID = (String) session.getAttribute("CID");
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date(System.currentTimeMillis());
-        String IssueDate = formatter.format(date);
         String TC = request.getParameter("TagCode");
         String TT = request.getParameter("TagType");
-        EzTag ez = new EzTag(TC, TT, IssueDate, CID);
+        EzTag ez = new EzTag(TC, TT, CID);
         mv.setViewName("redirect:/EzTag#tab-2");
         if (ez.addTag()) {
             redirectAttributes.addFlashAttribute("message", "Ez Tag was added successfully!");

@@ -49,7 +49,6 @@
 
             function checkInputs()
             {
-                var Prompts = "";
                 Name = document.CreateProfile.Name.value;
                 Street = document.CreateProfile.Street.value;
                 City = document.CreateProfile.City.value;

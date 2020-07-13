@@ -78,9 +78,7 @@ public class CreditCard {
 
     public ArrayList<String> getAllTransactions(String column_name) { //populate list with credit transactions
         ArrayList<String> list = new ArrayList<String>();
-
         try {
-
             DBConnection ToDB = new DBConnection(); //Have a connection to the DB
             Connection DBConn = ToDB.openConn();
             Statement Stmt = DBConn.createStatement();
@@ -105,11 +103,9 @@ public class CreditCard {
                     list.add(Rslt.getString("CreditID"));
                 }
             }
-
             Stmt.close();
             ToDB.closeConn();
         } catch (java.sql.SQLException e) {
-
             System.out.println("SQLException: " + e);
             while (e != null) {
                 System.out.println("SQLState: " + e.getSQLState());
@@ -119,14 +115,14 @@ public class CreditCard {
                 System.out.println("");
             }
         } catch (java.lang.Exception e) {
-
             System.out.println("Exception: " + e);
             e.printStackTrace();
         }
         return list;
     }
-    
-    public String getCreditID(){
+
+    //return credit id when user recharges account
+    public String getCreditID() {
         return CreditID;
     }
 

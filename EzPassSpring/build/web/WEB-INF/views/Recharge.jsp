@@ -1,7 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%
     ArrayList<String> CreditID_list = (ArrayList<String>) request.getAttribute("CreditID");
-    ArrayList<String> CN_list = (ArrayList<String>) request.getAttribute("CardNumber");
     ArrayList<String> date_list = (ArrayList<String>) request.getAttribute("Date");
     ArrayList<String> time_list = (ArrayList<String>) request.getAttribute("Time");
     ArrayList<String> cd_amt = (ArrayList<String>) request.getAttribute("CreditAmt");
@@ -22,7 +21,7 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-                    <a href='${pageContext.request.contextPath}/Main'id = "active-link">Profile</a>
+                    <a href='${pageContext.request.contextPath}/Profile'id = "active-link">Profile</a>
                     <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
                     <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
                     <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
@@ -54,7 +53,6 @@
                     <table>
                         <tr>
                             <th>Credit ID</th>
-                            <th>Card Number</th>
                             <th>Date</th>
                             <th>Time</th>
                             <th>Credit Amount</th>
@@ -64,7 +62,6 @@
                         %>
                         <tr>
                             <td><%=CreditID_list.get(i)%></td>
-                            <td><%=CN_list.get(i)%></td>
                             <td><%=date_list.get(i)%></td>
                             <td><%=time_list.get(i)%></td>
                             <td><%=cd_amt.get(i)%></td>
@@ -83,7 +80,6 @@
 
             function checkInputs()
             {
-                var Prompts = "";
                 CardNumber = document.Recharge.CardNumber.value;
                 Name = document.Recharge.Name.value;
                 EXP = document.Recharge.EXP.value;

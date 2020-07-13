@@ -75,7 +75,7 @@ public class Customer {
         return done;
     }
 
-    public boolean updateAddress() {
+    public boolean updateAddress(String ST, String CT, String STE, String ZP) {
         boolean done = false;
         try {
             if (!done) {
@@ -87,7 +87,7 @@ public class Customer {
                 done = Rslt.next(); //if it does exist, then update customer address
                 if (done) {
                     SQL_Command = "UPDATE Customer "
-                            + "SET Street = '" + Street + "', " + "City = '" + City + "', " + "State = '" + State + "', " + "Zip = '" + Zip + "' "
+                            + "SET Street = '" + ST + "', " + "City = '" + CT + "', " + "State = '" + STE + "', " + "Zip = '" + ZP + "' "
                             + "WHERE CustomerID ='" + CustomerID + "'";
                     Stmt.executeUpdate(SQL_Command);
                 }
@@ -112,7 +112,7 @@ public class Customer {
         return done;
     }
 
-    public boolean updatePhone() {
+    public boolean updatePhone(String PN) {
         boolean done = false;
         try {
             if (!done) {
@@ -124,7 +124,7 @@ public class Customer {
                 done = Rslt.next(); //if does exist, then update phone number based on id
                 if (done) {
                     SQL_Command = "UPDATE Customer "
-                            + "SET Phone = '" + Phone + "'"
+                            + "SET Phone = '" + PN + "'"
                             + "WHERE CustomerID ='" + CustomerID + "'";
                     Stmt.executeUpdate(SQL_Command);
                 }
@@ -149,7 +149,7 @@ public class Customer {
         return done;
     }
 
-    public boolean updateEmail() {
+    public boolean updateEmail(String EM) {
         boolean done = false;
         try {
             if (!done) {
@@ -161,7 +161,7 @@ public class Customer {
                 done = Rslt.next(); //if it does exist, then update email
                 if (done) {
                     SQL_Command = "UPDATE Customer "
-                            + "SET Email = '" + Email + "' "
+                            + "SET Email = '" + EM + "' "
                             + "WHERE CustomerID ='" + CustomerID + "'";
                     Stmt.executeUpdate(SQL_Command);
                 }
@@ -262,7 +262,6 @@ public class Customer {
             e.printStackTrace();
         }
         return done;
-
     }
 
     //return information after setData was executed

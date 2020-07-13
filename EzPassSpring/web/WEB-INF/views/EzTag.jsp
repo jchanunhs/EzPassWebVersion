@@ -24,7 +24,7 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-                    <a href='${pageContext.request.contextPath}/Main'>Profile</a>
+                    <a href='${pageContext.request.contextPath}/Profile'>Profile</a>
                     <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
                     <a href='${pageContext.request.contextPath}/EzTag'id = "active-link">EzTags</a>
                     <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
@@ -86,7 +86,6 @@
             document.getElementById("date").innerHTML = d;
             function checkAddTagInputs()
             {
-                var Prompts = "";
                 TagCode = document.AddTag.TagCode.value;
                 TagType = document.AddTag.TagType.value;
                 if (TagCode == "" || TagType == "") {
@@ -97,7 +96,6 @@
             }
             function checkRemoveTagInputs()
             {
-                var Prompts = "";
                 TagCode = document.RemoveTag.TagCode.value;
                 if (TagCode == "") {
                     window.alert("Please enter tag code you wish to remove!");

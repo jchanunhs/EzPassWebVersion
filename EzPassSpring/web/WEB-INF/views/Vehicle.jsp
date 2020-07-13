@@ -24,7 +24,7 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-                    <a href='${pageContext.request.contextPath}/Main'>Profile</a>
+                    <a href='${pageContext.request.contextPath}/Profile'>Profile</a>
                     <a href='${pageContext.request.contextPath}/Vehicle'id = "active-link">Vehicle</a>
                     <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
                     <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
@@ -90,7 +90,6 @@
             document.getElementById("date").innerHTML = d;
             function checkAddVehicleInputs()
             {
-                var Prompts = "";
                 LicensePlateNumber = document.AddVehicle.LicensePlateNumber.value;
                 Make = document.AddVehicle.Make.value;
                 Model = document.AddVehicle.Model.value;
@@ -107,7 +106,6 @@
 
             function checkRemoveVehicleInputs()
             {
-                var Prompts = "";
                 LicensePlateNumber = document.RemoveVehicle.LicensePlateNumber.value;
                 if (LicensePlateNumber == "") {
                     window.alert("Please enter the license plate number for the vehicle you wish to remove!");

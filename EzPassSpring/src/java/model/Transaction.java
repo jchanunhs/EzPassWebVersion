@@ -105,11 +105,9 @@ public class Transaction {
                     list.add(Rslt.getString("TollAmount"));
                 }
             }
-
             Stmt.close();
             ToDB.closeConn();
         } catch (java.sql.SQLException e) {
-
             System.out.println("SQLException: " + e);
             while (e != null) {
                 System.out.println("SQLState: " + e.getSQLState());
@@ -119,7 +117,6 @@ public class Transaction {
                 System.out.println("");
             }
         } catch (java.lang.Exception e) {
-
             System.out.println("Exception: " + e);
             e.printStackTrace();
         }
@@ -129,7 +126,6 @@ public class Transaction {
     public ArrayList<String> getTransactions(String before, String after, String column_name) {
         ArrayList<String> list = new ArrayList<String>();
         try {
-
             DBConnection ToDB = new DBConnection(); //Have a connection to the DB
             Connection DBConn = ToDB.openConn();
             Statement Stmt = DBConn.createStatement();
@@ -154,12 +150,9 @@ public class Transaction {
                     list.add(Rslt.getString("TollAmount"));
                 }
             }
-
             Stmt.close();
             ToDB.closeConn();
-
         } catch (java.sql.SQLException e) {
-
             System.out.println("SQLException: " + e);
             while (e != null) {
                 System.out.println("SQLState: " + e.getSQLState());
@@ -175,8 +168,9 @@ public class Transaction {
         }
         return list; //returns the list
     }
-    
-    public String getTransactionID(){
+
+    //return transaction id when user pays toll
+    public String getTransactionID() {
         return TransactionID;
     }
 

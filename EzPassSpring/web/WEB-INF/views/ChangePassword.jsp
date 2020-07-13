@@ -14,7 +14,7 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-                    <a href='${pageContext.request.contextPath}/Main'id = "active-link">Profile</a>
+                    <a href='${pageContext.request.contextPath}/Profile'id = "active-link">Profile</a>
                     <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
                     <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
                     <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
@@ -49,7 +49,6 @@
 
             function checkInputs()
             {
-                var Prompts = "";
                 Old = document.ChangePassword.Old.value;
                 New = document.ChangePassword.New.value;
                 New1 = document.ChangePassword.New1.value;

@@ -31,7 +31,7 @@ public class VehicleController {
 
     @RequestMapping(value = "/AddVehicleControl", method = RequestMethod.POST)
     public ModelAndView AddVehicle(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         String CID = (String) session.getAttribute("CID");
         String license = request.getParameter("LicensePlateNumber");
         String make = request.getParameter("Make");
@@ -59,7 +59,7 @@ public class VehicleController {
         HttpSession session = request.getSession();
         String CID = (String) session.getAttribute("CID");
         String license = request.getParameter("LicensePlateNumber");
-        Vehicle vehicle = new Vehicle(CID, license);
+        Vehicle vehicle = new Vehicle(license, CID);
         mv.setViewName("redirect:/Vehicle#tab-3");
         if (vehicle.removeVehicle()) { //attempt to remove vehicle
             redirectAttributes.addFlashAttribute("message", "Vehicle removed successfully!");

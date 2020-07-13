@@ -2,8 +2,9 @@ body{
     background-image: url("../images/background.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-position:top;
+    background-position:center;
     background-size:cover;
+    height: 100%;
 }
 
 header{

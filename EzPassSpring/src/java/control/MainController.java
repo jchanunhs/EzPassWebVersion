@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class MainController {
 
-    @RequestMapping("/Main")
+    @RequestMapping("/Profile")
     public ModelAndView Main(HttpServletRequest request) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
@@ -50,7 +50,7 @@ public class MainController {
 
     @RequestMapping(value = "/ChangePasswordControl", method = RequestMethod.POST)
     public ModelAndView ChangePassword(HttpServletRequest request, RedirectAttributes redirectAttributes, ModelAndView mv) {
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         String Username = (String) session.getAttribute("Username");
         String old = request.getParameter("Old");
         String NewPass = request.getParameter("New");
@@ -77,12 +77,10 @@ public class MainController {
         } else {
             CreditCard card = new CreditCard((String) session.getAttribute("CID"));
             ArrayList<String> CreditID_list = card.getAllTransactions("CreditID");
-            ArrayList<String> CN_list = card.getAllTransactions("CardNumber");
             ArrayList<String> date_list = card.getAllTransactions("Date");
             ArrayList<String> time_list = card.getAllTransactions("Time");
             ArrayList<String> cd_amt = card.getAllTransactions("CreditAmount");
             mv.addObject("CreditID", CreditID_list);
-            mv.addObject("CardNumber", CN_list);
             mv.addObject("Date", date_list);
             mv.addObject("Time", time_list);
             mv.addObject("CreditAmt", cd_amt);
@@ -116,13 +114,17 @@ public class MainController {
 
         return mv;
     }
-    
+
     @RequestMapping(value = "/Logout", method = RequestMethod.GET)
     public ModelAndView LogOut(HttpServletRequest request, RedirectAttributes redirectAttributes, ModelAndView mv) {
         HttpSession session = request.getSession();
+        if (session.getAttribute("AdminID") != null) {
+            mv.setViewName("redirect:/AdminLogin");
+        } else {
+            mv.setViewName("redirect:/index");
+        }
         session.invalidate();
         redirectAttributes.addFlashAttribute("message", "Account signed off successfully!");
-        mv.setViewName("redirect:/index");
         return mv;
     }
 
