@@ -14,3 +14,15 @@ Web Configurations
 - Controllers are also responsible for processing form submissions and redirects user to their respective webpages with a success or fail message.
 
 
+Customers are able to
+- Create an account
+- Change Password
+- Recharge account
+- Add/Remove EzTag
+- Add/Remove Vehicle
+- Pay tolls (Form submission)
+- View all transactions or view transactions based on dates specified by customer
+
+Admin Functions
+- Update customer profile information (address, email, phone number) 
+- Update TagCode or TagType
