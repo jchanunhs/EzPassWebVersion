@@ -223,6 +223,41 @@ public class Customer {
         }
         return done;
     }
+    
+      public boolean deleteCustomer() {
+        boolean done = false;
+        try {
+            if (!done) {
+                DBConnection ToDB = new DBConnection(); //Have a connection to the DB
+                Connection DBConn = ToDB.openConn();
+                Statement Stmt = DBConn.createStatement();
+                String SQL_Command = "SELECT * FROM Customer WHERE CustomerID ='" + CustomerID + "'"; //SQL query command
+                ResultSet Rslt = Stmt.executeQuery(SQL_Command); //check if tag code exist
+                done = Rslt.next(); //if yes, then we can remove tag if tag and customerid match in the db
+                if (done) {
+                    SQL_Command = "DELETE FROM Customer WHERE CustomerID ='" + CustomerID + "'";
+                    Stmt.executeUpdate(SQL_Command);
+                }
+                Stmt.close();
+                ToDB.closeConn();
+            }
+        } catch (java.sql.SQLException e) {
+            done = false;
+            System.out.println("SQLException: " + e);
+            while (e != null) {
+                System.out.println("SQLState: " + e.getSQLState());
+                System.out.println("Message: " + e.getMessage());
+                System.out.println("Vendor: " + e.getErrorCode());
+                e = e.getNextException();
+                System.out.println("");
+            }
+        } catch (java.lang.Exception e) {
+            done = false;
+            System.out.println("Exception: " + e);
+            e.printStackTrace();
+        }
+        return done;
+    }
 
     public boolean setData() { //fetch data from DB using CustomerID
         boolean done = false;

@@ -187,12 +187,43 @@ public class AdminController {
         return mv;
     }
 
+    @RequestMapping("/Admin/DeleteAccount")
+    public ModelAndView AdminDeleteAccount(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
+        if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") != null) {
+            mv.setViewName("AdminDeleteAccount");
+        } else if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") == null) {
+            mv.setViewName("redirect:/Admin/VerifyInformation");
+        } else {
+            mv.setViewName("redirect:/AdminLogin");
+        }
+        return mv;
+    }
+
+    @RequestMapping(value = "/DeleteAccountControl", method = RequestMethod.POST)
+    public ModelAndView AdminDeleteAccountControl(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
+        HttpSession session = request.getSession();
+        String CID = (String) session.getAttribute("AdminCIDInput");
+        Customer cus = new Customer(CID);
+        if (cus.deleteCustomer()) {
+            session.setAttribute("AdminCIDInput", null); //after finish with assisting customer, make it null.
+            redirectAttributes.addFlashAttribute("message", "Account Deleted Successfully! Please let the customer know that the leftover funds will be delivered via mail.");
+            mv.setViewName("redirect:/Admin/VerifyInformation");
+        }
+        else{
+            redirectAttributes.addFlashAttribute("message", "Unable to delete account, please contact the database admin to resolve this issue.");
+            mv.setViewName("redirect:/Admin/DeleteAccount");
+        }
+        return mv;
+    }
+
     @RequestMapping(value = "/Admin/Finish", method = RequestMethod.GET)
     public ModelAndView FinishUpdates(HttpServletRequest request, RedirectAttributes redirectAttributes, ModelAndView mv) {
         HttpSession session = request.getSession();
         session.setAttribute("AdminCIDInput", null); //after finish with assisting customer, make it null.
         mv.setViewName("redirect:/Admin/VerifyInformation");
-        redirectAttributes.addFlashAttribute("message", "Previous customer information is cleared");
+        redirectAttributes.addFlashAttribute("message", "Previous customer information is cleared.");
         return mv;
     }
 

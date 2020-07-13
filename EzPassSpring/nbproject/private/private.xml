@@ -3,13 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jchan/Documents/NetBeansProjects/EzPassSpring/src/java/control/HomeController.java</file>
-            <file>file:/C:/Users/jchan/Documents/NetBeansProjects/EzPassSpring/web/WEB-INF/views/Recharge.jsp</file>
-            <file>file:/C:/Users/jchan/Documents/NetBeansProjects/EzPassSpring/src/java/control/MainController.java</file>
-            <file>file:/C:/Users/jchan/Documents/NetBeansProjects/EzPassSpring/src/java/control/PayTollController.java</file>
-            <file>file:/C:/Users/jchan/Documents/NetBeansProjects/EzPassSpring/src/java/control/VehicleController.java</file>
-            <file>file:/C:/Users/jchan/Documents/NetBeansProjects/EzPassSpring/src/java/control/EzTagController.java</file>
-            <file>file:/C:/Users/jchan/Documents/NetBeansProjects/EzPassSpring/src/java/control/TransactionController.java</file>
+            <file>file:/C:/Users/jchan/Documents/NetBeansProjects/EzPassSpring/src/java/control/AdminController.java</file>
+            <file>file:/C:/Users/jchan/Documents/NetBeansProjects/EzPassSpring/web/WEB-INF/views/AdminDeleteAccount.jsp</file>
+            <file>file:/C:/Users/jchan/Documents/NetBeansProjects/EzPassSpring/src/java/model/Customer.java</file>
         </group>
     </open-files>
 </project-private>

@@ -16,6 +16,7 @@
                     <div id = "navtitle">Website Directories</div>
                     <a href = "${pageContext.request.contextPath}/Admin/UpdateCustomerProfile">Update Profile</a>
                     <a href = "${pageContext.request.contextPath}/Admin/UpdateCustomerEzTag" id = "active-link">Update Tag</a>
+                    <a href = "${pageContext.request.contextPath}/Admin/DeleteAccount">Delete account</a>
                     <a href = "${pageContext.request.contextPath}/Admin/Finish">Finish Updates</a>
                     <a href = "${pageContext.request.contextPath}/Logout">Logout</a>    
                 </nav>               
