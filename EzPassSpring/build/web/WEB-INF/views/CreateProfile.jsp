@@ -57,7 +57,10 @@
                 Phone = document.CreateProfile.Phone.value;
                 Email = document.CreateProfile.Email.value;
                 Balance = document.CreateProfile.Balance.value;
-                if (Name == "" || Street == "" || City == "" || State == "" || Zip == "" || Phone == "" || Email == "" || Balance == "") {
+                if(isNaN(Balance)){
+                    window.alert("Balance must be a number!!");
+                }
+                else if (Name == "" || Street == "" || City == "" || State == "" || Zip == "" || Phone == "" || Email == "" || Balance == "") {
                     window.alert("One or more fields are empty! Please fill out all information!");
                 } else {
                     document.CreateProfile.submit();

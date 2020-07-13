@@ -206,15 +206,21 @@ public class AdminController {
         HttpSession session = request.getSession();
         String CID = (String) session.getAttribute("AdminCIDInput");
         Customer cus = new Customer(CID);
-        if (cus.deleteCustomer()) {
-            session.setAttribute("AdminCIDInput", null); //after finish with assisting customer, make it null.
-            redirectAttributes.addFlashAttribute("message", "Account Deleted Successfully! Please let the customer know that the leftover funds will be delivered via mail.");
-            mv.setViewName("redirect:/Admin/VerifyInformation");
-        }
-        else{
-            redirectAttributes.addFlashAttribute("message", "Unable to delete account, please contact the database admin to resolve this issue.");
+        float bal = cus.getBalance();
+        if (bal < 0) {
+            redirectAttributes.addFlashAttribute("message", "Unable to delete account because customer has an invalid balance. Please let the customer know they must pay the negative balance before requesting for their account to be deleted.");
             mv.setViewName("redirect:/Admin/DeleteAccount");
+        } else {
+            if (cus.deleteCustomer()) {
+                session.setAttribute("AdminCIDInput", null); //after finish with assisting customer, make it null.
+                redirectAttributes.addFlashAttribute("message", "Account Deleted Successfully! Please let the customer know that the leftover funds will be delivered via mail.");
+                mv.setViewName("redirect:/Admin/VerifyInformation");
+            } else {
+                redirectAttributes.addFlashAttribute("message", "Unable to delete account, please contact the database admin to resolve this issue.");
+                mv.setViewName("redirect:/Admin/DeleteAccount");
+            }
         }
+
         return mv;
     }
 

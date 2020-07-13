@@ -224,6 +224,7 @@ public class Customer {
         return done;
     }
     
+      //DB is configured to delete all customer information when we delete the row with their respective customer id  
       public boolean deleteCustomer() {
         boolean done = false;
         try {
