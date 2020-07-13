@@ -26,7 +26,8 @@ Customers are able to
 Admin Functions
 - Update customer profile information (address, email, phone number) 
 - Update TagCode or TagType
-- Delete Account.
+- Delete Account 
+
 Note: Customer gives us their username and customer id to verify their identity. We do not ask for their password.
 
 Admin restrictions
