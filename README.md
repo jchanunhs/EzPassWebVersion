@@ -18,7 +18,7 @@ Customers are able to
 - Create an account
 - Change Password
 - Recharge account
-- Add/Remove EzTag
+- Add/Remove EzTag 
 - Add/Remove Vehicle
 - Pay tolls (Form submission)
 - View all transactions or view transactions based on dates specified by customer
@@ -26,6 +26,7 @@ Customers are able to
 Admin Functions
 - Update customer profile information (address, email, phone number) 
 - Update TagCode or TagType
+- Delete Account.
 Note: Customer gives us their username and customer id to verify their identity. We do not ask for their password.
 
 Admin restrictions
