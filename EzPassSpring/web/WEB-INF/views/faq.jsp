@@ -30,14 +30,14 @@
                 <main> 
                     <h1 align ="center">Frequently Asked Questions</h1>
                     <div id = "accordion">
-                        <h2>Why should I get an Ez Pass</h2>
+                        <h2>Question: Why should I get an Ez Pass</h2>
                         <div>Having an Ez Pass makes it more convenient when paying tolls. It makes it faster to pay tolls and if you're doing carpool, it reduces the toll price as well!<br>
                             <div class="imgcontainer">
                                 <img src="${pageContext.request.contextPath}/resources/images/ezpassonly.jpg" alt="EzOnlyLogo" class="imgoverlay">
                                 <div class="overlay">Make your toll experience easier!</div>
                             </div>
                         </div>
-                        <h2>How does this work?</h2>
+                        <h2>Question: How does this work?</h2>
                         <div>
                             <h3>Steps on how to use the Ez Pass</h3>
                             <ol>

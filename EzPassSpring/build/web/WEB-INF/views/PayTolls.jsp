@@ -25,6 +25,8 @@
                     <form name="PayToll" action="${pageContext.request.contextPath}/PayTollControl" method="post">
                         <label for="CustomerID">Customer ID:</label>
                         <input type="text" name="CustomerID" value="<%=(String) session.getAttribute("CID")%>"readonly><br>
+                        <label for="LicensePlateNumber">License Plate Number:</label>
+                        <input type="text" name="LicensePlateNumber"><br>
                         <label for="TagCode">Tag Code:</label>
                         <input type="text" name="TagCode"><br>
                         <label for="TollPlaza">Toll Plaza:</label>
@@ -51,13 +53,14 @@
 
             function checkInputs()
             {
+                LicensePlateNumber = document.PayToll.LicensePlateNumber.value;
                 TagCode = document.PayToll.TagCode.value;
                 TollPlaza = document.PayToll.TollPlaza.value;
                 TollLane = document.PayToll.TollLane.value;
                 TollAmount = document.PayToll.TollAmount.value;
                 if (isNaN(TollLane) || isNaN(TollAmount)) {
                     window.alert("Toll Lane and Toll Amount must be a number!");
-                } else if (TagCode == "" || TollPlaza == "" || TollLane == "" || TollAmount == "") {
+                } else if (LicensePlateNumber == "" || TagCode == "" || TollPlaza == "" || TollLane == "" || TollAmount == "") {
                     window.alert("One or more fields are empty! Please fill out all information!");
                 } else {
                     document.PayToll.submit();
