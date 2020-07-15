@@ -6,7 +6,6 @@ if username is not empty, but CID is empty, that means  user logged in but needs
 if username and CID are both not empty, that means user logged in and profile is already created
  */
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Customer;
@@ -46,8 +45,8 @@ public class HomeController {
     }
 
    @RequestMapping(value = "/LoginControl", method = RequestMethod.POST)
-    public ModelAndView Login(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
-
+    public ModelAndView Login(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        ModelAndView mv = new ModelAndView();
         String User = request.getParameter("Username");
         String PW = request.getParameter("Password");
         HttpSession session = request.getSession();
@@ -79,7 +78,8 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/SignUpControl", method = RequestMethod.POST)
-    public ModelAndView SignUp(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
+    public ModelAndView SignUpControl(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        ModelAndView mv = new ModelAndView();
         String Username = request.getParameter("Username");
         String Password = request.getParameter("Password");
         String Password1 = request.getParameter("Password1");
@@ -88,12 +88,9 @@ public class HomeController {
         if (acct.signUp()) {
             mv.setViewName("redirect:/index");
             redirectAttributes.addFlashAttribute("message", "Account creation was successful! Please login to your new account!");
-        } else if (acct.UsernameTaken()) {
-            mv.setViewName("redirect:/SignUp");
-            redirectAttributes.addFlashAttribute("message", "Error: Username is taken. Please try another username.");
         } else {
             mv.setViewName("redirect:/SignUp");
-            redirectAttributes.addFlashAttribute("message", "Error: Signup failed unexpectedly. If this occurs multiple times please contact help desk.");
+            redirectAttributes.addFlashAttribute("message", "Error: Username is taken. Please try another username.");
         }
         return mv;
     }
@@ -109,8 +106,9 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/CreateProfileControl", method = RequestMethod.POST)
-    public ModelAndView CreateProfile(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
+    public ModelAndView CreateProfileControl(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         String UName = (String) session.getAttribute("Username");
         String Name = request.getParameter("Name");
         String Street = request.getParameter("Street");
@@ -126,7 +124,7 @@ public class HomeController {
         if (cus.createProfile()) { //create the profile 
             redirectAttributes.addFlashAttribute("message", "Created profile successfully! Please relog to your account!");
             session.invalidate();
-        } else {
+        } else { //customer profile will fail if the generated customer id is taken
             redirectAttributes.addFlashAttribute("message", "Error: Created profile failed unexpectly! If this occurs multiple times please contact help desk.");
         }
         return mv;

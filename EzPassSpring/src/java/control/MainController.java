@@ -49,8 +49,9 @@ public class MainController {
     }
 
     @RequestMapping(value = "/ChangePasswordControl", method = RequestMethod.POST)
-    public ModelAndView ChangePassword(HttpServletRequest request, RedirectAttributes redirectAttributes, ModelAndView mv) {
+    public ModelAndView ChangePasswordControl(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         String Username = (String) session.getAttribute("Username");
         String old = request.getParameter("Old");
         String NewPass = request.getParameter("New");
@@ -90,10 +91,11 @@ public class MainController {
         }
         return mv;
     }
-    
+
     @RequestMapping(value = "/RechargeControl", method = RequestMethod.POST)
-    public ModelAndView Recharge(HttpServletRequest request, RedirectAttributes redirectAttributes, ModelAndView mv) {
+    public ModelAndView RechargeControl(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         String CID = (String) session.getAttribute("CID");
         String CN = request.getParameter("CardNumber");
         String NM = request.getParameter("Name");
@@ -106,18 +108,20 @@ public class MainController {
         float oldBal = cus.getBalance();
         float newBal = oldBal + Credit_FLT; //add the balance together
         mv.setViewName("redirect:/Recharge");
-        if (cus.updateBalance(newBal) && card.addCreditCard()) {
-            redirectAttributes.addFlashAttribute("message", "Recharge successfully! Your Transaction ID is " + card.getCreditID() + " and your new balance is: " + newBal);
-        } else {
+        if (card.addCreditCardTransaction()) { //add credit card transaction first
+            if (cus.updateBalance(newBal)) {
+                redirectAttributes.addFlashAttribute("message", "Recharge successfully! Your Transaction ID is " + card.getCreditID() + " and your new balance is: " + newBal);
+            }
+        } else { //add credit card will fail if generated credit id is taken
             redirectAttributes.addFlashAttribute("message", "Error: Recharge failed unexpectly! If this occurs multiple times, please contact help desk.");
         }
-
         return mv;
     }
 
     @RequestMapping(value = "/Logout", method = RequestMethod.GET)
-    public ModelAndView LogOut(HttpServletRequest request, RedirectAttributes redirectAttributes, ModelAndView mv) {
+    public ModelAndView LogOut(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         if (session.getAttribute("AdminID") != null) {
             mv.setViewName("redirect:/AdminLogin");
         } else {

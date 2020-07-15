@@ -8,7 +8,6 @@ If AdminID is not null and AdminCIDInput is not null, admin is logged in and has
 Each webpage will have restrictions based on whether the admin is logged in and is currently helping a customer.
  */
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Admin;
 import model.Customer;
@@ -37,8 +36,9 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/AdminLoginControl", method = RequestMethod.POST)
-    public ModelAndView AdminLoginControl(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
+    public ModelAndView AdminLoginControl(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         String AdminID = request.getParameter("AdminID");
         String Name = request.getParameter("Name");
         String Password = request.getParameter("Password");
@@ -68,8 +68,9 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/AdminVerificationInfoControl", method = RequestMethod.POST)
-    public ModelAndView AdminVerificationInfoControl(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
+    public ModelAndView AdminVerificationInfoControl(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         String CustUsername = request.getParameter("CustUsername");
         String CID = request.getParameter("CustomerID");
         String AID = (String) session.getAttribute("AdminID");
@@ -99,8 +100,9 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/UpdateProfileControl", method = RequestMethod.POST)
-    public ModelAndView AdminUpdateProfileControl(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
+    public ModelAndView AdminUpdateProfileControl(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         String CID = (String) session.getAttribute("AdminCIDInput");
         String Street = request.getParameter("Street");
         String City = request.getParameter("City");
@@ -151,10 +153,11 @@ public class AdminController {
         }
         return mv;
     }
-
+    
     @RequestMapping(value = "/UpdateEzTagControl", method = RequestMethod.POST)
-    public ModelAndView AdminUpdateEzTagControl(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
+    public ModelAndView AdminUpdateEzTagControl(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         String CID = (String) session.getAttribute("AdminCIDInput");
         String OldTag = request.getParameter("OldTagCode");
         String NewTag = request.getParameter("NewTagCode");
@@ -202,8 +205,9 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/DeleteAccountControl", method = RequestMethod.POST)
-    public ModelAndView AdminDeleteAccountControl(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
+    public ModelAndView AdminDeleteAccountControl(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         String CID = (String) session.getAttribute("AdminCIDInput");
         Customer cus = new Customer(CID);
         float bal = cus.getBalance();
@@ -225,8 +229,9 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/Admin/Finish", method = RequestMethod.GET)
-    public ModelAndView FinishUpdates(HttpServletRequest request, RedirectAttributes redirectAttributes, ModelAndView mv) {
+    public ModelAndView FinishUpdates(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         session.setAttribute("AdminCIDInput", null); //after finish with assisting customer, make it null.
         mv.setViewName("redirect:/Admin/VerifyInformation");
         redirectAttributes.addFlashAttribute("message", "Previous customer information is cleared.");

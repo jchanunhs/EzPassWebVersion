@@ -1,7 +1,6 @@
 package control;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.EzTag;
 import org.springframework.stereotype.Controller;
@@ -29,8 +28,9 @@ public class EzTagController {
     }
 
     @RequestMapping(value = "/AddTagControl", method = RequestMethod.POST)
-    public ModelAndView AddTag(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
+    public ModelAndView AddTag(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         String CID = (String) session.getAttribute("CID");
         String TC = request.getParameter("TagCode");
         String TT = request.getParameter("TagType");
@@ -45,8 +45,9 @@ public class EzTagController {
     }
 
     @RequestMapping(value = "/RemoveTagControl", method = RequestMethod.POST)
-    public ModelAndView RemoveTag(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
+    public ModelAndView RemoveTag(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         String CID = (String) session.getAttribute("CID");
         String TC = request.getParameter("TagCode");
         EzTag ez = new EzTag(TC, CID);

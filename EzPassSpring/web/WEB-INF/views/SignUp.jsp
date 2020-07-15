@@ -64,7 +64,7 @@
                     if (Prompts != "")
                         window.alert(Prompts);
                 } else if (Password != Password1) {
-                    window.alert("Your entered passwords are not same. Please enter the same one!");
+                    window.alert("Please enter the same password!");
                 } else {
                     document.SignUp.submit();
                 }

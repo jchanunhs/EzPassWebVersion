@@ -1,8 +1,8 @@
 package model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class Admin {
     
@@ -25,9 +25,11 @@ public class Admin {
         try {
             DBConnection ToDB = new DBConnection();
             Connection DBConn = ToDB.openConn();
-            Statement Stmt = DBConn.createStatement();
-            String SQL_Command = "SELECT * FROM Admin WHERE AdminID ='" + AdminID + "' AND Name = '" + Name + "' AND Password ='" + Password + "'"; //SQL query command
-            ResultSet Rslt = Stmt.executeQuery(SQL_Command);
+            PreparedStatement Stmt = DBConn.prepareStatement("SELECT * FROM Admin WHERE AdminID = ? AND Name = ? AND Password = ?"); 
+            Stmt.setString(1, AdminID);
+            Stmt.setString(2, Name);
+            Stmt.setString(3, Password);          
+            ResultSet Rslt = Stmt.executeQuery();
             done = Rslt.next();//If there is a row, admin information is correct
             Stmt.close();
             ToDB.closeConn();
@@ -54,10 +56,11 @@ public class Admin {
         try {
             DBConnection ToDB = new DBConnection();
             Connection DBConn = ToDB.openConn();
-            Statement Stmt = DBConn.createStatement();
-            String SQL_Command = "SELECT * FROM Account WHERE CustomerID ='" + CID + "' AND Username = '" + UName + "'"; //SQL query command
-            ResultSet Rslt = Stmt.executeQuery(SQL_Command);
-            done = Rslt.next();//If there is a row, admin information is correct
+            PreparedStatement Stmt = DBConn.prepareStatement("SELECT * FROM Account WHERE CustomerID = ? AND Username = ?"); 
+            Stmt.setString(1, CID);
+            Stmt.setString(2, UName);
+            ResultSet Rslt = Stmt.executeQuery();
+            done = Rslt.next();//If there is a row, then the customer gave us the correct information
             Stmt.close();
             ToDB.closeConn();
         } catch (java.sql.SQLException e) {

@@ -54,8 +54,22 @@
                         <div>You can view those transactions by going to the profile webpage and clicking <a href='${pageContext.request.contextPath}/Recharge'>Recharge Account</a></div>
                         <h2>Question: How can I change my address?</h2>
                         <div>You can call help desk and request a change of address.</div>
-                        <h2>What happens if my account balance is low or in the negatives</h2>
+                        <h2>Question: What happens if my account balance is low or in the negatives</h2>
                         <div>If your account balance is insufficient, a bill will be sent to your address to pay for the tolls.</div>
+                        <h2>Question: How can I change my customer profile?</h2>
+                        <div>Please contact help desk to request a change for your customer profile</div>
+                        <h2>Question: What information will I need to give to help desk?</h2>
+                        <div>You will need to give them your CustomerID and Username. Help desk will never ask for your password!</div>
+                        <h2>Question: I want to change my Tag Type but keep my old tag code. How can I do that?</h2>
+                        <div>Please contact help desk to request a change for your Ez Tag.</div>
+                        <h2>Question: I want to change my tag code, but keep my tag type. How can I do that?</h2>
+                        <div>Please contact help desk to request a change for your Ez Tag.<br> Note: if you change your tag code, the transactions and vehicles associated with your tag code will also be changed to the new tag code.</div>
+                        <h2>Question: I no longer want to use this service. How can I delete my account?</h2>
+                        <div>Please contact help desk and request your account to be closed. <br> Note: Please make sure you are certain that you want your account to be deleted because it cannot be reversed.</div>
+                        <h2>Question: I had a remaining balance when I deleted my account. Will those credit be refunded to me?</h2>
+                        <div>Yes, your remaining balance on your account will be refunded to you via mail.</div>
+                        <h2>Question: I have a negative balance and want to delete my account. What can I do?</h2>
+                        <div>You must pay the negative balance before requesting your account to be deleted. </div>
                     </div>           
                     <div id = "date"> </div>
                 </main>

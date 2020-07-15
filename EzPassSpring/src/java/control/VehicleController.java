@@ -1,7 +1,6 @@
 package control;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.EzTag;
 import model.Vehicle;
@@ -30,8 +29,9 @@ public class VehicleController {
     }
 
     @RequestMapping(value = "/AddVehicleControl", method = RequestMethod.POST)
-    public ModelAndView AddVehicle(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
+    public ModelAndView AddVehicle(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         String CID = (String) session.getAttribute("CID");
         String license = request.getParameter("LicensePlateNumber");
         String make = request.getParameter("Make");
@@ -55,8 +55,9 @@ public class VehicleController {
     }
 
     @RequestMapping(value = "/RemoveVehicleControl", method = RequestMethod.POST)
-    public ModelAndView RemoveVehicle(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
+    public ModelAndView RemoveVehicle(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         String CID = (String) session.getAttribute("CID");
         String license = request.getParameter("LicensePlateNumber");
         Vehicle vehicle = new Vehicle(license, CID);

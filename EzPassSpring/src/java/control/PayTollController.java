@@ -1,7 +1,6 @@
 package control;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Customer;
 import model.EzTag;
@@ -14,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class PayTollController {
-    
+
     @RequestMapping("/PayTolls")
     public String PayTolls(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -25,10 +24,11 @@ public class PayTollController {
             return "PayTolls";
         }
     }
-    
+
     @RequestMapping(value = "/PayTollControl", method = RequestMethod.POST)
-    public ModelAndView PayToll(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, RedirectAttributes redirectAttributes) {
+    public ModelAndView PayTollControl(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         String CID = (String) session.getAttribute("CID");
         String TC = request.getParameter("TagCode");
         String TP = request.getParameter("TollPlaza");
@@ -43,17 +43,19 @@ public class PayTollController {
         float oldBal = cus.getBalance();
         float newBal = oldBal - TA_FLT; //subtract old balance with charge toll amount
         mv.setViewName("redirect:/PayTolls");
+
         if (tag.checkTag()) {
-            if (trans.recordTransaction() && cus.updateBalance(newBal)) {
-                redirectAttributes.addFlashAttribute("message", "Pay toll was successful! Your Transaction ID is " + trans.getTransactionID() + " and your new balance is " + newBal + ". Have a nice trip! ");
-            } else { //transaction failed
+            if (trans.recordTransaction()) { //record transaction first
+                if (cus.updateBalance(newBal)) {
+                    redirectAttributes.addFlashAttribute("message", "Pay toll was successful! Your Transaction ID is " + trans.getTransactionID() + " and your new balance is " + newBal + ". Have a nice trip! ");
+                }
+            } else { //record transaction will fail if generated transaction id is taken
                 redirectAttributes.addFlashAttribute("message", "Error: Unable to process payments at this time. If this occurs multiple times please contact help desk.");
             }
-
         } else {//invalid tag
             redirectAttributes.addFlashAttribute("message", "Error: Pay toll failed because Tag Code was invalid!");
         }
         return mv;
     }
-    
+
 }

@@ -2,7 +2,6 @@ package control;
 
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Transaction;
 import org.springframework.stereotype.Controller;
@@ -42,8 +41,9 @@ public class TransactionController {
     }
     
     @RequestMapping(value = "/ViewTransactionDates", method = RequestMethod.POST)
-    public ModelAndView ViewTransactionDate(HttpServletRequest request, HttpServletResponse response, ModelAndView mv) {
+    public ModelAndView ViewTransactionDate(HttpServletRequest request) {
         HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
         String before = request.getParameter("before");
         String after = request.getParameter("after");
         Transaction tran = new Transaction((String) session.getAttribute("CID"));
