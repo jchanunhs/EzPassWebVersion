@@ -31,7 +31,7 @@ Admin Functions
 Note: Customer gives us their username and customer id to verify their identity. We do not ask for their password.
 
 Admin restrictions
-- Admin must login first before they can gain access to verify customer information.
-- Admin must be logged on and verify customer information successfully before they can gain access to UpdateCustomerProfile/EzTag.
+- Admin must login first before they can gain access to verify customer information page.
+- Admin must be logged on and verify customer information successfully before they can gain access to UpdateCustomerProfile/EzTag page.
 - After customer issue is resolved, admin must click on the finish link in the sidenav to clear customer information from session before dealing with another customer.
 
