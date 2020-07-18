@@ -117,9 +117,7 @@ public class HomeController {
         String Zip = request.getParameter("Zip");
         String Phone = request.getParameter("Phone");
         String Email = request.getParameter("Email");
-        String Balance = request.getParameter("Balance");
-        float bal = Float.parseFloat(Balance);
-        Customer cus = new Customer(Name, Street, City, State, Zip, Phone, Email, bal, UName);
+        Customer cus = new Customer(Name, Street, City, State, Zip, Phone, Email, UName);
         mv.setViewName("redirect:/index");
         if (cus.createProfile()) { //create the profile 
             redirectAttributes.addFlashAttribute("message", "Created profile successfully! Please relog to your account!");
