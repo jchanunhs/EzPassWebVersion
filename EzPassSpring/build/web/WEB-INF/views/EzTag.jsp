@@ -1,5 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%ArrayList<String> ez_list = (ArrayList<String>)request.getAttribute("ez_list");%>
+<%ArrayList<String> ez_list = (ArrayList<String>) request.getAttribute("ez_list");%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -54,7 +54,12 @@
                                 <label for="TagCode">Tag Code:</label>
                                 <input type="text" name="TagCode"><br>
                                 <label for="TagType">Tag Type:</label>
-                                <input type="text" name="TagType"><br>
+                                <select name="TagType">
+                                    <option value="">Please pick an option</option>
+                                    <option value="Normal">Normal</option>
+                                    <option value="Express">Express</option>
+                                    <option value="BancPass">BancPass</option>
+                                </select><br>
                                 <input type="button" value="Add Tag" onClick="checkAddTagInputs()">
                                 <input type="reset" value="Reset">
                             </form>

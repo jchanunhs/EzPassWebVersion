@@ -30,7 +30,13 @@
                         <label for="NewTagCode">New Tag Code:</label>
                         <input type="text" name="NewTagCode"><br>
                         <label for="NewTagType">New Tag Type:</label>
-                        <input type="text" name="NewTagType"><br>
+                        <select name="NewTagType">
+                            <option value="">Please pick an option</option>
+                            <option value="Normal">Normal</option>
+                            <option value="Express">Express</option>
+                            <option value="BancPass">BancPass</option>
+                            <option value="invalid">Invalidate this Tag Code</option>
+                        </select><br>
                         <input type="button" value="Update EzTag" onClick="checkInputs()">
                         <input type="reset" value="Reset">
                     </form>
