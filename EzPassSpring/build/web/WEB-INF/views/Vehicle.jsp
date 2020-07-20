@@ -1,5 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%ArrayList<String> vehicle_list = (ArrayList<String>)request.getAttribute("vehicle_list");%>
+<%ArrayList<String> vehicle_list = (ArrayList<String>) request.getAttribute("vehicle_list");%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -85,9 +85,7 @@
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>         
         </div>
-        <script>
-            var d = new Date();
-            document.getElementById("date").innerHTML = d;
+        <script language="JavaScript">
             function checkAddVehicleInputs()
             {
                 LicensePlateNumber = document.AddVehicle.LicensePlateNumber.value;
@@ -112,6 +110,15 @@
                 } else {
                     document.RemoveVehicle.submit();
                 }
+            }
+
+            setInterval(clock, 1000);
+            function clock() {
+                var d = new Date();
+                var dateString = d.toLocaleDateString();
+                var timeString = d.toLocaleTimeString();
+                var clockString = "Date and Time: " + dateString + " at " + timeString;
+                document.getElementById("date").innerHTML = clockString;
             }
         </script>
     </body> 

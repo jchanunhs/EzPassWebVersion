@@ -52,7 +52,6 @@
                     </em></small></footer>
         </div>
         <script language="JavaScript">
-
             function checkInputs()
             {
                 Street = document.UpdateProfile.Street.value;
@@ -61,38 +60,35 @@
                 Zip = document.UpdateProfile.Zip.value;
                 Phone = document.UpdateProfile.Phone.value;
                 Email = document.UpdateProfile.Email.value;
-                              
-                if(Phone != "" && Email == "" && Street == "" && City == "" && State == "" && Zip == ""){ //update phone
+
+                if (Phone != "" && Email == "" && Street == "" && City == "" && State == "" && Zip == "") { //update phone
                     document.UpdateProfile.submit();
-                }
-                else if(Phone == "" && Email != "" && Street == "" && City == "" && State == "" && Zip == ""){ //update email
+                } else if (Phone == "" && Email != "" && Street == "" && City == "" && State == "" && Zip == "") { //update email
                     document.UpdateProfile.submit();
-                }
-                else if(Phone != "" && Email != "" && Street == "" && City == "" && State == "" && Zip == ""){ //update phone and email
+                } else if (Phone != "" && Email != "" && Street == "" && City == "" && State == "" && Zip == "") { //update phone and email
                     document.UpdateProfile.submit();
-                }
-                else if(Street != "" && City != "" && State != "" && Zip != "" && Phone == "" && Email == ""){ //update address
+                } else if (Street != "" && City != "" && State != "" && Zip != "" && Phone == "" && Email == "") { //update address
                     document.UpdateProfile.submit();
-                }
-                else if(Street != "" && City != "" && State != "" && Zip != "" && Phone != "" && Email == ""){ //update address and phone
+                } else if (Street != "" && City != "" && State != "" && Zip != "" && Phone != "" && Email == "") { //update address and phone
                     document.UpdateProfile.submit();
-                }
-                else if(Street != "" && City != "" && State != "" && Zip != "" && Phone == "" && Email != ""){ //update address and email
+                } else if (Street != "" && City != "" && State != "" && Zip != "" && Phone == "" && Email != "") { //update address and email
                     document.UpdateProfile.submit();
-                }
-                else if(Street != "" && City != "" && State != "" && Zip != "" && Phone != "" && Email != ""){ //update address phone and email
+                } else if (Street != "" && City != "" && State != "" && Zip != "" && Phone != "" && Email != "") { //update address phone and email
                     document.UpdateProfile.submit();
-                }
-                else{
+                } else {
                     window.alert("Please either fill out the address, phone or email that the customer wants to change.");
                 }
-                
-            }
 
-        </script>
-        <script>
-            var d = new Date();
-            document.getElementById("date").innerHTML = d;
+            }
+            
+            setInterval(clock, 1000);
+            function clock() {
+                var d = new Date();
+                var dateString = d.toLocaleDateString();
+                var timeString = d.toLocaleTimeString();
+                var clockString = "Date and Time: " + dateString + " at " + timeString;
+                document.getElementById("date").innerHTML = clockString;
+            }
         </script>
     </body> 
 </html>

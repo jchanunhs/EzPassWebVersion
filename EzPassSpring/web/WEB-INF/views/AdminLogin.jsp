@@ -41,7 +41,6 @@
                     </em></small></footer>
         </div>
         <script language="JavaScript">
-
             function checkInputs()
             {
                 AdminID = document.SignIn.AdminID.value;
@@ -53,11 +52,15 @@
                     document.SignIn.submit();
                 }
             }
-
-        </script>
-        <script>
-            var d = new Date();
-            document.getElementById("date").innerHTML = d;
+            
+            setInterval(clock, 1000);
+            function clock() {
+                var d = new Date();
+                var dateString = d.toLocaleDateString();
+                var timeString = d.toLocaleTimeString();
+                var clockString = "Date and Time: " + dateString + " at " + timeString;
+                document.getElementById("date").innerHTML = clockString;
+            }
         </script>
     </body> 
 </html>

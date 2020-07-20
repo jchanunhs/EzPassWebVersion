@@ -53,9 +53,15 @@
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
         </div>
-        <script>
-            var d = new Date();
-            document.getElementById("date").innerHTML = d;
+        <script language="JavaScript">
+            setInterval(clock, 1000);
+            function clock() {
+                var d = new Date();
+                var dateString = d.toLocaleDateString();
+                var timeString = d.toLocaleTimeString();
+                var clockString = "Date and Time: " + dateString + " at " + timeString;
+                document.getElementById("date").innerHTML = clockString;
+            }
         </script>
     </body> 
 </html>
