@@ -11,14 +11,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class TransactionController {
-    
+
     @RequestMapping("/Transactions")
     public ModelAndView Transactions(HttpServletRequest request) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
         //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
+        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
             mv.setViewName("redirect:/index");
+        } else if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in but needs to create profile
+            mv.setViewName("redirect:/CreateProfile");
         } else {
             Transaction tran = new Transaction((String) session.getAttribute("CID"));
             ArrayList<String> TID_list = tran.getAllTransactions("TransactionID");
@@ -39,7 +41,7 @@ public class TransactionController {
         }
         return mv;
     }
-    
+
     @RequestMapping(value = "/ViewTransactionDates", method = RequestMethod.POST)
     public ModelAndView ViewTransactionDate(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -81,5 +83,5 @@ public class TransactionController {
         }
         return mv;
     }
-    
+
 }

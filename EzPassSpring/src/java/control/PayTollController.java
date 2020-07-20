@@ -18,9 +18,10 @@ public class PayTollController {
     @RequestMapping("/PayTolls")
     public String PayTolls(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            return "redirect:/index";
+        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
+            return "index";
+        } else if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in but needs to create profile
+            return "redirect:/CreateProfile";
         } else {
             return "PayTolls";
         }

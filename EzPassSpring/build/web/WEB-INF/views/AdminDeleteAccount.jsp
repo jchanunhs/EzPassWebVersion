@@ -39,7 +39,7 @@
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
         </div>
-        <script language="JavaScript">
+        <script>
             function Warning()
             {
                 var check = confirm("Is the customer certain that they want their account deleted?");

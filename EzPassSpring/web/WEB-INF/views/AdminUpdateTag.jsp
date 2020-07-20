@@ -51,7 +51,7 @@
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
         </div>
-        <script language="JavaScript">
+        <script>
             function checkInputs()
             {
                 OldTagCode = document.UpdateTag.OldTagCode.value;

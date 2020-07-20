@@ -86,7 +86,7 @@
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
         </div>
-        <script language="JavaScript">
+        <script>
             function checkAddTagInputs()
             {
                 TagCode = document.AddTag.TagCode.value;

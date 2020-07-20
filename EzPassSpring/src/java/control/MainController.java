@@ -19,9 +19,10 @@ public class MainController {
     public ModelAndView Main(HttpServletRequest request) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
+        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
             mv.setViewName("redirect:/index");
+        } else if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in but needs to create profile
+            mv.setViewName("redirect:/CreateProfile");
         } else {
             Customer cus = new Customer((String) session.getAttribute("CID"));
             mv.addObject("Name", cus.getName());
@@ -40,9 +41,10 @@ public class MainController {
     @RequestMapping("/ChangePassword")
     public String ChangePassword(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
-            return "redirect:/index";
+        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
+            return "index";
+        } else if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in but needs to create profile
+            return "redirect:/CreateProfile";
         } else {
             return "ChangePassword";
         }
@@ -67,14 +69,15 @@ public class MainController {
         }
         return mv;
     }
-    
+
     @RequestMapping("/Recharge")
     public ModelAndView Recharge(HttpServletRequest request) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
-        //check if user has logged in successfully AND created profile
-        if (session.getAttribute("Username") == null && session.getAttribute("CID") == null) {
+        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
             mv.setViewName("redirect:/index");
+        } else if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in but needs to create profile
+            mv.setViewName("redirect:/CreateProfile");
         } else {
             CreditCard card = new CreditCard((String) session.getAttribute("CID"));
             ArrayList<String> CreditID_list = card.getAllTransactions("CreditID");

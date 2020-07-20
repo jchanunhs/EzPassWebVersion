@@ -3,7 +3,7 @@ package control;
 /*
 if the username is empty, that means user did not log in
 if username is not empty, but CID is empty, that means  user logged in but needs to create profile
-if username and CID are both not empty, that means user logged in and profile is already created
+if CID is not empty, that means user logged in and profile is already created
  */
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,6 +23,8 @@ public class HomeController {
         HttpSession session = request.getSession();
         if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
             return "index";
+        } else if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in but needs to create profile
+            return "redirect:/CreateProfile";
         } else {
             return "redirect:/Profile";
         }
@@ -39,19 +41,21 @@ public class HomeController {
         HttpSession session = request.getSession();
         if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
             return "index";
+        } else if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in but needs to create profile
+            return "redirect:/CreateProfile";
         } else {
             return "redirect:/Profile";
         }
     }
 
-   @RequestMapping(value = "/LoginControl", method = RequestMethod.POST)
+    @RequestMapping(value = "/LoginControl", method = RequestMethod.POST)
     public ModelAndView Login(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         ModelAndView mv = new ModelAndView();
         String User = request.getParameter("Username");
         String PW = request.getParameter("Password");
         HttpSession session = request.getSession();
         Account Acct = new Account(User, PW);
-        if (Acct.signIn()&& Acct.getCustomerID()!=null) { //set session attributes and redirect to user main page
+        if (Acct.signIn() && Acct.getCustomerID() != null) { //set session attributes and redirect to user main page
             session.setAttribute("Username", User); //for change password
             session.setAttribute("CID", Acct.getCustomerID());
             mv.setViewName("redirect:/Profile");
@@ -66,12 +70,14 @@ public class HomeController {
 
         return mv;
     }
-    
+
     @RequestMapping("/SignUp")
     public String SignUp(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
             return "SignUp";
+        } else if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in but needs to create profile
+            return "redirect:/CreateProfile";
         } else {
             return "redirect:/Profile";
         }
@@ -98,10 +104,12 @@ public class HomeController {
     @RequestMapping("/CreateProfile")
     public String CreateProfile(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in and created profile
+        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
+            return "redirect:/index";
+        } else if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in but needs to create profile
             return "CreateProfile";
         } else {
-            return "redirect:/index";
+            return "redirect:/Profile";
         }
     }
 
