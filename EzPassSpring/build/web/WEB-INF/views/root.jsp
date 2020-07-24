@@ -15,14 +15,32 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-                    <a href = "${pageContext.request.contextPath}/index" id = "active-link">Login</a>
+                    <a href = "${pageContext.request.contextPath}/index">Login</a>
                     <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
                     <a href = "${pageContext.request.contextPath}/faq">FAQ</a>
                 </nav>
                 <main> 
-                    <h1 align ="center">Invalid URL</h1>
-                    <img src="${pageContext.request.contextPath}/resources/images/404.jpg" alt="ErrorLogo" class = "animate transition">    
-                    <div id = "date"></div>
+                    <h1 align ="center">Welcome to My Ez Pass Application!</h1>
+                    <div class="imgcontainer">
+                        <img src="${pageContext.request.contextPath}/resources/images/ezpassonly.jpg" alt="EzOnlyLogo" class="imgoverlay">
+                        <div class="overlay">Make your toll experience easier!</div>
+                    </div>
+                    <h2>How it works</h2>
+                    <ol>
+                        <li>Sign up for your account by clicking on the <a href = "${pageContext.request.contextPath}/SignUp">sign up</a> link in the side bar</li>
+                        <li><a href = "${pageContext.request.contextPath}/index">Login</a> to your account and create your profile.</li>
+                        <li>Add your Ez Tag and link a vehicle to that Ez Tag</li>
+                        <li>You're all set! Now you can pay tolls using your Ez Pass. <br>
+                            Note: Make sure you remember to recharge your account when the balance is low.</li>
+                    </ol>
+                    <h2>Note</h2>
+                    <ul>
+                        <li>A vehicle can only have one Ez Tag linked to it.</li>
+                        <li>An Ez Tag can have multiple vehicles linked to it</li>
+                        <li>An Ez Tag may not be removed if it has been used to pay tolls or is linked to a vehicle.</li>
+                        <li>If you need assistance with changing your address or changing your Tag Code/Type, please contact help desk for support.</li>
+                    </ul>
+                    <div id = "date"> </div>
                 </main>
             </div>
             <footer><small><em>

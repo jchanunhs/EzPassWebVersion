@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class MainController {
+public class ProfileController {
 
     @RequestMapping("/Profile")
     public ModelAndView Main(HttpServletRequest request) {

@@ -19,19 +19,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class HomeController {
 
     @RequestMapping("/")
-    public String root(HttpServletRequest request) { //first session
+    public String root(HttpServletRequest request) { 
         HttpSession session = request.getSession();
-        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
-            return "index";
-        } else if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in but needs to create profile
-            return "redirect:/CreateProfile";
-        } else {
-            return "redirect:/Profile";
-        }
+        return "root";
     }
 
     @RequestMapping("/faq")
-    public String faq(HttpServletRequest request) { //first session
+    public String faq(HttpServletRequest request) { 
         HttpSession session = request.getSession();
         return "faq";
     }

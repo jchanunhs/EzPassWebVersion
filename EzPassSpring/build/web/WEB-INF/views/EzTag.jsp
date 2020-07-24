@@ -107,7 +107,8 @@
                     document.RemoveTag.submit();
                 }
             }
-
+            
+            clock();
             setInterval(clock, 1000);
             function clock() {
                 var d = new Date();
