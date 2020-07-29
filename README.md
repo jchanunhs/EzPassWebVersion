@@ -1,5 +1,5 @@
-# EzPassSpring
-Web-based version of the EzPassApplication and was created using Spring MVC and Java EE 7 Web.
+# Ez Pass Application (Web Version)
+Web-based version of the EzPassApplication and was created using Spring MVC and Java EE.
 
 - JSP served as the view for the web application.
 - JQueryUI was used to create the tabs and accordion for the webpage.
