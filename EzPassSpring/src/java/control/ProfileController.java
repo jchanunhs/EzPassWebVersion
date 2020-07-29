@@ -125,8 +125,8 @@ public class ProfileController {
     public ModelAndView LogOut(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
-        if (session.getAttribute("AdminID") != null) {
-            mv.setViewName("redirect:/AdminLogin");
+        if (session.getAttribute("AdminID") != null) { //check if it's admin logging out
+            mv.setViewName("redirect:/Admin/Login");
         } else {
             mv.setViewName("redirect:/index");
         }

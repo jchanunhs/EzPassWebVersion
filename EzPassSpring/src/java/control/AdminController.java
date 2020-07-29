@@ -21,7 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class AdminController {
 
-    @RequestMapping("/AdminLogin")
+    @RequestMapping("/Admin/Login")
     public ModelAndView AdminLogin(HttpServletRequest request) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
@@ -48,7 +48,7 @@ public class AdminController {
             mv.setViewName("redirect:/Admin/VerifyInformation");
         } else {
             redirectAttributes.addFlashAttribute("message", "Error: Invalid Information!");
-            mv.setViewName("redirect:/AdminLogin");
+            mv.setViewName("redirect:/Admin/Login");
         }
         return mv;
     }
@@ -62,7 +62,7 @@ public class AdminController {
         } else if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") == null) {
             mv.setViewName("AdminVerify");
         } else {
-            mv.setViewName("redirect:/AdminLogin");
+            mv.setViewName("redirect:/Admin/Login");
         }
         return mv;
     }
@@ -94,7 +94,7 @@ public class AdminController {
         } else if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") == null) {
             mv.setViewName("redirect:/Admin/VerifyInformation");
         } else {
-            mv.setViewName("redirect:/AdminLogin");
+            mv.setViewName("redirect:/Admin/Login");
         }
         return mv;
     }
@@ -149,7 +149,7 @@ public class AdminController {
         } else if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") == null) {
             mv.setViewName("redirect:/Admin/VerifyInformation");
         } else {
-            mv.setViewName("redirect:/AdminLogin");
+            mv.setViewName("redirect:/Admin/Login");
         }
         return mv;
     }
@@ -199,7 +199,7 @@ public class AdminController {
         } else if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") == null) {
             mv.setViewName("redirect:/Admin/VerifyInformation");
         } else {
-            mv.setViewName("redirect:/AdminLogin");
+            mv.setViewName("redirect:/Admin/Login");
         }
         return mv;
     }
