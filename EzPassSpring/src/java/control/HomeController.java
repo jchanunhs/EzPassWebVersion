@@ -82,9 +82,8 @@ public class HomeController {
         ModelAndView mv = new ModelAndView();
         String Username = request.getParameter("Username");
         String Password = request.getParameter("Password");
-        String Password1 = request.getParameter("Password1");
         String Name = request.getParameter("Name");
-        Account acct = new Account(Username, Password, Password1, Name);
+        Account acct = new Account(Username, Password, Name);
         if (acct.signUp()) {
             mv.setViewName("redirect:/index");
             redirectAttributes.addFlashAttribute("message", "Account creation was successful! Please login to your new account!");
