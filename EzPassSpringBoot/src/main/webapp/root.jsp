@@ -18,7 +18,7 @@
                     <div id = "navtitle">Website Directories</div>
                     <a href = "${pageContext.request.contextPath}/index">Login</a>
                     <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
-                    <a href = "${pageContext.request.contextPath}/faq" id = "active-link">FAQ</a>
+                    <a href = "${pageContext.request.contextPath}/faq">FAQ</a>
                 </nav>
                 <%} else{%>
                 <nav>
