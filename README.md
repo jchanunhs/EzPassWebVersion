@@ -1,5 +1,5 @@
 # Ez Pass Application (Web Version)
-Web-based version of the EzPassApplication and was created using Spring MVC and Java EE.
+Web-based version of the EzPassApplication and was created using Spring Boot and Java EE.
 
 - JSP served as the view for the web application.
 - JQueryUI was used to create the tabs and accordion for the webpage.
@@ -9,7 +9,7 @@ Web-based version of the EzPassApplication and was created using Spring MVC and 
 
 Web Configurations
 - error page will be displayed when user enters invalid URL.
-- Controllers grant access to certain webpages when user is logged on.
+- Controllers grant access to certain webpages when user is logged on. We know a customer is not logged in if the session attributes for Customer ID or Username is null.
 (ex: if user tries to enter main page without logging in first, they will be redirected to login page).
 - Controllers are also responsible for processing form submissions and redirects user to their respective webpages with a success or fail message.
 
@@ -33,5 +33,5 @@ Note: Customer gives us their username and customer id to verify their identity.
 Admin restrictions
 - Admin must login first before they can gain access to verify customer information page.
 - Admin must be logged on and verify customer information successfully before they can gain access to UpdateCustomerProfile/EzTag page.
-- After customer issue is resolved, admin must click on the finish link in the sidenav to clear customer information from session before dealing with another customer.
+- After customer issue is resolved, admin must click on the finish link in the navbar to clear customer information from session before dealing with another customer.
 
