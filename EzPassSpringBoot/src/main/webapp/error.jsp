@@ -13,12 +13,23 @@
         <div id="wrapper">
             <header>Ez Pass Web Application</header>
             <div id ="content-wrapper">
+                <%if(session.getAttribute("CID") == null){%>
                 <nav>
                     <div id = "navtitle">Website Directories</div>
                     <a href = "${pageContext.request.contextPath}/index">Login</a>
                     <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
                     <a href = "${pageContext.request.contextPath}/faq">FAQ</a>
                 </nav>
+                <%} else{%>
+                <nav>
+                    <div id = "navtitle">Website Directories</div>
+                    <a href='${pageContext.request.contextPath}/Profile'>Profile</a>
+                    <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
+                    <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
+                    <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
+                    <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
+                </nav>
+                <%}%>
                 <main> 
                     <h1 align ="center">Invalid URL</h1>
                     <img src="${pageContext.request.contextPath}/images/404.jpg" alt="ErrorLogo" class = "animate transition">    

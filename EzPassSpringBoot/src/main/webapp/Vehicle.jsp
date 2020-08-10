@@ -36,14 +36,16 @@
                         <ul>
                             <li><a href="#tab-1">Your Vehicles</a></li>
                             <li><a href="#tab-2">Add Vehicle</a></li>
-                            <li><a href="#tab-3">Remove Vehicle</a></li>
                         </ul>
                         <div id = "tab-1">
                             <table>
                                 <tr><th>License Plate Number</th></tr>
                                         <%for (int i = 0; i < vehicle_list.size(); i++) {
                                         %>
-                                <tr><td><%=vehicle_list.get(i)%></td></tr>
+                                <tr>
+                                    <td><%=vehicle_list.get(i)%></td>
+                                    <td><a href="${pageContext.request.contextPath}/RemoveVehicleControl?LicensePlateNumber=<%=vehicle_list.get(i)%>">Delete</a></td>
+                                </tr>
                                 <%}%>
                             </table>
                         </div>
@@ -62,14 +64,6 @@
                                 <label for="TagCode">Tag Code:</label>
                                 <input type="text" name="TagCode"><br>
                                 <input type="button" value="Add Vehicle" onClick="checkAddVehicleInputs()">
-                                <input type="reset" value="Reset">
-                            </form>
-                        </div>
-                        <div id = "tab-3">
-                            <form name="RemoveVehicle" action="${pageContext.request.contextPath}/RemoveVehicleControl" method="post">
-                                <label for="LicensePlateNumber">License Plate Number:</label>
-                                <input type="text" name="LicensePlateNumber"><br>
-                                <input type="button" value="Remove Vehicle" onClick="checkRemoveVehicleInputs()">
                                 <input type="reset" value="Reset">
                             </form>
                         </div>
@@ -102,16 +96,6 @@
                 }
             }
 
-            function checkRemoveVehicleInputs()
-            {
-                LicensePlateNumber = document.RemoveVehicle.LicensePlateNumber.value;
-                if (LicensePlateNumber == "") {
-                    window.alert("Please enter the license plate number for the vehicle you wish to remove!");
-                } else {
-                    document.RemoveVehicle.submit();
-                }
-            }
-            
             clock();
             setInterval(clock, 1000);
             function clock() {

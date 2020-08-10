@@ -55,14 +55,14 @@ public class VehicleController {
         return mv;
     }
 
-    @RequestMapping(value = "/RemoveVehicleControl", method = RequestMethod.POST)
+    @RequestMapping(value = "/RemoveVehicleControl")
     public ModelAndView RemoveVehicle(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
         String CID = (String) session.getAttribute("CID");
         String license = request.getParameter("LicensePlateNumber");
         Vehicle vehicle = new Vehicle(license, CID);
-        mv.setViewName("redirect:/Vehicle#tab-3");
+        mv.setViewName("redirect:/Vehicle#tab-1");
         if (vehicle.removeVehicle()) { //attempt to remove vehicle
             redirectAttributes.addFlashAttribute("message", "Vehicle removed successfully!");
         } else {
