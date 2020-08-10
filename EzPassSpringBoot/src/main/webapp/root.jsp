@@ -13,7 +13,7 @@
         <div id="wrapper">
             <header>Ez Pass Web Application</header>
             <div id ="content-wrapper">
-                <%if(session.getAttribute("Username") == null){%>
+                <%if(session.getAttribute("CID") == null){%>
                 <nav>
                     <div id = "navtitle">Website Directories</div>
                     <a href = "${pageContext.request.contextPath}/index">Login</a>
