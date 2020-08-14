@@ -35,3 +35,14 @@ Admin restrictions
 - Admin must be logged on and verify customer information successfully before they can gain access to UpdateCustomerProfile/EzTag page.
 - After customer issue is resolved, admin must click on the finish link in the navbar to clear customer information from session before dealing with another customer.
 
+This web application uses session authentication.
+- Customer has not logged in if Username = null.
+- Customer has not created profile if CID is null.
+- Admin has not logged in AdminID is null.
+- Admin does not have a case if the AdminCIDInput is null.
+
+- When customer logs in and created profile - we save their username and customer id in session.- 
+- When when customer logs in and have not created their profile - we save their username and name in the session. 
+- When admin logs in - we save their AdminID
+- When admin logs in and is currently working on a customer case - we save the AdminID and CustomerID. 
+
