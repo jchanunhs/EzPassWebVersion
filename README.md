@@ -41,4 +41,15 @@ This web application uses session authentication.
 - Stores AdminID when Admin is logged in.
 - Stores AdminID and CustomerID when Admin is currently working on a customer case.
 
+Current work: Replacing model with DAO and Entity.
+- Entity objects uses a no argument constructor and getter/setters.
+- DAO access database to retrieve, store and modify data. 
 
+Problem Statement
+- Having a model object with multiple constructors for different purposes makes it significantly difficult to add new features to the webpage.
+- The old method of getting Transactions and Credit transactions requires multiple requests to the database. This is because each request sent to the database is for 1 column. Ex: Credit card transactions for the recharge would take 4 requests from the database to fetch the credit id, date, time and credit amount.
+
+Solution Statement
+- DAO takes in the entity object and arguments to make changes to database.
+Ex: Create a customor entity object using CustomerDAO with the CustomerID input. Then pass the Customer object to jsp and use the get method to fill out the textfields.
+- To solve the multiple requests for transactions/credit transactions, we call an arraylist of Transactions and use the set method and pass that arraylist to the control object to be used by the views. Instead of sending 4 requests to the database, we now only need 1 request.
