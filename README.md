@@ -51,5 +51,5 @@ Problem Statement
 
 Solution Statement
 - DAO takes in the entity object and arguments to make changes to database.
-Ex: Create a customor entity object using CustomerDAO with the CustomerID input. Then pass the Customer object to jsp and use the get method to fill out the textfields.
-- To solve the multiple requests for transactions/credit transactions, we call an arraylist of Transactions and use the set method and pass that arraylist to the control object to be used by the views. Instead of sending 4 requests to the database, we now only need 1 request.
+Ex: Create a customor entity object using CustomerDAO with the CustomerID input. Then pass the Customer object to jsp and use the get method to output the customer information to the textfields.
+- To solve the multiple requests for transactions/credit transactions, we create an arraylist of transactions and fetch the arraylist from TransactionDAO using CustomerID. Then pass the arraylist of transactions to the views and use the get method to output the transaction's credit id, date, time and credit amount.
