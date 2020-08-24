@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
     <head>
         <title>Ez Pass Web Application</title>
@@ -14,17 +15,17 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-                    <a href='${pageContext.request.contextPath}/Profile'>Profile</a>
-                    <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
-                    <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
-                    <a href='${pageContext.request.contextPath}/PayTolls'id = "active-link">Pay Tolls</a>
-                    <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
+                    <a href='${pageContext.request.contextPath}/index'>Profile</a>
+                    <a href='${pageContext.request.contextPath}/vehicle'>Vehicle</a>
+                    <a href='${pageContext.request.contextPath}/eztag'>EzTags</a>
+                    <a href='${pageContext.request.contextPath}/paytoll' id = "active-link">Pay Tolls</a>
+                    <a href='${pageContext.request.contextPath}/transaction'>Transactions</a>
                 </nav>
                 <main> 
                     <h1 align ="center">Pay Toll</h1>
-                    <form name="PayToll" action="${pageContext.request.contextPath}/PayTollControl" method="post">
+                    <form name="PayToll" action="${pageContext.request.contextPath}/paytoll" method="post">
                         <label for="CustomerID">Customer ID:</label>
-                        <input type="text" name="CustomerID" value="<%=(String) session.getAttribute("CID")%>"readonly><br>
+                        <input type="text" name="CustomerID" value="${sessionScope.CustomerID}"readonly><br>
                         <label for="LicensePlateNumber">License Plate Number:</label>
                         <input type="text" name="LicensePlateNumber"><br>
                         <label for="TagCode">Tag Code:</label>
@@ -38,9 +39,9 @@
                         <input type="button" value="Pay Toll" onClick="checkInputs()">
                         <input type="reset" value="Reset">
                     </form>
-                    <% if (request.getAttribute("message") != null) {%>
-                    <div id="message"><%=request.getAttribute("message")%></div>    
-                    <%}%>
+                    <c:if test="${not empty message}">
+                    <div id="message">${message}</div>    
+                    </c:if>
                     <div id = "date"> </div>
                 </main>
             </div>

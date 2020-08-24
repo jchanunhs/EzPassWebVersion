@@ -1,59 +1,27 @@
-package com.example.model;
+package com.example.dao;
 
+import com.example.entity.Vehicle;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class Vehicle {
-
-    private String LicensePlateNumber;
-    private String Make;
-    private String Model;
-    private String Year;
-    private String Color;
-    private String TagCode;
-    private String CustomerID;
-
-    //Constructor to add vehicle
-    public Vehicle(String LicensePlate, String make, String model, String year, String color, String tagCode, String CID) {
-        LicensePlateNumber = LicensePlate;
-        Make = make;
-        Model = model;
-        Year = year;
-        Color = color;
-        TagCode = tagCode;
-        CustomerID = CID;
-    }
-
-    //Constructor to get vehicle information
-    public Vehicle(String CID) {
-        CustomerID = CID;
-    }
-
-    //Constructor to remove vehicle
-    public Vehicle(String LicensePlate, String CID) {
-        LicensePlateNumber = LicensePlate;
-        CustomerID = CID;
-    }
-
-    //Constructor to check vehicle
-    public Vehicle(String LicensePlate, String tagCode, String CID) {
-        LicensePlateNumber = LicensePlate;
-        TagCode = tagCode;
-        CustomerID = CID;
+public class VehicleDAO {
+ 
+    public VehicleDAO() {
+        
     }
 
     //check if vehicle belongs to customer and matches tag code
-    public boolean checkVehicle() {
+    public boolean checkVehicle(Vehicle vehicle) {
         boolean done = false;
         try {
             DBConnection ToDB = new DBConnection();
             Connection DBConn = ToDB.openConn();
             PreparedStatement Stmt = DBConn.prepareStatement("SELECT * FROM Vehicle WHERE CustomerID = ? AND TagCode = ? AND LicensePlateNumber = ?");
-            Stmt.setString(1, CustomerID);
-            Stmt.setString(2, TagCode);
-            Stmt.setString(3, LicensePlateNumber);
+            Stmt.setString(1, vehicle.getCustomerID());
+            Stmt.setString(2, vehicle.getTagCode());
+            Stmt.setString(3, vehicle.getLicensePlateNumber());
             ResultSet Rslt = Stmt.executeQuery(); //if there is a row, that means tag code, vehicle and customer id are a match
             done = Rslt.next();
             Stmt.close();
@@ -75,24 +43,24 @@ public class Vehicle {
         return done;
     }
 
-    public boolean addVehicle() {
+    public boolean addVehicle(Vehicle vehicle) {
         boolean done = false;
         try {
             DBConnection ToDB = new DBConnection();
             Connection DBConn = ToDB.openConn();
             PreparedStatement Stmt = DBConn.prepareStatement("SELECT * FROM Vehicle WHERE LicensePlateNumber = ?");
-            Stmt.setString(1, LicensePlateNumber);
+            Stmt.setString(1, vehicle.getLicensePlateNumber());
             ResultSet Rslt = Stmt.executeQuery();
             done = !Rslt.next(); //if license plate number does not exist, add it to table
             if (done) {
                 Stmt = DBConn.prepareStatement("INSERT INTO Vehicle(LicensePlateNumber, Make, Model, Year, Color, TagCode, CustomerID) VALUES (?,?,?,?,?,?,?)");
-                Stmt.setString(1, LicensePlateNumber);
-                Stmt.setString(2, Make);
-                Stmt.setString(3, Model);
-                Stmt.setString(4, Year);
-                Stmt.setString(5, Color);
-                Stmt.setString(6, TagCode);
-                Stmt.setString(7, CustomerID);
+                Stmt.setString(1, vehicle.getLicensePlateNumber());
+                Stmt.setString(2, vehicle.getMake());
+                Stmt.setString(3, vehicle.getModel());
+                Stmt.setString(4, vehicle.getYear());
+                Stmt.setString(5, vehicle.getColor());
+                Stmt.setString(6, vehicle.getTagCode());
+                Stmt.setString(7, vehicle.getCustomerID());
                 Stmt.executeUpdate();
             }
             Stmt.close();
@@ -115,20 +83,20 @@ public class Vehicle {
         return done;
     }
 
-    public boolean removeVehicle() {
+    public boolean removeVehicle(Vehicle vehicle) {
         boolean done = false;
         try {
             DBConnection ToDB = new DBConnection();
             Connection DBConn = ToDB.openConn();
             PreparedStatement Stmt = DBConn.prepareStatement("SELECT * FROM Vehicle WHERE CustomerID = ? AND LicensePlateNumber = ?");
-            Stmt.setString(1, CustomerID);
-            Stmt.setString(2, LicensePlateNumber);
+            Stmt.setString(1, vehicle.getCustomerID());
+            Stmt.setString(2, vehicle.getLicensePlateNumber());
             ResultSet Rslt = Stmt.executeQuery();
             done = Rslt.next(); //if vehicle exist, delete vehicle
             if (done) {
                 Stmt = DBConn.prepareStatement("DELETE FROM Vehicle WHERE CustomerID = ? AND LicensePlateNumber = ?");
-                Stmt.setString(1, CustomerID);
-                Stmt.setString(2, LicensePlateNumber);
+                Stmt.setString(1, vehicle.getCustomerID());
+                Stmt.setString(2, vehicle.getLicensePlateNumber());
                 Stmt.executeUpdate();
             }
             Stmt.close();
@@ -151,8 +119,9 @@ public class Vehicle {
         return done;
     }
 
-    public ArrayList<String> getVehicles() { //populate list with vehicles
-        ArrayList<String> vehicles = new ArrayList<String>();
+    public ArrayList<Vehicle> getAllCustomerVehicles(String CustomerID) { //populate list with vehicles
+        ArrayList<Vehicle> VehicleList = new ArrayList<>();
+        Vehicle vehicle;
         try {
             DBConnection ToDB = new DBConnection(); //Have a connection to the DB
             Connection DBConn = ToDB.openConn();
@@ -160,7 +129,15 @@ public class Vehicle {
             Stmt.setString(1, CustomerID);
             ResultSet Rslt = Stmt.executeQuery();
             while (Rslt.next()) {
-                vehicles.add(Rslt.getString("LicensePlateNumber"));
+                vehicle = new Vehicle();
+                vehicle.setLicensePlateNumber(Rslt.getString("LicensePlateNumber"));
+                vehicle.setMake(Rslt.getString("Make"));
+                vehicle.setModel(Rslt.getString("Model"));
+                vehicle.setYear(Rslt.getString("Year"));
+                vehicle.setColor(Rslt.getString("Color"));
+                vehicle.setTagCode(Rslt.getString("TagCode"));
+                vehicle.setCustomerID(Rslt.getString("CustomerID"));
+                VehicleList.add(vehicle);
             }
             Stmt.close();
             ToDB.closeConn();
@@ -178,6 +155,6 @@ public class Vehicle {
             System.out.println("Exception: " + e);
             e.printStackTrace();
         }
-        return vehicles;
+        return VehicleList;
     }
 }

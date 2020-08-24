@@ -1,11 +1,5 @@
-<%@page import="java.util.ArrayList"%>
-<%
-    ArrayList<String> CreditID_list = (ArrayList<String>) request.getAttribute("CreditID");
-    ArrayList<String> date_list = (ArrayList<String>) request.getAttribute("Date");
-    ArrayList<String> time_list = (ArrayList<String>) request.getAttribute("Time");
-    ArrayList<String> cd_amt = (ArrayList<String>) request.getAttribute("CreditAmt");
-%>
 <!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
     <head>
         <title>Ez Pass Web Application</title>
@@ -21,19 +15,19 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-                    <a href='${pageContext.request.contextPath}/Profile'id = "active-link">Profile</a>
-                    <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
-                    <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
-                    <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
-                    <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
+                    <a href='${pageContext.request.contextPath}/index' id = "active-link">Profile</a>
+                    <a href='${pageContext.request.contextPath}/vehicle'>Vehicle</a>
+                    <a href='${pageContext.request.contextPath}/eztag'>EzTags</a>
+                    <a href='${pageContext.request.contextPath}/paytoll'>Pay Tolls</a>
+                    <a href='${pageContext.request.contextPath}/transaction'>Transactions</a>
                 </nav>
                 <main> 
                     <h1 align ="center">Recharge</h1>
-                    <form name="Recharge" action="${pageContext.request.contextPath}/RechargeControl" method="post">
+                    <form name="Recharge" action="${pageContext.request.contextPath}/recharge" method="post">
                         <label for="CustomerID">Customer ID:</label>
-                        <input type="text" name="CustomerID" value="<%=session.getAttribute("CID")%>"readonly><br>
+                        <input type="text" name="CustomerID" value="${sessionScope.CustomerID}"readonly><br>
                         <label for="CurrentBalance">Current Balance:</label>
-                        <input type="text" name="CurrentBalance" value="<%=(String) request.getAttribute("Balance")%>"readonly><br>
+                        <input type="text" name="CurrentBalance" value="${customer.balance}"readonly><br>
                         <label for="CardNumber">Card Number:</label>
                         <input type="text" name="CardNumber"><br>
                         <label for="Name">Name on card:</label>
@@ -47,9 +41,9 @@
                         <input type="button" value="Recharge" onClick="checkInputs()">
                         <input type="reset" value="Reset">
                     </form>
-                    <% if (request.getAttribute("message") != null) {%>
-                    <div id="message"><%=request.getAttribute("message")%></div>    
-                    <%}%>
+                    <c:if test="${not empty message}">
+                        <div id="message">${message}</div>    
+                    </c:if>
                     <table>
                         <tr>
                             <th>Credit ID</th>
@@ -57,16 +51,14 @@
                             <th>Time</th>
                             <th>Credit Amount</th>
                         </tr>
-                        <%
-                            for (int i = 0; i < CreditID_list.size(); i++) {
-                        %>
-                        <tr>
-                            <td><%=CreditID_list.get(i)%></td>
-                            <td><%=date_list.get(i)%></td>
-                            <td><%=time_list.get(i)%></td>
-                            <td><%=cd_amt.get(i)%></td>
-                        </tr>
-                        <%}%>
+                        <c:forEach items="${creditcardlist}" var="creditcard">
+                            <tr>
+                                <td>${creditcard.creditID}</td>
+                                <td>${creditcard.date}</td>
+                                <td>${creditcard.time}</td>
+                                <td>${creditcard.creditAmount}</td>
+                            </tr>
+                        </c:forEach>
                     </table>
                     <div id = "date"> </div>
                 </main>
@@ -92,7 +84,7 @@
                     document.Recharge.submit();
                 }
             }
-            
+
             clock();
             setInterval(clock, 1000);
             function clock() {

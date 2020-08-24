@@ -14,12 +14,13 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
+                    <a href = "${pageContext.request.contextPath}/logout">Logout</a> 
                 </nav>
                 <main> 
                     <h1 align ="center">Customer Profile</h1>
-                    <form name="CreateProfile" action="${pageContext.request.contextPath}/CreateProfileControl" method="post">
+                    <form name="CreateProfile" action="${pageContext.request.contextPath}/createprofile" method="post">
                         <label for="Name">Customer Name:</label>
-                        <input type="text" name="Name" value="<%=(String) session.getAttribute("Name")%>"readonly><br>
+                        <input type="text" name="Name"><br>
                         <label for="Street">Street:</label>
                         <input type="text" name="Street"><br>
                         <label for="City">City:</label>

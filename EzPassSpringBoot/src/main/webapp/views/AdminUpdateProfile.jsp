@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
     <head>
         <title>Ez Pass Web Application</title>
@@ -18,11 +19,11 @@
                     <a href = "${pageContext.request.contextPath}/Admin/UpdateCustomerEzTag">Update Tag</a>
                     <a href = "${pageContext.request.contextPath}/Admin/DeleteAccount">Delete account</a>
                     <a href = "${pageContext.request.contextPath}/Admin/Finish">Finish Updates</a>
-                    <a href = "${pageContext.request.contextPath}/Logout">Logout</a>                 
+                    <a href = "${pageContext.request.contextPath}/logout">Logout</a>                 
                 </nav>
                 <main> 
                     <h1 align ="center">Update Customer Profile</h1>
-                    <form name="UpdateProfile" action="${pageContext.request.contextPath}/UpdateProfileControl" method="post">
+                    <form name="UpdateProfile" action="${pageContext.request.contextPath}/Admin/UpdateCustomerProfile" method="post">
                         <label for="CustomerID">Customer ID:</label>
                         <input type="text" name="CustomerID" value="<%=(String) session.getAttribute("AdminCIDInput")%>"readonly><br>
                         <label for="Street">Street:</label>
@@ -40,9 +41,9 @@
                         <input type="button" value="Update Profile" onClick="checkInputs()">
                         <input type="reset" value="Reset">
                     </form>                     
-                    <% if (request.getAttribute("message") != null) {%>
-                    <div id="message"><%=request.getAttribute("message")%></div>    
-                    <%}%>
+                    <c:if test="${not empty message}">
+                    <div id="message">${message}</div>    
+                    </c:if>
                     <div id = "date"> </div>
                 </main>
             </div>

@@ -1,5 +1,6 @@
-package com.example.model;
+package com.example.dao;
 
+import com.example.entity.CreditCard;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -7,35 +8,15 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class CreditCard {
+public class CreditCardDAO {
 
-    private String CardNumber;
-    private String Name;
-    private String ExpirationDate;
-    private String CVV;
-    private String CustomerID;
-    private String Date;
-    private String Time;
-    private float CreditAmount;
-    private String CreditID;
+    public CreditCardDAO() {
 
-    //card constructor
-    public CreditCard(String CN, String NM, String EXP, String CV, String CID, float CD_AMT) {
-        CardNumber = CN;
-        Name = NM;
-        ExpirationDate = EXP;
-        CVV = CV;
-        CustomerID = CID;
-        CreditAmount = CD_AMT;
     }
-
-    //Get credit card transactions
-    public CreditCard(String CID) {
-        CustomerID = CID;
-    }
-
-    public boolean addCreditCardTransaction() {
+   
+    public String addCreditCardTransaction(CreditCard credit) {
         boolean done = false;
+        String CreditID = "";
         try {
             DBConnection ToDB = new DBConnection();
             Connection DBConn = ToDB.openConn();
@@ -43,31 +24,34 @@ public class CreditCard {
             CreditID = String.valueOf(credit_id);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date(System.currentTimeMillis());
-            Date = formatter.format(date);
+            String Date = formatter.format(date);
             formatter = new SimpleDateFormat("HH:mm:ss");
             date = new Date(System.currentTimeMillis());
-            Time = formatter.format(date);
+            String Time = formatter.format(date);
             PreparedStatement Stmt = DBConn.prepareStatement("SELECT * FROM CreditCard WHERE CreditID = ?");
             Stmt.setString(1, CreditID);
             ResultSet Rslt = Stmt.executeQuery();
             done = !Rslt.next(); //credit id is useable
             if (done) {
                 Stmt = DBConn.prepareStatement("INSERT into CreditCard (CardNumber, Name, ExpirationDate, CVV, CustomerID, Date, Time, CreditAmount, CreditID) VALUES(?,?,?,?,?,?,?,?,?)");
-                Stmt.setString(1, CardNumber);
-                Stmt.setString(2, Name);
-                Stmt.setString(3, ExpirationDate);
-                Stmt.setString(4, CVV);
-                Stmt.setString(5, CustomerID);
+                Stmt.setString(1, credit.getCardNumber());
+                Stmt.setString(2, credit.getName());
+                Stmt.setString(3, credit.getExpirationDate());
+                Stmt.setString(4, credit.getCVV());
+                Stmt.setString(5, credit.getCustomerID());
                 Stmt.setString(6, Date);
                 Stmt.setString(7, Time);
-                Stmt.setFloat(8, CreditAmount);
+                Stmt.setFloat(8, credit.getCreditAmount());
                 Stmt.setString(9, CreditID);
                 Stmt.executeUpdate();
+            }
+            else{ //if not usable, creditID remains empty
+                CreditID = "";
             }
             Stmt.close();
             ToDB.closeConn();
         } catch (java.sql.SQLException e) {
-            done = false;
+            CreditID="";
             System.out.println("SQLException: " + e);
             while (e != null) {
                 System.out.println("SQLState: " + e.getSQLState());
@@ -77,49 +61,33 @@ public class CreditCard {
                 System.out.println("");
             }
         } catch (java.lang.Exception e) {
-            done = false;
+            CreditID = "";
             System.out.println("Exception: " + e);
         }
-        return done;
+        return CreditID;
     }
 
-    public ArrayList<String> getAllTransactions(String column_name) { //populate list with credit transactions
-        ArrayList<String> list = new ArrayList<>();
+    public ArrayList<CreditCard> getAllTransactions(String CustomerID) { //populate list with credit transactions
+        ArrayList<CreditCard> CardList = new ArrayList<>();
+        CreditCard credit;
         try {
             DBConnection ToDB = new DBConnection();
             Connection DBConn = ToDB.openConn();
             PreparedStatement Stmt = DBConn.prepareStatement("SELECT * FROM CreditCard WHERE CustomerID = ? ORDER BY 'Date','Time' ASC");
             Stmt.setString(1, CustomerID);
             ResultSet Rslt = Stmt.executeQuery();
-            while (Rslt.next()) {
-                switch (column_name) {
-                    case "CardNumber":
-                        list.add(Rslt.getString("CardNumber"));
-                        break;
-                    case "Name":
-                        list.add(Rslt.getString("Name"));
-                        break;
-                    case "ExpirationDate":
-                        list.add(Rslt.getString("ExpirationDate"));
-                        break;
-                    case "CVV":
-                        list.add(Rslt.getString("CVV"));
-                        break;
-                    case "Date":
-                        list.add(Rslt.getString("Date"));
-                        break;
-                    case "Time":
-                        list.add(Rslt.getString("Time"));
-                        break;
-                    case "CreditAmount":
-                        list.add(Rslt.getString("CreditAmount"));
-                        break;
-                    case "CreditID":
-                        list.add(Rslt.getString("CreditID"));
-                        break;
-                    default:
-                        break;
-                }
+            while(Rslt.next()){
+                credit = new CreditCard();
+                credit.setCardNumber(Rslt.getString("CardNumber"));
+                credit.setName(Rslt.getString("Name"));
+                credit.setExpirationDate(Rslt.getString("ExpirationDate"));
+                credit.setCVV(Rslt.getString("CVV"));
+                credit.setCustomerID(Rslt.getString("CustomerID"));
+                credit.setDate(Rslt.getString("Date"));
+                credit.setTime(Rslt.getString("Time"));
+                credit.setCreditAmount(Rslt.getFloat("CreditAmount"));
+                credit.setCreditID(Rslt.getString("CreditID"));
+                CardList.add(credit);
             }
             Stmt.close();
             ToDB.closeConn();
@@ -135,12 +103,7 @@ public class CreditCard {
         } catch (java.lang.Exception e) {
             System.out.println("Exception: " + e);
         }
-        return list;
-    }
-
-    //return credit id when user recharges account
-    public String getCreditID() {
-        return CreditID;
+        return CardList;
     }
 
 }

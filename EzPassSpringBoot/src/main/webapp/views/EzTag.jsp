@@ -1,6 +1,5 @@
-<%@page import="java.util.ArrayList"%>
-<%ArrayList<String> ez_list = (ArrayList<String>) request.getAttribute("ez_list");%>
 <!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
     <head>
         <title>Ez Pass Web Application</title>
@@ -24,11 +23,11 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-                    <a href='${pageContext.request.contextPath}/Profile'>Profile</a>
-                    <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
-                    <a href='${pageContext.request.contextPath}/EzTag'id = "active-link">EzTags</a>
-                    <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
-                    <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
+                    <a href='${pageContext.request.contextPath}/index'>Profile</a>
+                    <a href='${pageContext.request.contextPath}/vehicle'>Vehicle</a>
+                    <a href='${pageContext.request.contextPath}/eztag' id = "active-link">EzTags</a>
+                    <a href='${pageContext.request.contextPath}/paytoll'>Pay Tolls</a>
+                    <a href='${pageContext.request.contextPath}/transaction'>Transactions</a>
                 </nav>               
                 <main> 
                     <h1 align ="center">Ez Tags</h1>
@@ -41,33 +40,32 @@
                         <div id = "tab-1">
                             <table>
                                 <tr><th>Your Ez Tags</th></tr>
-                                        <%for (int i = 0; i < ez_list.size(); i++) {
-                                        %>
-                                <tr><td><%=ez_list.get(i)%></td></tr>
-                                <%}%>
+                                <c:forEach items="${eztaglist}" var="eztag">
+                                    <tr><td>${eztag.tagCode}</td></tr>
+                                </c:forEach>
                             </table>
                         </div>
                         <div id = "tab-2">
-                            <form name="AddTag" action="${pageContext.request.contextPath}/AddTagControl" method="post">
+                            <form name="AddTag" action="${pageContext.request.contextPath}/addtag" method="post">
                                 <label for="CustomerID">Customer ID:</label>
-                                <input type="text" name="CustomerID" value="<%=session.getAttribute("CID")%>"readonly><br>
+                                <input type="text" name="CustomerID" value="${sessionScope.CustomerID}"readonly><br>
                                 <label for="TagCode">Tag Code:</label>
                                 <input type="text" name="TagCode"><br>
                                 <label for="TagType">Tag Type:</label>
                                 <select name="TagType">
                                     <option value="">Please pick an option</option>
-                                    <option value="Normal">Normal</option>
-                                    <option value="Express">Express</option>
-                                    <option value="BancPass">BancPass</option>
+                                    <option value="Car">Car</option>
+                                    <option value="Truck">Truck</option>
+                                    <option value="Overload">Overload</option>
                                 </select><br>
                                 <input type="button" value="Add Tag" onClick="checkAddTagInputs()">
                                 <input type="reset" value="Reset">
                             </form>
                         </div>
                         <div id = "tab-3">
-                            <form name="RemoveTag" action="${pageContext.request.contextPath}/RemoveTagControl" method="post">
+                            <form name="RemoveTag" action="${pageContext.request.contextPath}/removetag" method="post">
                                 <label for="CustomerID">Customer ID:</label>
-                                <input type="text" name="CustomerID" value="<%=(String) session.getAttribute("CID")%>"readonly><br>
+                                <input type="text" name="CustomerID" value="${sessionScope.CustomerID}"readonly><br>
                                 <label for="TagCode">Tag Code:</label>
                                 <input type="text" name="TagCode"><br>
                                 <input type="button" value="Remove Tag" onClick="checkRemoveTagInputs()">
@@ -75,9 +73,9 @@
                             </form>
                         </div>
                     </div>
-                    <% if (request.getAttribute("message") != null) {%>
-                    <div id="message"><%=request.getAttribute("message")%></div>    
-                    <%}%>  
+                    <c:if test="${not empty message}">
+                    <div id="message">${message}</div>    
+                    </c:if>
                     <div id = "date"> </div>
                 </main>
             </div>
@@ -107,7 +105,7 @@
                     document.RemoveTag.submit();
                 }
             }
-            
+
             clock();
             setInterval(clock, 1000);
             function clock() {

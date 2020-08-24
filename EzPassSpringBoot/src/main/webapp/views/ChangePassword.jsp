@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
     <head>
         <title>Ez Pass Web Application</title>
@@ -14,29 +15,29 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-                    <a href='${pageContext.request.contextPath}/Profile'id = "active-link">Profile</a>
-                    <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
-                    <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
-                    <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
-                    <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>   
+                    <a href='${pageContext.request.contextPath}/index' id = "active-link">Profile</a>
+                    <a href='${pageContext.request.contextPath}/vehicle'>Vehicle</a>
+                    <a href='${pageContext.request.contextPath}/eztag'>EzTags</a>
+                    <a href='${pageContext.request.contextPath}/paytoll'>Pay Tolls</a>
+                    <a href='${pageContext.request.contextPath}/transaction'>Transactions</a>   
                 </nav>
                 <main> 
                     <h1 align ="center">Change Password</h1>
-                    <form name="ChangePassword" action="${pageContext.request.contextPath}/ChangePasswordControl" method="post"> 
+                    <form name="ChangePassword" action="${pageContext.request.contextPath}/changepassword" method="post"> 
                         <label for="Username">Username: </label>
-                        <input type="text" name="Username" value="<%=(String) session.getAttribute("Username")%>" readonly><br>
-                        <label for="Old">Old Password: </label>
-                        <input type="password" name="Old"><br>
-                        <label for="New">New Password: </label>
-                        <input type="password" name="New"><br>
-                        <label for="New1">New Password(re-enter): </label>
-                        <input type="password" name="New1"><br>
+                        <input type="text" name="Username" value="${sessionScope.Username}" readonly><br>
+                        <label for="OldPassword">Old Password: </label>
+                        <input type="password" name="OldPassword"><br>
+                        <label for="NewPassword">New Password: </label>
+                        <input type="password" name="NewPassword"><br>
+                        <label for="NewPassword1">New Password(re-enter): </label>
+                        <input type="password" name="NewPassword1"><br>
                         <input type="button" value="Change Password" onClick="checkInputs()">
                         <input type="reset" value="Reset">
                     </form>
-                    <% if (request.getAttribute("message") != null) {%>
-                    <div id="message"><%=request.getAttribute("message")%></div>    
-                    <%}%>
+                    <c:if test="${not empty message}">
+                    <div id="message">${message}</div>    
+                    </c:if>
                     <div id = "date"> </div>
                 </main>
             </div>
@@ -48,9 +49,9 @@
         <script>
             function checkInputs()
             {
-                Old = document.ChangePassword.Old.value;
-                New = document.ChangePassword.New.value;
-                New1 = document.ChangePassword.New1.value;
+                Old = document.ChangePassword.OldPassword.value;
+                New = document.ChangePassword.NewPassword.value;
+                New1 = document.ChangePassword.NewPassword1.value;
                 if (Old == "" || New == "" || New1 == "") {
                     window.alert("One or more fields are empty! Please fill out all information!");
                 } else if (New != New1) {

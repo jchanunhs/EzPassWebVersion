@@ -1,5 +1,6 @@
-package com.example.model;
+package com.example.dao;
 
+import com.example.entity.Transaction;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -7,33 +8,16 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class Transaction {
+public class TransactionDAO {
 
-    private String TransactionID;
-    private String TagCode;
-    private String TransactionDate;
-    private String TransactionTime;
-    private float TollAmount;
-    private String TollPlaza;
-    private int TollLaneNumber;
-    private String CustomerID;
+    
+    public TransactionDAO() {
 
-    //Constructor to add transaction
-    public Transaction(String TCode, float TAmt, String TPlaza, int TLN, String CID) {
-        TagCode = TCode;
-        TollAmount = TAmt;
-        TollPlaza = TPlaza;
-        TollLaneNumber = TLN;
-        CustomerID = CID;
     }
 
-    //constructor to get transaction information by CID
-    public Transaction(String CID) {
-        CustomerID = CID;
-    }
-
-    public boolean recordTransaction() {
+    public String recordTransaction(Transaction transaction) {
         boolean done = false;
+        String TransactionID = "";
         try {
             DBConnection ToDB = new DBConnection();
             Connection DBConn = ToDB.openConn();
@@ -41,10 +25,10 @@ public class Transaction {
             TransactionID = String.valueOf(trans_id);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date(System.currentTimeMillis());
-            TransactionDate = formatter.format(date);
+            String TransactionDate = formatter.format(date);
             formatter = new SimpleDateFormat("HH:mm:ss");
             date = new Date(System.currentTimeMillis());
-            TransactionTime = formatter.format(date);
+            String TransactionTime = formatter.format(date);
             PreparedStatement Stmt = DBConn.prepareStatement("SELECT * FROM [TangClass].[dbo].[Transaction] WHERE TransactionID = ?");
             Stmt.setString(1, TransactionID);
             ResultSet Rslt = Stmt.executeQuery(); //if transaction id does not exist, we are safe to add them to db
@@ -52,20 +36,23 @@ public class Transaction {
             if (done) {
                 Stmt = DBConn.prepareStatement("INSERT INTO [TangClass].[dbo].[Transaction](TransactionID, TagCode, TransactionDate, TransactionTime, TollAmount, TollPlaza, TollLaneNumber, CustomerID) VALUES (?,?,?,?,?,?,?,?)");
                 Stmt.setString(1, TransactionID);
-                Stmt.setString(2, TagCode);
+                Stmt.setString(2, transaction.getTagCode());
                 Stmt.setString(3, TransactionDate);
                 Stmt.setString(4, TransactionTime);
-                Stmt.setFloat(5, TollAmount);
-                Stmt.setString(6, TollPlaza);
-                Stmt.setInt(7, TollLaneNumber);
-                Stmt.setString(8, CustomerID);
+                Stmt.setFloat(5, transaction.getTollAmount());
+                Stmt.setString(6, transaction.getTollPlaza());
+                Stmt.setInt(7, transaction.getTollLaneNumber());
+                Stmt.setString(8, transaction.getCustomerID());
                 Stmt.executeUpdate();
+            }
+            else{// if transaction id is taken, transaction id remains empty
+                TransactionID = "";
             }
             Stmt.close();
             ToDB.closeConn();
 
         } catch (java.sql.SQLException e) {
-            done = false;
+            TransactionID = "";
             System.out.println("SQLException: " + e);
             while (e != null) {
                 System.out.println("SQLState: " + e.getSQLState());
@@ -75,14 +62,15 @@ public class Transaction {
                 System.out.println("");
             }
         } catch (java.lang.Exception e) {
-            done = false;
+            TransactionID = "";
             System.out.println("Exception: " + e);
         }
-        return done;
+        return TransactionID;
     }
 
-    public ArrayList<String> getAllTransactions(String column_name) { //populate list with credit transactions
-        ArrayList<String> list = new ArrayList<String>();
+    public ArrayList<Transaction> getAllTransactions(String CustomerID) { //populate list with credit transactions
+        ArrayList<Transaction> TransactionList = new ArrayList<>();
+        Transaction transaction;
         try {
             DBConnection ToDB = new DBConnection();
             Connection DBConn = ToDB.openConn();
@@ -90,21 +78,15 @@ public class Transaction {
             Stmt.setString(1, CustomerID);
             ResultSet Rslt = Stmt.executeQuery();
             while (Rslt.next()) {
-                if (column_name.equals("TransactionID")) {
-                    list.add(Rslt.getString("TransactionID"));
-                } else if (column_name.equals("TagCode")) {
-                    list.add(Rslt.getString("TagCode"));
-                } else if (column_name.equals("TransactionDate")) {
-                    list.add(Rslt.getString("TransactionDate"));
-                } else if (column_name.equals("TransactionTime")) {
-                    list.add(Rslt.getString("TransactionTime"));
-                } else if (column_name.equals("TollPlaza")) {
-                    list.add(Rslt.getString("TollPlaza"));
-                } else if (column_name.equals("TollLaneNumber")) {
-                    list.add(Rslt.getString("TollLaneNumber"));
-                } else if (column_name.equals("TollAmount")) {
-                    list.add(Rslt.getString("TollAmount"));
-                }
+                transaction = new Transaction();
+                transaction.setTransactionID(Rslt.getString("TransactionID"));
+                transaction.setTagCode(Rslt.getString("TagCode"));
+                transaction.setTransactionDate(Rslt.getString("TransactionDate"));
+                transaction.setTransactionTime(Rslt.getString("TransactionTime"));
+                transaction.setTollPlaza(Rslt.getString("TollPlaza"));
+                transaction.setTollLaneNumber(Rslt.getInt("TollLaneNumber"));
+                transaction.setTollAmount(Rslt.getFloat("TollAmount"));
+                TransactionList.add(transaction);
             }
             Stmt.close();
             ToDB.closeConn();
@@ -120,11 +102,12 @@ public class Transaction {
         } catch (java.lang.Exception e) {
             System.out.println("Exception: " + e);
         }
-        return list; //return list
+        return TransactionList; 
     }
 
-    public ArrayList<String> getTransactions(String before, String after, String column_name) {
-        ArrayList<String> list = new ArrayList<String>();
+    public ArrayList<Transaction> getTransactions(String CustomerID, String before, String after) {
+        ArrayList<Transaction> TransactionList = new ArrayList<>();
+        Transaction transaction;
         try {
             DBConnection ToDB = new DBConnection(); //Have a connection to the DB
             Connection DBConn = ToDB.openConn();
@@ -134,21 +117,15 @@ public class Transaction {
             Stmt.setString(3, after);
             ResultSet Rslt = Stmt.executeQuery(); //execute query to get transaction based on dates
             while (Rslt.next()) {
-                if (column_name.equals("TransactionID")) {
-                    list.add(Rslt.getString("TransactionID"));
-                } else if (column_name.equals("TagCode")) {
-                    list.add(Rslt.getString("TagCode"));
-                } else if (column_name.equals("TransactionDate")) {
-                    list.add(Rslt.getString("TransactionDate"));
-                } else if (column_name.equals("TransactionTime")) {
-                    list.add(Rslt.getString("TransactionTime"));
-                } else if (column_name.equals("TollPlaza")) {
-                    list.add(Rslt.getString("TollPlaza"));
-                } else if (column_name.equals("TollLaneNumber")) {
-                    list.add(Rslt.getString("TollLaneNumber"));
-                } else if (column_name.equals("TollAmount")) {
-                    list.add(Rslt.getString("TollAmount"));
-                }
+                transaction = new Transaction();
+                transaction.setTransactionID(Rslt.getString("TransactionID"));
+                transaction.setTagCode(Rslt.getString("TagCode"));
+                transaction.setTransactionDate(Rslt.getString("TransactionDate"));
+                transaction.setTransactionTime(Rslt.getString("TransactionTime"));
+                transaction.setTollPlaza(Rslt.getString("TollPlaza"));
+                transaction.setTollLaneNumber(Rslt.getInt("TollLaneNumber"));
+                transaction.setTollAmount(Rslt.getFloat("TollAmount"));
+                TransactionList.add(transaction);
             }
             Stmt.close();
             ToDB.closeConn();
@@ -165,12 +142,9 @@ public class Transaction {
 
             System.out.println("Exception: " + e);
         }
-        return list; //returns the list
+        return TransactionList; 
     }
 
     //return transaction id when user pays toll
-    public String getTransactionID() {
-        return TransactionID;
-    }
 
 }

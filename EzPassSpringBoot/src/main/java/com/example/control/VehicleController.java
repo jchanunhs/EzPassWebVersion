@@ -1,9 +1,12 @@
 package com.example.control;
 
+import com.example.dao.EzTagDAO;
+import com.example.dao.VehicleDAO;
+import com.example.entity.EzTag;
+import com.example.entity.Vehicle;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import com.example.model.EzTag;
-import com.example.model.Vehicle;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,62 +15,88 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class VehicleController {
-
-    @RequestMapping("/Vehicle")
+    
+    @RequestMapping(value = "/vehicle", method = RequestMethod.GET)
     public ModelAndView Vehicle(HttpServletRequest request) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
-        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
-            mv.setViewName("redirect:/index");
-        } else if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in but needs to create profile
-            mv.setViewName("redirect:/CreateProfile");
-        } else {
+        String Username = (String) session.getAttribute("Username");
+        String CustomerID = (String) session.getAttribute("CustomerID");
+        if (Username != null && CustomerID != null) {  //check if user has logged in successfully and created profile
+            VehicleDAO vehicledao = new VehicleDAO();
+            ArrayList<Vehicle> vehiclelist = vehicledao.getAllCustomerVehicles(CustomerID);
+            mv.addObject("vehiclelist", vehiclelist);
             mv.setViewName("Vehicle");
-            Vehicle vehicle = new Vehicle((String) session.getAttribute("CID"));
-            mv.addObject("vehicle_list", vehicle.getVehicles());
+        } else if (Username != null && CustomerID == null) { //check if user logged in but needs to create profile
+            mv.setViewName("redirect:/createprofile");
+        } else { //user not logged in, show index page (login sceeen)
+            mv.setViewName("redirect:/index");
         }
         return mv;
     }
-
-    @RequestMapping(value = "/AddVehicleControl", method = RequestMethod.POST)
+    
+    @RequestMapping(value = "/addvehicle", method = RequestMethod.POST)
     public ModelAndView AddVehicle(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
-        String CID = (String) session.getAttribute("CID");
-        String license = request.getParameter("LicensePlateNumber");
-        String make = request.getParameter("Make");
-        String model = request.getParameter("Model");
-        String year = request.getParameter("Year");
-        String color = request.getParameter("Color");
-        String tagcode = request.getParameter("TagCode");
-        Vehicle vehicle = new Vehicle(license, make, model, year, color, tagcode, CID);
-        EzTag tag = new EzTag(tagcode, CID);
-        mv.setViewName("redirect:/Vehicle#tab-2");
-        if (tag.checkTag()) { //check if CID owns this tag
-            if (vehicle.addVehicle()) { //attempt to add vehicle to db
+        String Username = (String) session.getAttribute("Username");
+        String CustomerID = (String) session.getAttribute("CustomerID");
+        
+        String LicensePlateNumber = request.getParameter("LicensePlateNumber");
+        String Make = request.getParameter("Make");
+        String Model = request.getParameter("Model");
+        String Year = request.getParameter("Year");
+        String Color = request.getParameter("Color");
+        String TagCode = request.getParameter("TagCode");
+        
+        //check tag
+        EzTagDAO eztagdao = new EzTagDAO();
+        EzTag eztag = new EzTag();
+        eztag.setCustomerID(CustomerID);
+        eztag.setTagCode(TagCode);
+        
+        //add vehicle
+        VehicleDAO vehicledao = new VehicleDAO();
+        Vehicle vehicle = new Vehicle();
+        vehicle.setLicensePlateNumber(LicensePlateNumber);
+        vehicle.setMake(Make);
+        vehicle.setModel(Model);
+        vehicle.setYear(Year);
+        vehicle.setColor(Color);
+        vehicle.setTagCode(TagCode);
+        vehicle.setCustomerID(CustomerID);
+        
+        if (eztagdao.checkTag(eztag)) { //check if eztag belongs to user
+            if (vehicledao.addVehicle(vehicle)) { //attempt to add vehicle
                 redirectAttributes.addFlashAttribute("message", "Vehicle was added successfully!");
-            } else { //vehicle fails to add to db
+            } else { //return false if vehicle already exist
                 redirectAttributes.addFlashAttribute("message", "Error: Add vehicle failed! Vehicle already exist in our database!");
             }
         } else { //invalid tagcode
             redirectAttributes.addFlashAttribute("message", "Error: Add vehicle failed! Tag code is invalid!");
         }
+        mv.setViewName("redirect:/vehicle#tab-2");
         return mv;
     }
-
-    @RequestMapping(value = "/RemoveVehicleControl")
+    
+    @RequestMapping(value = "/removevehicle", method = RequestMethod.GET)
     public ModelAndView RemoveVehicle(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
-        String CID = (String) session.getAttribute("CID");
-        String license = request.getParameter("LicensePlateNumber");
-        Vehicle vehicle = new Vehicle(license, CID);
-        mv.setViewName("redirect:/Vehicle#tab-1");
-        if (vehicle.removeVehicle()) { //attempt to remove vehicle
-            redirectAttributes.addFlashAttribute("message", "Vehicle removed successfully!");
+        String Username = (String) session.getAttribute("Username");
+        String CustomerID = (String) session.getAttribute("CustomerID");
+
+        String LicensePlateNumber = request.getParameter("LicensePlateNumber");
+        VehicleDAO vehicledao = new VehicleDAO();
+        Vehicle vehicle = new Vehicle();
+        vehicle.setLicensePlateNumber(LicensePlateNumber);
+        vehicle.setCustomerID(CustomerID);
+        if (vehicledao.removeVehicle(vehicle)) {
+            redirectAttributes.addFlashAttribute("message", "Vehicle was removed successfully!");
         } else {
-            redirectAttributes.addFlashAttribute("message", "Error: Vehicle removed failed because the license plate entered is invalid!");
+            redirectAttributes.addFlashAttribute("message", "Error: Something went wrong when removing vehicle. If this occurs multiple times please contact help desk.");
         }
+        mv.setViewName("redirect:/vehicle#tab-1");
         return mv;
     }
 

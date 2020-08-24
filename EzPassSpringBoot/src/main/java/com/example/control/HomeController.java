@@ -1,14 +1,11 @@
 package com.example.control;
 
-/*
-if the username is empty, that means user did not log in
-if username is not empty, but CID is empty, that means  user logged in but needs to create profile
-if CID is not empty, that means user logged in and profile is already created
- */
+import com.example.dao.AccountDAO;
+import com.example.dao.CustomerDAO;
+import com.example.entity.Account;
+import com.example.entity.Customer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import com.example.model.Account;
-import com.example.model.Customer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,99 +16,118 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class HomeController {
 
     @RequestMapping("/")
-    public String root(HttpServletRequest request) { 
+    public String root(HttpServletRequest request) { //display homepage
         HttpSession session = request.getSession();
         return "root";
     }
 
     @RequestMapping("/faq")
-    public String faq(HttpServletRequest request) { 
+    public String faq(HttpServletRequest request) { //display faq page
         HttpSession session = request.getSession();
         return "faq";
     }
 
-    @RequestMapping("/index")
-    public String home(HttpServletRequest request) {
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public ModelAndView index(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
-            return "index";
-        } else if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in but needs to create profile
-            return "redirect:/CreateProfile";
-        } else {
-            return "redirect:/Profile";
-        }
-    }
-
-    @RequestMapping(value = "/LoginControl", method = RequestMethod.POST)
-    public ModelAndView Login(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         ModelAndView mv = new ModelAndView();
-        String User = request.getParameter("Username");
-        String PW = request.getParameter("Password");
-        HttpSession session = request.getSession();
-        Account Acct = new Account(User, PW);
-        if (Acct.signIn() && Acct.getCustomerID() != null) { //set session attributes and redirect to user main page
-            session.setAttribute("Username", User); //for change password
-            session.setAttribute("CID", Acct.getCustomerID());
-            mv.setViewName("redirect:/Profile");
-        } else if (Acct.signIn()) {
-            session.setAttribute("Username", User);
-            session.setAttribute("Name", Acct.getName());
-            mv.setViewName("redirect:/CreateProfile");
-        } else { //wrong information
-            redirectAttributes.addFlashAttribute("message", "Error: Invalid Username or Password!");
-            mv.setViewName("redirect:/index");
+        String Username = (String) session.getAttribute("Username");
+        String CustomerID = (String) session.getAttribute("CustomerID");
+        if (Username != null && CustomerID != null) {  //check if user has logged in successfully and created profile
+            CustomerDAO customerdao = new CustomerDAO();
+            Customer customer = customerdao.getCustomerInformation(CustomerID);
+            mv.addObject("customer", customer);
+            mv.setViewName("Profile");
+        } else if (Username != null && CustomerID == null) { //check if user logged in but needs to create profile
+            mv.setViewName("redirect:/createprofile");
+        } else { //user not logged in, show index page (login sceeen)
+            mv.setViewName("index"); 
         }
-
         return mv;
     }
 
-    @RequestMapping("/SignUp")
-    public String SignUp(HttpServletRequest request) {
+    @RequestMapping(value = "/index", method = RequestMethod.POST)
+    public ModelAndView LoginControl(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
-        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
-            return "SignUp";
-        } else if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in but needs to create profile
-            return "redirect:/CreateProfile";
-        } else {
-            return "redirect:/Profile";
-        }
-    }
-
-    @RequestMapping(value = "/SignUpControl", method = RequestMethod.POST)
-    public ModelAndView SignUpControl(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         ModelAndView mv = new ModelAndView();
         String Username = request.getParameter("Username");
         String Password = request.getParameter("Password");
-        String Password1 = request.getParameter("Password1");
-        String Name = request.getParameter("Name");
-        Account acct = new Account(Username, Password, Name);
-        if (acct.signUp()) {
+        AccountDAO accountdao = new AccountDAO();
+        Account account = accountdao.getAccountInformation(Username, Password);
+
+        if (account.getUsername() != null && account.getPassword() != null && account.getCustomerID() != null) { 
+            CustomerDAO customerdao = new CustomerDAO();
+            Customer customer = customerdao.getCustomerInformation(account.getCustomerID()); //get customer information from customer id
+            //save username for change password. save customerid to access customer information
+            session.setAttribute("Username", Username);
+            session.setAttribute("CustomerID", customer.getCustomerID());
             mv.setViewName("redirect:/index");
-            redirectAttributes.addFlashAttribute("message", "Account creation was successful! Please login to your new account!");
-        } else {
-            mv.setViewName("redirect:/SignUp");
-            redirectAttributes.addFlashAttribute("message", "Error: Username is taken. Please try another username.");
+        } else if (account.getUsername() != null && account.getPassword() != null && account.getCustomerID() == null) { //profile not created
+            session.setAttribute("Username", Username);
+            mv.setViewName("redirect:/createprofile");
+        } else { //login failed
+            redirectAttributes.addFlashAttribute("message", "Error: Invalid Username and/or Password. Please try again.");
+            mv.setViewName("redirect:/index");
         }
         return mv;
     }
 
-    @RequestMapping("/CreateProfile")
-    public String CreateProfile(HttpServletRequest request) {
+    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    public ModelAndView SignUp(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
-            return "redirect:/index";
-        } else if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in but needs to create profile
-            return "CreateProfile";
-        } else {
-            return "redirect:/Profile";
+        ModelAndView mv = new ModelAndView();
+        String Username = (String) session.getAttribute("Username");
+        String CustomerID = (String) session.getAttribute("CustomerID");
+        if (Username != null && CustomerID != null) {  
+            mv.setViewName("redirect:/index");
+        } else if (Username != null && CustomerID == null) { 
+            mv.setViewName("redirect:/createprofile");
+        } else { //only show sign up page if user is not logged on
+            mv.setViewName("SignUp");
         }
+        return mv;
     }
 
-    @RequestMapping(value = "/CreateProfileControl", method = RequestMethod.POST)
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public ModelAndView SignUpControl(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
+        String Username = request.getParameter("Username");
+        String Password = request.getParameter("Password");
+        AccountDAO accountdao = new AccountDAO();
+        Account account = new Account();
+        account.setUsername(Username);
+        account.setPassword(Password);
+
+        if (accountdao.signUp(account)) { //create account
+            redirectAttributes.addFlashAttribute("message", "Account created successfully! Please login to your new account!");
+            mv.setViewName("redirect:/index");
+        } else { //account creation failed
+            redirectAttributes.addFlashAttribute("message", "Error: Username is taken. Please try another username.");
+            mv.setViewName("redirect:/signup");
+        }
+        return mv;
+    }
+
+    @RequestMapping(value = "/createprofile", method = RequestMethod.GET)
+    public ModelAndView CreateProfile(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
+        String Username = (String) session.getAttribute("Username");
+        String CustomerID = (String) session.getAttribute("CustomerID");
+        if (session.getAttribute("Username") != null && session.getAttribute("CustomerID") == null) { //check if user logged in but needs to create profile
+            mv.setViewName("CreateProfile");
+        } else {// if not need to create profile, redirect to index page
+            mv.setViewName("redirect:/index");
+        }
+        return mv;
+    }
+
+    @RequestMapping(value = "/createprofile", method = RequestMethod.POST)
     public ModelAndView CreateProfileControl(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
-        String UName = (String) session.getAttribute("Username");
+        String Username = (String) session.getAttribute("Username");
         String Name = request.getParameter("Name");
         String Street = request.getParameter("Street");
         String City = request.getParameter("City");
@@ -119,14 +135,39 @@ public class HomeController {
         String Zip = request.getParameter("Zip");
         String Phone = request.getParameter("Phone");
         String Email = request.getParameter("Email");
-        Customer cus = new Customer(Name, Street, City, State, Zip, Phone, Email, UName);
-        mv.setViewName("redirect:/index");
-        if (cus.createProfile()) { //create the profile 
-            redirectAttributes.addFlashAttribute("message", "Created profile successfully! Please relog to your account!");
+        CustomerDAO customerdao = new CustomerDAO();
+        Customer customer = new Customer();
+        customer.setName(Name);
+        customer.setStreet(Street);
+        customer.setCity(City);
+        customer.setState(State);
+        customer.setZip(Zip);
+        customer.setPhone(Phone);
+        customer.setEmail(Email);
+
+        if (customerdao.createProfile(customer, Username)) {
+            redirectAttributes.addFlashAttribute("message", "Profile created successfully! Please relog to your account!");
             session.invalidate();
-        } else { //customer profile will fail if the generated customer id is taken
+        } else {
             redirectAttributes.addFlashAttribute("message", "Error: Created profile failed unexpectly! If this occurs multiple times please contact help desk.");
         }
+        mv.setViewName("redirect:/index");
+        return mv;
+    }
+
+    
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ModelAndView LogOut(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        HttpSession session = request.getSession();
+        ModelAndView mv = new ModelAndView();
+        if (session.getAttribute("AdminID") != null) { //check if it's admin logging out
+            mv.setViewName("redirect:/Admin/Login");
+        } else {
+            mv.setViewName("redirect:/index");
+        }
+        session.invalidate();
+        redirectAttributes.addFlashAttribute("message", "Account signed off successfully!");
         return mv;
     }
 

@@ -1,4 +1,4 @@
-package com.example.model;
+package com.example.dao;
 
 import java.util.*;
 import java.sql.*;

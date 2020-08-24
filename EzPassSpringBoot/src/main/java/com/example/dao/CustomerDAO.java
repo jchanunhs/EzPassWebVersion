@@ -1,47 +1,25 @@
-package com.example.model;
+package com.example.dao;
 
+import com.example.entity.Customer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class Customer {
+public class CustomerDAO {
 
-    private String CustomerID;
-    private String Name;
-    private String Street;
-    private String City;
-    private String State;
-    private String Zip;
-    private String Phone;
-    private String Email;
-    private float Balance;
-    private String Username;
 
-    //Add customer to DB
-    public Customer(String NM, String ST, String CT, String STE, String ZP, String PN, String EM, String UName) {
-        Name = NM;
-        Street = ST;
-        City = CT;
-        State = STE;
-        Zip = ZP;
-        Phone = PN;
-        Email = EM;
-        Balance = 0; //default value when creating profile
-        this.Username = UName;
+    public CustomerDAO() {
+
     }
 
-    public Customer(String CID) {
-        CustomerID = CID;
-        this.setData();
-    }
-
-    public boolean createProfile() {
+    public boolean createProfile(Customer customer, String Username) {
         boolean done = false;
         try {
             DBConnection ToDB = new DBConnection();
             Connection DBConn = ToDB.openConn();
             int cus_id = (int) (Math.random() * 1000000) + 1000000; //Id is 7 digits long
-            CustomerID = String.valueOf(cus_id);
+            String CustomerID = String.valueOf(cus_id);
+            float Balance = 0; //creation of account does not have any balance
             PreparedStatement Stmt = DBConn.prepareStatement("SELECT * FROM Customer WHERE CustomerID = ?");
             Stmt.setString(1, CustomerID);
             ResultSet Rslt = Stmt.executeQuery();
@@ -49,13 +27,13 @@ public class Customer {
             if (done) {
                 Stmt = DBConn.prepareStatement("INSERT INTO Customer(CustomerID, Name, Street, City, State, Zip, Phone, Email, Balance) VALUES (?,?,?,?,?,?,?,?,?)");
                 Stmt.setString(1, CustomerID);
-                Stmt.setString(2, Name);
-                Stmt.setString(3, Street);
-                Stmt.setString(4, City);
-                Stmt.setString(5, State);
-                Stmt.setString(6, Zip);
-                Stmt.setString(7, Phone);
-                Stmt.setString(8, Email);
+                Stmt.setString(2, customer.getName());
+                Stmt.setString(3, customer.getStreet());
+                Stmt.setString(4, customer.getCity());
+                Stmt.setString(5, customer.getState());
+                Stmt.setString(6, customer.getZip());
+                Stmt.setString(7, customer.getPhone());
+                Stmt.setString(8, customer.getEmail());
                 Stmt.setFloat(9, Balance);
                 Stmt.executeUpdate();
                 Stmt = DBConn.prepareStatement("UPDATE Account SET CustomerID = ? Where Username = ?");
@@ -82,22 +60,22 @@ public class Customer {
         return done;
     }
 
-    public boolean updateAddress(String ST, String CT, String STE, String ZP) {
+    public boolean updateAddress(Customer customer, String NewStreet, String NewCity, String NewState, String NewZip) {
         boolean done = false;
         try {
             DBConnection ToDB = new DBConnection(); //Have a connection to the DB
             Connection DBConn = ToDB.openConn();
             PreparedStatement Stmt = DBConn.prepareStatement("SELECT * FROM Customer WHERE CustomerID = ?");  //check if customer exist
-            Stmt.setString(1, CustomerID);
+            Stmt.setString(1, customer.getCustomerID());
             ResultSet Rslt = Stmt.executeQuery();
             done = Rslt.next(); //if it does exist, then update customer address
             if (done) {
                 Stmt = DBConn.prepareStatement("UPDATE Customer SET Street = ?, City = ?, State = ?, ZIP = ? WHERE CustomerID = ?");
-                Stmt.setString(1, ST);
-                Stmt.setString(2, CT);
-                Stmt.setString(3, STE);
-                Stmt.setString(4, ZP);
-                Stmt.setString(5, CustomerID);
+                Stmt.setString(1, NewStreet);
+                Stmt.setString(2, NewCity);
+                Stmt.setString(3, NewState);
+                Stmt.setString(4, NewZip);
+                Stmt.setString(5, customer.getCustomerID());
                 Stmt.executeUpdate();
             }
             Stmt.close();
@@ -119,19 +97,19 @@ public class Customer {
         return done;
     }
 
-    public boolean updatePhone(String PN) {
+    public boolean updatePhone(Customer customer, String NewPhone) {
         boolean done = false;
         try {
             DBConnection ToDB = new DBConnection(); //Have a connection to the DB
             Connection DBConn = ToDB.openConn();
             PreparedStatement Stmt = DBConn.prepareStatement("SELECT * FROM Customer WHERE CustomerID = ?");   //check if customer exist
-            Stmt.setString(1, CustomerID);
+            Stmt.setString(1, customer.getCustomerID());
             ResultSet Rslt = Stmt.executeQuery();
             done = Rslt.next(); //if does exist, then update phone number based on id
             if (done) {
                 Stmt = DBConn.prepareStatement("UPDATE Customer SET Phone = ? WHERE CustomerID = ?");
-                Stmt.setString(1, PN);
-                Stmt.setString(2, CustomerID);
+                Stmt.setString(1, NewPhone);
+                Stmt.setString(2, customer.getCustomerID());
                 Stmt.executeUpdate();
             }
             Stmt.close();
@@ -153,19 +131,19 @@ public class Customer {
         return done;
     }
 
-    public boolean updateEmail(String EM) {
+    public boolean updateEmail(Customer customer, String NewEmail) {
         boolean done = false;
         try {
             DBConnection ToDB = new DBConnection(); //Have a connection to the DB
             Connection DBConn = ToDB.openConn();
             PreparedStatement Stmt = DBConn.prepareStatement("SELECT * FROM Customer WHERE CustomerID = ?");   //check if customer exist
-            Stmt.setString(1, CustomerID);
+            Stmt.setString(1, customer.getCustomerID());
             ResultSet Rslt = Stmt.executeQuery();
             done = Rslt.next(); //if it does exist, then update email
             if (done) {
                 Stmt = DBConn.prepareStatement("UPDATE Customer SET Email = ? WHERE CustomerID = ?");
-                Stmt.setString(1, EM);
-                Stmt.setString(2, CustomerID);
+                Stmt.setString(1, NewEmail);
+                Stmt.setString(2, customer.getCustomerID());
                 Stmt.executeUpdate();
             }
             Stmt.close();
@@ -187,19 +165,19 @@ public class Customer {
         return done;
     }
 
-    public boolean updateBalance(float amount) {
+    public boolean updateBalance(Customer customer, float NewBalance) {
         boolean done = false;
         try {
             DBConnection ToDB = new DBConnection(); //Have a connection to the DB
             Connection DBConn = ToDB.openConn();
             PreparedStatement Stmt = DBConn.prepareStatement("SELECT * FROM Customer WHERE CustomerID = ?");   //check if customer exist
-            Stmt.setString(1, CustomerID);
+            Stmt.setString(1, customer.getCustomerID());
             ResultSet Rslt = Stmt.executeQuery();
-            done = Rslt.next(); //update new account balance
+            done = Rslt.next(); 
             if (done) {
                 Stmt = DBConn.prepareStatement("UPDATE Customer SET Balance = ? WHERE CustomerID = ?");
-                Stmt.setFloat(1, amount);
-                Stmt.setString(2, CustomerID);
+                Stmt.setFloat(1, NewBalance);
+                Stmt.setString(2, customer.getCustomerID());
                 Stmt.executeUpdate();
             }
             Stmt.close();
@@ -222,18 +200,18 @@ public class Customer {
     }
 
     //DB is configured to delete all customer information when we delete the row with their respective customer id  
-    public boolean deleteCustomer() {
+    public boolean deleteCustomer(Customer customer) {
         boolean done = false;
         try {
             DBConnection ToDB = new DBConnection(); //Have a connection to the DB
             Connection DBConn = ToDB.openConn();
             PreparedStatement Stmt = DBConn.prepareStatement("SELECT * FROM Customer WHERE CustomerID = ?");   //check if customer exist
-            Stmt.setString(1, CustomerID);
+            Stmt.setString(1, customer.getCustomerID());
             ResultSet Rslt = Stmt.executeQuery();
             done = Rslt.next(); //if yes, then we can remove tag if tag and customerid match in the db
             if (done) {
                 Stmt = DBConn.prepareStatement("DELETE FROM Customer WHERE CustomerID = ?");
-                Stmt.setString(1, CustomerID);
+                Stmt.setString(1, customer.getCustomerID());
                 Stmt.executeUpdate();
             }
             Stmt.close();
@@ -255,8 +233,8 @@ public class Customer {
         return done;
     }
 
-    public boolean setData() { //fetch data from DB using CustomerID
-        boolean done = false;
+    public Customer getCustomerInformation(String CustomerID) { //fetch data from DB using CustomerID
+        Customer customer = new Customer();
         try {
             DBConnection ToDB = new DBConnection(); //Have a connection to the DB
             Connection DBConn = ToDB.openConn();
@@ -264,19 +242,18 @@ public class Customer {
             Stmt.setString(1, CustomerID);
             ResultSet Rslt = Stmt.executeQuery();
             Rslt.next();
-            Name = Rslt.getString("Name");
-            Street = Rslt.getString("Street");
-            City = Rslt.getString("City");
-            State = Rslt.getString("State");
-            Zip = Rslt.getString("Zip");
-            Phone = Rslt.getString("Phone");
-            Email = Rslt.getString("Email");
-            Balance = Rslt.getFloat("Balance");
+            customer.setCustomerID(Rslt.getString("CustomerID"));
+            customer.setName(Rslt.getString("Name"));
+            customer.setStreet(Rslt.getString("Street"));
+            customer.setCity(Rslt.getString("City"));
+            customer.setState(Rslt.getString("State"));
+            customer.setZip(Rslt.getString("Zip"));
+            customer.setPhone(Rslt.getString("Phone"));
+            customer.setEmail(Rslt.getString("Email"));
+            customer.setBalance(Rslt.getFloat("Balance"));
             Stmt.close();
             ToDB.closeConn();
-            done = true;
         } catch (java.sql.SQLException e) {
-            done = false;
             System.out.println("SQLException: " + e);
             while (e != null) {
                 System.out.println("SQLState: " + e.getSQLState());
@@ -286,47 +263,9 @@ public class Customer {
                 System.out.println("");
             }
         } catch (java.lang.Exception e) {
-            done = false;
             System.out.println("Exception: " + e);
         }
-        return done;
-    }
-
-    //return information after setData was executed
-    public String getName() {
-        return Name;
-    }
-
-    public String getStreet() {
-        return Street;
-    }
-
-    public String getCity() {
-        return City;
-    }
-
-    public String getState() {
-        return State;
-    }
-
-    public String getZip() {
-        return Zip;
-    }
-
-    public String getPhone() {
-        return Phone;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public float getBalance() {
-        return Balance;
-    }
-
-    public String getCustomerID() {
-        return CustomerID;
+        return customer;
     }
 
 }

@@ -1,11 +1,15 @@
 package com.example.control;
 
+import com.example.dao.CustomerDAO;
+import com.example.dao.EzTagDAO;
+import com.example.dao.TransactionDAO;
+import com.example.dao.VehicleDAO;
+import com.example.entity.Customer;
+import com.example.entity.EzTag;
+import com.example.entity.Transaction;
+import com.example.entity.Vehicle;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import com.example.model.Customer;
-import com.example.model.EzTag;
-import com.example.model.Transaction;
-import com.example.model.Vehicle;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,56 +19,86 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class PayTollController {
 
-    @RequestMapping("/PayTolls")
-    public String PayTolls(HttpServletRequest request) {
+    @RequestMapping(value = "/paytoll", method = RequestMethod.GET)
+    public ModelAndView PayToll(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (session.getAttribute("Username") == null) {  //check if user has logged in successfully
-            return "index";
-        } else if (session.getAttribute("Username") != null && session.getAttribute("CID") == null) { //check if user logged in but needs to create profile
-            return "redirect:/CreateProfile";
-        } else {
-            return "PayTolls";
+        ModelAndView mv = new ModelAndView();
+        String Username = (String) session.getAttribute("Username");
+        String CustomerID = (String) session.getAttribute("CustomerID");
+        if (Username != null && CustomerID != null) {  //check if user has logged in successfully and created profile
+            mv.setViewName("PayTolls");
+        } else if (Username != null && CustomerID == null) { //check if user logged in but needs to create profile
+            mv.setViewName("redirect:/createprofile");
+        } else { //user not logged in, show index page (login sceeen)
+            mv.setViewName("redirect:/index");
         }
+        return mv;
     }
 
-    @RequestMapping(value = "/PayTollControl", method = RequestMethod.POST)
+    @RequestMapping(value = "/paytoll", method = RequestMethod.POST)
     public ModelAndView PayTollControl(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
-        String CID = (String) session.getAttribute("CID");
-        String LP = request.getParameter("LicensePlateNumber");
-        String TC = request.getParameter("TagCode");
-        String TP = request.getParameter("TollPlaza");
-        String TL = request.getParameter("TollLane");
-        String TA = request.getParameter("TollAmount");
+        String Username = (String) session.getAttribute("Username");
+        String CustomerID = (String) session.getAttribute("CustomerID");
 
-        int TL_INT = Integer.parseInt(TL); //Toll lane is int in database
-        float TA_FLT = Float.parseFloat(TA); // Toll amount is float
-        Transaction trans = new Transaction(TC, TA_FLT, TP, TL_INT, CID);
-        EzTag tag = new EzTag(TC, CID); //check if tag code belongs to customer
-        Vehicle vehicle = new Vehicle(LP, TC, CID); //check if vehicle matches tag code
-        Customer cus = new Customer(CID);
-        float oldBal = cus.getBalance();
-        float newBal = oldBal - TA_FLT; //subtract old balance with charge toll amount
-        mv.setViewName("redirect:/PayTolls");
+        String LicensePlateNumber = request.getParameter("LicensePlateNumber");
+        String TagCode = request.getParameter("TagCode");
+        String TollPlaza = request.getParameter("TollPlaza");
+        String TollLane = request.getParameter("TollLane");
+        String TollAmt = request.getParameter("TollAmount");
+        float TollAmount = Float.parseFloat(TollAmt);
+        int TollLaneNumber = Integer.parseInt(TollLane);
 
-        if (tag.checkTag()) { //check if tag matches customer id
-            if (vehicle.checkVehicle()) { //check if vehicle belongs to tag code
-                if (trans.recordTransaction()) { //record transaction first
-                    if (cus.updateBalance(newBal)) {
-                        redirectAttributes.addFlashAttribute("message", "Pay toll was successful! Your Transaction ID is " + trans.getTransactionID() + " and your new balance is " + newBal + ". Have a nice trip! ");
-                    }
-                } else { //record transaction will fail if generated transaction id is taken
+        //process customer balance
+        CustomerDAO customerdao = new CustomerDAO();
+        Customer customer = customerdao.getCustomerInformation(CustomerID);
+        float OldBalance = customer.getBalance(); //get current balance from customer
+        float NewBalance = OldBalance - TollAmount;
+
+        //check if tag belongs to customer
+        EzTagDAO eztagdao = new EzTagDAO();
+        EzTag eztag = new EzTag();
+        eztag.setCustomerID(CustomerID);
+        eztag.setTagCode(TagCode);
+
+        //check if vehicle belongs both to the customer and tagcode
+        VehicleDAO vehicledao = new VehicleDAO();
+        Vehicle vehicle = new Vehicle();
+        vehicle.setLicensePlateNumber(LicensePlateNumber);
+        vehicle.setTagCode(TagCode);
+        vehicle.setCustomerID(CustomerID);
+
+        //record transaction
+        TransactionDAO transactiondao = new TransactionDAO();
+        Transaction transaction = new Transaction();
+        transaction.setTagCode(TagCode);
+        transaction.setTollAmount(TollAmount);
+        transaction.setTollPlaza(TollPlaza);
+        transaction.setTollLaneNumber(TollLaneNumber);
+        transaction.setCustomerID(CustomerID);
+
+        if (eztagdao.checkTag(eztag)) { //check if tag code belongs to customer
+            if (vehicledao.checkVehicle(vehicle)) { // check if vehicle belongs to tag code
+                if (customerdao.updateBalance(customer, NewBalance)) { //invalidate session after pay toll success
+                    String transactionresult = transactiondao.recordTransaction(transaction); //if record transaction successful, return transaction id. else return null
+                    session.invalidate();
+                    redirectAttributes.addFlashAttribute("message", "Pay toll was successful! Your Transaction ID is " + transactionresult + " and your new balance is: " + NewBalance + ". Have a nice trip!");
+                    mv.setViewName("redirect:/index");
+                } else { //update balance failed
                     redirectAttributes.addFlashAttribute("message", "Error: Unable to process payments at this time. If this occurs multiple times please contact help desk.");
+                    mv.setViewName("redirect:/paytoll");
                 }
-            } else {//vehicle and tag code dont match
+            } else { //vehicle and tag code dont match
                 redirectAttributes.addFlashAttribute("message", "Error: The Tag Code is registered to your account, but this vehicle is not associated with this tag code.");
+                mv.setViewName("redirect:/paytoll");
             }
-
         } else {//invalid tag
             redirectAttributes.addFlashAttribute("message", "Error: Pay toll failed because Tag Code was invalid!");
+            mv.setViewName("redirect:/paytoll");
         }
         return mv;
     }
 
 }
+

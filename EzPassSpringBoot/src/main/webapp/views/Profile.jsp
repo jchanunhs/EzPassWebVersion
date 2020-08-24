@@ -14,36 +14,36 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-                    <a href='${pageContext.request.contextPath}/Profile'id = "active-link">Profile</a>
-                    <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
-                    <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
-                    <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
-                    <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
+                    <a href='${pageContext.request.contextPath}/index' id = "active-link">Profile</a>
+                    <a href='${pageContext.request.contextPath}/vehicle'>Vehicle</a>
+                    <a href='${pageContext.request.contextPath}/eztag'>EzTags</a>
+                    <a href='${pageContext.request.contextPath}/paytoll'>Pay Tolls</a>
+                    <a href='${pageContext.request.contextPath}/transaction'>Transactions</a>
                 </nav>
                 <main> 
                     <h1 align ="center">Customer Profile</h1>
                     <form>
                         <label for="Name">Customer Name:</label>
-                        <input type="text" name="Name" value="<%=(String) request.getAttribute("Name")%>" readonly><br>
+                        <input type="text" name="Name" value="${customer.name}" readonly><br>
                         <label for="Street">Street:</label>
-                        <input type="text" name="Street" value="<%=(String) request.getAttribute("Street")%>" readonly><br>
+                        <input type="text" name="Street" value="${customer.street}" readonly><br>
                         <label for="City">City:</label>
-                        <input type="text" name="City" value="<%=(String) request.getAttribute("City")%>" readonly><br>
+                        <input type="text" name="City" value="${customer.city}" readonly><br>
                         <label for="State">State:</label>
-                        <input type="text" name="State" value="<%=(String) request.getAttribute("State")%>" readonly><br>                                  
+                        <input type="text" name="State" value="${customer.state}" readonly><br>                                  
                         <label for="Zip">Zip:</label>
-                        <input type="text" name="Zip" value="<%=(String) request.getAttribute("Zip")%>" readonly><br>
+                        <input type="text" name="Zip" value="${customer.zip}" readonly><br>
                         <label for="Phone">Phone:</label>
-                        <input type="text" name="Phone" value="<%=(String) request.getAttribute("Phone")%>" readonly><br>
+                        <input type="text" name="Phone" value="${customer.phone}" readonly><br>
                         <label for="Email">Email:</label>
-                        <input type="text" name="Email" value="<%=(String) request.getAttribute("Email")%>" readonly><br>
+                        <input type="text" name="Email" value="${customer.email}" readonly><br>
                         <label for="Balance">Balance:</label>
-                        <input type="text" name="Balance" value="<%=(String) request.getAttribute("Balance")%>" readonly><br>        
+                        <input type="text" name="Balance" value="${customer.balance}" readonly><br>        
                     </form>
                     <div align="center">
-                        <a href='${pageContext.request.contextPath}/ChangePassword'>Change Password</a>
-                        <a href='${pageContext.request.contextPath}/Recharge'>Recharge Account</a>
-                        <a href="${pageContext.request.contextPath}/Logout">Log Off</a>
+                        <a href='${pageContext.request.contextPath}/changepassword'>Change Password</a>
+                        <a href='${pageContext.request.contextPath}/recharge'>Recharge Account</a>
+                        <a href="${pageContext.request.contextPath}/logout">Log Off</a>
                     </div>
                     <div id = "date"> </div>
                 </main>

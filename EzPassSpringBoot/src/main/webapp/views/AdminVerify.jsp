@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
     <head>
         <title>Ez Pass Web Application</title>
@@ -15,47 +15,39 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-                    <a href = "${pageContext.request.contextPath}/index" id = "active-link">Login</a>
-                    <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
-                    <a href = "${pageContext.request.contextPath}/faq">FAQ</a>
+                    <a href = "${pageContext.request.contextPath}/Admin/VerifyInformation" id = "active-link">Verify</a>
+                    <a href = "${pageContext.request.contextPath}/logout">Logout</a>
                 </nav>
                 <main> 
-                    <h1 align ="center">Sign In</h1>
-                    <form name="SignIn" action="${pageContext.request.contextPath}/LoginControl" method ="post"> 
-                        <label for="Username">Username: </label>
+                    <h1 align ="center">Verify Customer Identity</h1>
+                    <form name="Verify" action="${pageContext.request.contextPath}/Admin/VerifyInformation" method ="post"> 
+                        <label for="CustomerID">Customer ID: </label>
+                        <input type="text" name="CustomerID"><br>
+                        <label for="Username">Customer Username: </label>
                         <input type="text" name="Username"><br>
-                        <label for="Password">Password: </label>
-                        <input type="password" name="Password"><br>
-                        <input type="button" value="Login" onClick="checkInputs()">
+                        <input type="button" value="Verify" onClick="checkInputs()">
                         <input type="reset" value="Reset">
                     </form>
-                    <% if (request.getAttribute("message") != null) {%>
-                    <div id="message"><%=request.getAttribute("message")%></div>    
-                    <%}%>
+                    <c:if test="${not empty message}">
+                    <div id="message">${message}</div>    
+                    </c:if>
                     <div id = "date"> </div>
                 </main>
             </div>
             <footer><small><em>
-                        Copyright Â© 2020 EzPassWebApplication<br>
+                        Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
         </div>
         <script>
             function checkInputs()
             {
-                var Prompts = "";
-                Username = document.SignIn.Username.value;
-                Password = document.SignIn.Password.value;
-
-                if (Username == "" || Password == "") {
-                    if (Username == "")
-                        Prompts += "Please enter your username!\n";
-                    if (Password == "")
-                        Prompts += "Please enter your password!\n";
-                    if (Prompts != "")
-                        window.alert(Prompts);
+                CustomerID = document.Verify.CustomerID.value;
+                Username = document.Verify.Username.value;
+                if (CustomerID == "" || Username == "") {
+                    window.alert("One or more fields are empty! Please fill out all information!");
                 } else {
-                    document.SignIn.submit();
+                    document.Verify.submit();
                 }
             }
             

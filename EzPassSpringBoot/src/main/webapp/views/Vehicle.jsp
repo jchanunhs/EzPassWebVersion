@@ -1,6 +1,5 @@
-<%@page import="java.util.ArrayList"%>
-<%ArrayList<String> vehicle_list = (ArrayList<String>) request.getAttribute("vehicle_list");%>
 <!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
     <head>
         <title>Ez Pass Web Application</title>
@@ -24,11 +23,11 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-                    <a href='${pageContext.request.contextPath}/Profile'>Profile</a>
-                    <a href='${pageContext.request.contextPath}/Vehicle'id = "active-link">Vehicle</a>
-                    <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
-                    <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
-                    <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>       
+                    <a href='${pageContext.request.contextPath}/index'>Profile</a>
+                    <a href='${pageContext.request.contextPath}/vehicle' id = "active-link">Vehicle</a>
+                    <a href='${pageContext.request.contextPath}/eztag'>EzTags</a>
+                    <a href='${pageContext.request.contextPath}/paytoll'>Pay Tolls</a>
+                    <a href='${pageContext.request.contextPath}/transaction'>Transactions</a>       
                 </nav>
                 <main> 
                     <h1 align ="center">Vehicles</h1>
@@ -40,17 +39,16 @@
                         <div id = "tab-1">
                             <table>
                                 <tr><th>License Plate Number</th></tr>
-                                        <%for (int i = 0; i < vehicle_list.size(); i++) {
-                                        %>
-                                <tr>
-                                    <td><%=vehicle_list.get(i)%></td>
-                                    <td><a href="${pageContext.request.contextPath}/RemoveVehicleControl?LicensePlateNumber=<%=vehicle_list.get(i)%>">Delete</a></td>
-                                </tr>
-                                <%}%>
+                                        <c:forEach items="${vehiclelist}" var="vehicle">
+                                    <tr>
+                                        <td>${vehicle.licensePlateNumber}</td>
+                                        <td><a href="${pageContext.request.contextPath}/removevehicle?LicensePlateNumber=${vehicle.licensePlateNumber}">Delete</a></td>
+                                    </tr>
+                                </c:forEach>
                             </table>
                         </div>
                         <div id = "tab-2">
-                            <form name="AddVehicle" action="${pageContext.request.contextPath}/AddVehicleControl" method="post">
+                            <form name="AddVehicle" action="${pageContext.request.contextPath}/addvehicle" method="post">
                                 <label for="LicensePlateNumber">License Plate Number:</label>
                                 <input type="text" name="LicensePlateNumber"><br>
                                 <label for="Make">Make:</label>
@@ -68,9 +66,9 @@
                             </form>
                         </div>
                     </div>
-                    <% if (request.getAttribute("message") != null) {%>
-                    <div id="message"><%=request.getAttribute("message")%></div>    
-                    <%}%>
+                    <c:if test="${not empty message}">
+                    <div id="message">${message}</div>    
+                    </c:if>
                     <div id = "date"> </div>
                 </main>
             </div>

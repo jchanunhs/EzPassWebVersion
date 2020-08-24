@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
     <head>
         <title>Ez Pass Web Application</title>
@@ -15,11 +15,11 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-                    <a href = "${pageContext.request.contextPath}/AdminLogin" id = "active-link">Login</a>
+                    <a href = "${pageContext.request.contextPath}/Admin/Login" id = "active-link">Login</a>
                 </nav>
                 <main> 
                     <h1 align ="center">Admin Sign In</h1>
-                    <form name="SignIn" action="${pageContext.request.contextPath}/AdminLoginControl" method ="post"> 
+                    <form name="SignIn" action="${pageContext.request.contextPath}/Admin/Login" method ="post"> 
                         <label for="AdminID">Admin ID: </label>
                         <input type="text" name="AdminID"><br>
                         <label for="Name">Name: </label>
@@ -29,14 +29,14 @@
                         <input type="button" value="Login" onClick="checkInputs()">
                         <input type="reset" value="Reset">
                     </form>
-                    <% if (request.getAttribute("message") != null) {%>
-                    <div id="message"><%=request.getAttribute("message")%></div>    
-                    <%}%>
+                    <c:if test="${not empty message}">
+                    <div id="message">${message}</div>    
+                    </c:if>
                     <div id = "date"> </div>
                 </main>
             </div>
             <footer><small><em>
-                        Copyright Â© 2020 EzPassWebApplication<br>
+                        Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
         </div>

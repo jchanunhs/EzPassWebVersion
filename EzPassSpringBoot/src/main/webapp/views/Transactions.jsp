@@ -1,14 +1,5 @@
-<%@page import="java.util.ArrayList"%>
-<%
-    ArrayList<String> TID_list = (ArrayList<String>) request.getAttribute("TID");
-    ArrayList<String> TC_list = (ArrayList<String>) request.getAttribute("TC");
-    ArrayList<String> TD_list = (ArrayList<String>) request.getAttribute("TD");
-    ArrayList<String> TT_list = (ArrayList<String>) request.getAttribute("TT");
-    ArrayList<String> TP_list = (ArrayList<String>) request.getAttribute("TP");
-    ArrayList<String> TLN_list = (ArrayList<String>) request.getAttribute("TLN");
-    ArrayList<String> TA_list = (ArrayList<String>) request.getAttribute("TA");
-%>
 <!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
     <head>
         <title>Ez Pass Web Application</title>
@@ -24,17 +15,17 @@
             <div id ="content-wrapper">
                 <nav>
                     <div id = "navtitle">Website Directories</div>
-                    <a href='${pageContext.request.contextPath}/Profile'>Profile</a>
-                    <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
-                    <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
-                    <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
-                    <a href='${pageContext.request.contextPath}/Transactions'id = "active-link">Transactions</a>
+                    <a href='${pageContext.request.contextPath}/index'>Profile</a>
+                    <a href='${pageContext.request.contextPath}/vehicle'>Vehicle</a>
+                    <a href='${pageContext.request.contextPath}/eztag'>EzTags</a>
+                    <a href='${pageContext.request.contextPath}/paytoll'>Pay Tolls</a>
+                    <a href='${pageContext.request.contextPath}/transaction' id = "active-link">Transactions</a>
                 </nav>
                 <main> 
                     <h1 align ="center">Transactions</h1>
-                    <form name="Transaction" action="${pageContext.request.contextPath}/ViewTransactionDates" method="post">
+                    <form name="Transaction" action="${pageContext.request.contextPath}/transaction" method="post">
                         <label for="CustomerID">Customer ID:</label>
-                        <input type="text" name="CustomerID" value="<%=(String) session.getAttribute("CID")%>"readonly><br>
+                        <input type="text" name="CustomerID" value="${sessionScope.CustomerID}"readonly><br>
                         <label for="before">Date from:</label>
                         <input type="text" name="before"><br>
                         <label for="after">Date to:</label>
@@ -52,19 +43,17 @@
                             <th>Toll Lane Number</th>
                             <th>Toll Amount</th>
                         </tr>
-                        <%
-                            for (int i = 0; i < TID_list.size(); i++) {
-                        %>
-                        <tr>
-                            <td><%=TID_list.get(i)%></td>
-                            <td><%=TC_list.get(i)%></td>
-                            <td><%=TD_list.get(i)%></td>
-                            <td><%=TT_list.get(i)%></td>
-                            <td><%=TP_list.get(i)%></td>
-                            <td><%=TLN_list.get(i)%></td>
-                            <td><%=TA_list.get(i)%></td>
-                        </tr>
-                        <%}%>
+                        <c:forEach items="${transactionlist}" var="transaction">
+                            <tr>
+                                <td>${transaction.transactionID}</td>
+                                <td>${transaction.tagCode}</td>
+                                <td>${transaction.transactionDate}</td>
+                                <td>${transaction.transactionTime}</td>
+                                <td>${transaction.tollPlaza}</td>
+                                <td>${transaction.tollLaneNumber}</td>
+                                <td>${transaction.tollAmount}</td>
+                            </tr>
+                        </c:forEach>
                     </table>
                     <div id = "date"> </div>
                 </main>

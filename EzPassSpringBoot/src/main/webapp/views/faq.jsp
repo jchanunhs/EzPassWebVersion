@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
     <head>
         <title>Ez Pass Web Application</title>
@@ -21,23 +21,26 @@
         <div id="wrapper">
             <header>Ez Pass Web Application</header>
             <div id ="content-wrapper">
-                <%if(session.getAttribute("CID") == null){%>
-                <nav>
-                    <div id = "navtitle">Website Directories</div>
-                    <a href = "${pageContext.request.contextPath}/index">Login</a>
-                    <a href = "${pageContext.request.contextPath}/SignUp">Sign Up</a>
-                    <a href = "${pageContext.request.contextPath}/faq" id = "active-link">FAQ</a>
-                </nav>
-                <%} else{%>
-                <nav>
-                    <div id = "navtitle">Website Directories</div>
-                    <a href='${pageContext.request.contextPath}/Profile'>Profile</a>
-                    <a href='${pageContext.request.contextPath}/Vehicle'>Vehicle</a>
-                    <a href='${pageContext.request.contextPath}/EzTag'>EzTags</a>
-                    <a href='${pageContext.request.contextPath}/PayTolls'>Pay Tolls</a>
-                    <a href='${pageContext.request.contextPath}/Transactions'>Transactions</a>
-                </nav>
-                <%}%>
+                <c:choose>
+                    <c:when test="${not empty sessionScope.CustomerID}">
+                        <nav>
+                            <div id = "navtitle">Website Directories</div>
+                            <a href='${pageContext.request.contextPath}/index'>Profile</a>
+                            <a href='${pageContext.request.contextPath}/vehicle'>Vehicle</a>
+                            <a href='${pageContext.request.contextPath}/eztag'>EzTags</a>
+                            <a href='${pageContext.request.contextPath}/paytoll'>Pay Tolls</a>
+                            <a href='${pageContext.request.contextPath}/transaction'>Transactions</a>
+                        </nav>
+                    </c:when>
+                    <c:otherwise>
+                        <nav>
+                            <div id = "navtitle">Website Directories</div>
+                            <a href = "${pageContext.request.contextPath}/index">Login</a>
+                            <a href = "${pageContext.request.contextPath}/signup">Sign Up</a>
+                            <a href = "${pageContext.request.contextPath}/faq">FAQ</a>
+                        </nav>
+                    </c:otherwise>
+                </c:choose>
                 <main> 
                     <h1 align ="center">Frequently Asked Questions</h1>
                     <div id = "accordion">
@@ -82,7 +85,7 @@
                 </main>
             </div>
             <footer><small><em>
-                        Copyright Â© 2020 EzPassWebApplication<br>
+                        Copyright © 2020 EzPassWebApplication<br>
                         <a href = "mailto:jchanunh@student.fdu.edu">jchanunh@student.fdu.edu</a>
                     </em></small></footer>
 
