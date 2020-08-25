@@ -1,13 +1,12 @@
 # Ez Pass Application (Web Version)
 Web-based version of the EzPassApplication and was created using Spring Boot and Java EE.
 
+- Follows MVC design pattern
 - JSP served as the view for the web application.
 - JQueryUI was used to create the tabs and accordion for the webpage.
-- SQL Server was used to store user's data.
 - CSS was used to style the web pages.
-
-Web Configurations
-- Customers must be logged in to gain access to the customer pages (ex: profile, eztag...etc) otherwise they will be redirected to the login screen.
+- Controllers will redirect users depending on whether they're logged in or need to create their profile.
+- SQL Server was used to store user's data.
 
 Customers are able to
 - Create an account
@@ -15,7 +14,7 @@ Customers are able to
 - Recharge account
 - Add/Remove EzTag 
 - Add/Remove Vehicle
-- Pay tolls (Form submission)
+- Pay tolls (Session will be invalidated once the user pays toll to simulate them leaving the toll booth)
 - View all transactions or view transactions based on dates specified by customer
 
 Admin Functions
