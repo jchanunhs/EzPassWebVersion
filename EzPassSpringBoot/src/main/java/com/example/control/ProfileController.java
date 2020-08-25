@@ -32,9 +32,7 @@ public class ProfileController {
             mv.addObject("creditcardlist", creditcardlist);
             mv.addObject("customer", customer);
             mv.setViewName("Recharge");
-        } else if (Username != null && CustomerID == null) { //check if user logged in but needs to create profile
-            mv.setViewName("redirect:/createprofile");
-        } else { //user not logged in, show index page (login sceeen)
+        } else { //user not authenticated, redirect to index page
             mv.setViewName("redirect:/index");
         }
         return mv;
@@ -69,9 +67,9 @@ public class ProfileController {
         creditcard.setCreditAmount(CreditAmount);
 
         if (customerdao.updateBalance(customer, NewBalance)) {
-            String transactionresult = creditcarddao.addCreditCardTransaction(creditcard); //if record transaction successful, return transaction id. else return null
+            String transactionresult = creditcarddao.addCreditCardTransaction(creditcard); //create credit transaction.
             redirectAttributes.addFlashAttribute("message", "Recharge successful! Your Transaction ID is " + transactionresult + " and your new balance is: " + NewBalance);
-        } else {//add credit will fail if generated credit id is taken
+        } else {
             redirectAttributes.addFlashAttribute("message", "Error: Recharge failed unexpectly! If this occurs multiple times, please contact help desk.");
         }
 
@@ -87,9 +85,7 @@ public class ProfileController {
         String CustomerID = (String) session.getAttribute("CustomerID");
         if (Username != null && CustomerID != null) {  //check if user has logged in successfully and created profile
             mv.setViewName("ChangePassword");
-        } else if (Username != null && CustomerID == null) { //check if user logged in but needs to create profile
-            mv.setViewName("redirect:/createprofile");
-        } else { //user not logged in, show index page (login sceeen)
+        } else { //user not authenticated, redirect to index page
             mv.setViewName("redirect:/index");
         }
         return mv;

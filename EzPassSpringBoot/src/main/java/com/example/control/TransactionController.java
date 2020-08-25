@@ -24,9 +24,7 @@ public class TransactionController {
             ArrayList<Transaction> transactionlist = transactiondao.getAllTransactions(CustomerID);
             mv.addObject("transactionlist", transactionlist);
             mv.setViewName("Transactions");
-        } else if (Username != null && CustomerID == null) { //check if user logged in but needs to create profile
-            mv.setViewName("redirect:/createprofile");
-        } else { //user not logged in, show index page (login sceeen)
+        } else { //user not authenticated, redirect to index page
             mv.setViewName("redirect:/index");
         }
         return mv;

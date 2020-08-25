@@ -55,7 +55,7 @@ public class HomeController {
         AccountDAO accountdao = new AccountDAO();
         Account account = accountdao.getAccountInformation(Username, Password);
 
-        if (account.getUsername() != null && account.getPassword() != null && account.getCustomerID() != null) { 
+        if (account.getUsername() != null && account.getPassword() != null && account.getCustomerID() != null) { //sign in successful and create profile
             CustomerDAO customerdao = new CustomerDAO();
             Customer customer = customerdao.getCustomerInformation(account.getCustomerID()); //get customer information from customer id
             //save username for change password. save customerid to access customer information
@@ -78,11 +78,9 @@ public class HomeController {
         ModelAndView mv = new ModelAndView();
         String Username = (String) session.getAttribute("Username");
         String CustomerID = (String) session.getAttribute("CustomerID");
-        if (Username != null && CustomerID != null) {  
+        if (Username != null || CustomerID != null) {  
             mv.setViewName("redirect:/index");
-        } else if (Username != null && CustomerID == null) { 
-            mv.setViewName("redirect:/createprofile");
-        } else { //only show sign up page if user is not logged on
+        }  else { //only show sign up page if user is not logged on
             mv.setViewName("SignUp");
         }
         return mv;
@@ -115,7 +113,7 @@ public class HomeController {
         ModelAndView mv = new ModelAndView();
         String Username = (String) session.getAttribute("Username");
         String CustomerID = (String) session.getAttribute("CustomerID");
-        if (session.getAttribute("Username") != null && session.getAttribute("CustomerID") == null) { //check if user logged in but needs to create profile
+        if (Username != null && CustomerID == null) { //check if user logged in but needs to create profile
             mv.setViewName("CreateProfile");
         } else {// if not need to create profile, redirect to index page
             mv.setViewName("redirect:/index");

@@ -67,11 +67,9 @@ public class AdminController {
         ModelAndView mv = new ModelAndView();
         String AdminID = (String) session.getAttribute("AdminID");
         String CustomerID = (String) session.getAttribute("AdminCIDInput");
-        if (AdminID != null && CustomerID != null) { //admin is logged on and is assisting a customer
-            mv.setViewName("redirect:/Admin/UpdateCustomerProfile");
-        } else if (AdminID != null && CustomerID == null) { //admin is logged on and does not have a case
+         if (AdminID != null && CustomerID == null) { //only show this page if admin is logged on and currently does not have a case
             mv.setViewName("AdminVerify");
-        } else { //admin not logged on
+        } else { //redirect because admin currently does not have permission to access this page
             mv.setViewName("redirect:/Admin/Login");
         }
         return mv;
@@ -108,11 +106,9 @@ public class AdminController {
     public ModelAndView AdminUpdateProfile(HttpServletRequest request) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
-        if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") != null) {
+        if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") != null) { //page is displayed only if admin is logged on and currently working with a customer
             mv.setViewName("AdminUpdateProfile");
-        } else if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") == null) {
-            mv.setViewName("redirect:/Admin/VerifyInformation");
-        } else {
+        } else { //redirect because admin currently does not have permission to access this page
             mv.setViewName("redirect:/Admin/Login");
         }
         return mv;
@@ -167,11 +163,9 @@ public class AdminController {
     public ModelAndView AdminUpdateEzTag(HttpServletRequest request) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
-        if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") != null) {
+        if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") != null) { //page is displayed only if admin is logged on and currently working with a customer
             mv.setViewName("AdminUpdateTag");
-        } else if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") == null) {
-            mv.setViewName("redirect:/Admin/VerifyInformation");
-        } else {
+        } else { //redirect because admin currently does not have permission to access this page
             mv.setViewName("redirect:/Admin/Login");
         }
         return mv;
@@ -209,11 +203,9 @@ public class AdminController {
     public ModelAndView AdminDeleteAccount(HttpServletRequest request) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
-        if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") != null) {
+        if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") != null) { //page is displayed only if admin is logged on and currently working with a customer
             mv.setViewName("AdminDeleteAccount");
-        } else if (session.getAttribute("AdminID") != null && session.getAttribute("AdminCIDInput") == null) {
-            mv.setViewName("redirect:/Admin/VerifyInformation");
-        } else {
+        } else { //redirect because admin currently does not have permission to access this page
             mv.setViewName("redirect:/Admin/Login");
         }
         return mv;

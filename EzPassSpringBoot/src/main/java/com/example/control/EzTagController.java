@@ -25,9 +25,7 @@ public class EzTagController {
             ArrayList<EzTag> eztaglist = eztagdao.getAllCustomerTag(CustomerID);
             mv.addObject("eztaglist", eztaglist);
             mv.setViewName("EzTag");
-        } else if (Username != null && CustomerID == null) { //check if user logged in but needs to create profile
-            mv.setViewName("redirect:/createprofile");
-        } else { //user not logged in, show index page (login sceeen)
+        } else { //user not authenticated, redirect to index page
             mv.setViewName("redirect:/index");
         }
         return mv;

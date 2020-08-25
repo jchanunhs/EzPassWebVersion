@@ -27,9 +27,7 @@ public class PayTollController {
         String CustomerID = (String) session.getAttribute("CustomerID");
         if (Username != null && CustomerID != null) {  //check if user has logged in successfully and created profile
             mv.setViewName("PayTolls");
-        } else if (Username != null && CustomerID == null) { //check if user logged in but needs to create profile
-            mv.setViewName("redirect:/createprofile");
-        } else { //user not logged in, show index page (login sceeen)
+        } else { //user not authenticated, redirect to index page
             mv.setViewName("redirect:/index");
         }
         return mv;
@@ -81,7 +79,7 @@ public class PayTollController {
         if (eztagdao.checkTag(eztag)) { //check if tag code belongs to customer
             if (vehicledao.checkVehicle(vehicle)) { // check if vehicle belongs to tag code
                 if (customerdao.updateBalance(customer, NewBalance)) { //invalidate session after pay toll success
-                    String transactionresult = transactiondao.recordTransaction(transaction); //if record transaction successful, return transaction id. else return null
+                    String transactionresult = transactiondao.recordTransaction(transaction); //create transaction
                     session.invalidate();
                     redirectAttributes.addFlashAttribute("message", "Pay toll was successful! Your Transaction ID is " + transactionresult + " and your new balance is: " + NewBalance + ". Have a nice trip!");
                     mv.setViewName("redirect:/index");
