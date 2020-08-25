@@ -5,8 +5,9 @@ Web-based version of the EzPassApplication and was created using Spring Boot and
 - JSP served as the view for the web application.
 - JQueryUI was used to create the tabs and accordion for the webpage.
 - CSS was used to style the web pages.
-- Controllers will redirect users depending on whether they're logged in or need to create their profile.
-- SQL Server was used to store user's data.
+- Controllers handle http requests. Some controllers may redirect users to the login page, create profile page, or profile page depending on whether the user is logged in and created their profile.
+- Data access object and entity object work together to create and modify contents in our database.
+- Microsoft SQL Server was used to store user's data.
 
 Customers are able to
 - Create an account
