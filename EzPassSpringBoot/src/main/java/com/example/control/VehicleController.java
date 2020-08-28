@@ -2,8 +2,8 @@ package com.example.control;
 
 import com.example.dao.EzTagDAO;
 import com.example.dao.VehicleDAO;
-import com.example.entity.EzTag;
-import com.example.entity.Vehicle;
+import com.example.model.EzTag;
+import com.example.model.Vehicle;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

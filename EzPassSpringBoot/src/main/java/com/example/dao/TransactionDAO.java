@@ -1,6 +1,6 @@
 package com.example.dao;
 
-import com.example.entity.Transaction;
+import com.example.model.Transaction;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

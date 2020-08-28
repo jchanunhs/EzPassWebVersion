@@ -1,6 +1,6 @@
 package com.example.dao;
 
-import com.example.entity.Vehicle;
+import com.example.model.Vehicle;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

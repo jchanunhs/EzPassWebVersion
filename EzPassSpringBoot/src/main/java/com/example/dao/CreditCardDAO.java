@@ -1,6 +1,6 @@
 package com.example.dao;
 
-import com.example.entity.CreditCard;
+import com.example.model.CreditCard;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

@@ -2,8 +2,8 @@ package com.example.control;
 
 import com.example.dao.AccountDAO;
 import com.example.dao.CustomerDAO;
-import com.example.entity.Account;
-import com.example.entity.Customer;
+import com.example.model.Account;
+import com.example.model.Customer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;

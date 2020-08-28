@@ -1,6 +1,6 @@
 package com.example.dao;
 
-import com.example.entity.EzTag;
+import com.example.model.EzTag;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

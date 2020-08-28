@@ -1,8 +1,8 @@
 package com.example.dao;
 
-import com.example.entity.Account;
-import com.example.entity.Admin;
-import com.example.entity.EzTag;
+import com.example.model.Account;
+import com.example.model.Admin;
+import com.example.model.EzTag;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

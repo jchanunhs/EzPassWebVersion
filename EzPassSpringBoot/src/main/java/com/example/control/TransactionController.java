@@ -1,7 +1,7 @@
 package com.example.control;
 
 import com.example.dao.TransactionDAO;
-import com.example.entity.Transaction;
+import com.example.model.Transaction;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

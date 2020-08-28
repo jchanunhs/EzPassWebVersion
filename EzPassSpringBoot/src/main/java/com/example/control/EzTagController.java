@@ -1,7 +1,7 @@
 package com.example.control;
 
 import com.example.dao.EzTagDAO;
-import com.example.entity.EzTag;
+import com.example.model.EzTag;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

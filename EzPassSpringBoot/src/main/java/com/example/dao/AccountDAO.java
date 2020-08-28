@@ -1,6 +1,6 @@
 package com.example.dao;
 
-import com.example.entity.Account;
+import com.example.model.Account;
 import java.sql.*;
 
 public class AccountDAO {
