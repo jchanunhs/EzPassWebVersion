@@ -1,13 +1,8 @@
 # Ez Pass Application (Web Version)
 Web-based version of the EzPassApplication and was created using Spring Boot and Java EE.
 
-- Follows MVC design pattern
-- JSP served as the view for the web application.
-- JQueryUI was used to create the tabs and accordion for the webpage.
-- CSS was used to style the web pages.
-- Controllers handle http requests. Some controllers may redirect users to the login page, create profile page, or profile page depending on whether the user is logged in and created their profile.
-- Data access object and entity object work together to create and modify contents in our database.
-- Microsoft SQL Server was used to store user's data.
+Technologies used for front end: JSP to generate HTML and Javascript to check if the forms were submitted properly.
+Technologies used for back end: Java (Data access object provides access to my SQL Server).
 
 Customers are able to
 - Create an account
