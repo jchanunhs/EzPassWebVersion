@@ -27,3 +27,4 @@ This web application uses session authentication.
 - Stores AdminID when Admin is logged in.
 - Stores AdminID and CustomerID when Admin is currently working on a customer case.
 
+Future works: Finish up DAO pattern by adding the interface. 
