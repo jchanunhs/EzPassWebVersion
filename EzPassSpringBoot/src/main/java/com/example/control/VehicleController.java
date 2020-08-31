@@ -2,9 +2,11 @@ package com.example.control;
 
 import com.example.dao.EzTagDAO;
 import com.example.dao.VehicleDAO;
+import com.example.service.EzTagService;
+import com.example.service.VehicleService;
 import com.example.model.EzTag;
 import com.example.model.Vehicle;
-import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -23,8 +25,8 @@ public class VehicleController {
         String Username = (String) session.getAttribute("Username");
         String CustomerID = (String) session.getAttribute("CustomerID");
         if (Username != null && CustomerID != null) {  //check if user has logged in successfully and created profile
-            VehicleDAO vehicledao = new VehicleDAO();
-            ArrayList<Vehicle> vehiclelist = vehicledao.getAllCustomerVehicles(CustomerID);
+            VehicleDAO vehicledao = new VehicleService();
+            List<Vehicle> vehiclelist = vehicledao.getAllCustomerVehicles(CustomerID);
             mv.addObject("vehiclelist", vehiclelist);
             mv.setViewName("Vehicle");
         } else { //user not authenticated, redirect to index page
@@ -48,13 +50,13 @@ public class VehicleController {
         String TagCode = request.getParameter("TagCode");
         
         //check tag
-        EzTagDAO eztagdao = new EzTagDAO();
+        EzTagDAO eztagdao = new EzTagService();
         EzTag eztag = new EzTag();
         eztag.setCustomerID(CustomerID);
         eztag.setTagCode(TagCode);
         
         //add vehicle
-        VehicleDAO vehicledao = new VehicleDAO();
+        VehicleDAO vehicledao = new VehicleService();
         Vehicle vehicle = new Vehicle();
         vehicle.setLicensePlateNumber(LicensePlateNumber);
         vehicle.setMake(Make);
@@ -85,7 +87,7 @@ public class VehicleController {
         String CustomerID = (String) session.getAttribute("CustomerID");
 
         String LicensePlateNumber = request.getParameter("LicensePlateNumber");
-        VehicleDAO vehicledao = new VehicleDAO();
+        VehicleDAO vehicledao = new VehicleService();
         Vehicle vehicle = new Vehicle();
         vehicle.setLicensePlateNumber(LicensePlateNumber);
         vehicle.setCustomerID(CustomerID);

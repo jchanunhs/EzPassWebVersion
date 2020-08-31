@@ -4,6 +4,10 @@ import com.example.dao.AccountDAO;
 import com.example.dao.AdminDAO;
 import com.example.dao.CustomerDAO;
 import com.example.dao.EzTagDAO;
+import com.example.service.AccountService;
+import com.example.service.AdminService;
+import com.example.service.CustomerService;
+import com.example.service.EzTagService;
 import com.example.model.Account;
 import com.example.model.Admin;
 import com.example.model.Customer;
@@ -44,7 +48,7 @@ public class AdminController {
         String Password = request.getParameter("Password");
 
         //login
-        AdminDAO admindao = new AdminDAO();
+        AdminDAO admindao = new AdminService();
         Admin admin = new Admin();
         admin.setAdminID(AdminID);
         admin.setName(Name);
@@ -83,10 +87,10 @@ public class AdminController {
         String CustomerID = request.getParameter("CustomerID");
 
         //AdminDAO to verify the customer's information
-        AdminDAO admindao = new AdminDAO();
+        AdminDAO admindao = new AdminService();
 
         //Account with CustomerID and Username
-        AccountDAO accountdao = new AccountDAO();
+        AccountDAO accountdao = new AccountService();
         Account account = new Account();
         account.setUsername(Username);
         account.setCustomerID(CustomerID);
@@ -126,7 +130,7 @@ public class AdminController {
         String NewPhone = request.getParameter("Phone");
         String NewEmail = request.getParameter("Email");
 
-        CustomerDAO customerdao = new CustomerDAO();
+        CustomerDAO customerdao = new CustomerService();
         Customer customer = new Customer();
         customer.setCustomerID(CustomerID);
 
@@ -180,9 +184,9 @@ public class AdminController {
         String NewTagType = request.getParameter("NewTagType");
 
         //check tag
-        AdminDAO admindao = new AdminDAO();
+        AdminDAO admindao = new AdminService();
 
-        EzTagDAO eztagdao = new EzTagDAO();
+        EzTagDAO eztagdao = new EzTagService();
         EzTag eztag = new EzTag();
         eztag.setCustomerID(CustomerID);
         eztag.setTagCode(TagCode);
@@ -217,7 +221,7 @@ public class AdminController {
         ModelAndView mv = new ModelAndView();
         String CustomerID = (String) session.getAttribute("AdminCIDInput");
 
-        CustomerDAO customerdao = new CustomerDAO();
+        CustomerDAO customerdao = new CustomerService();
         Customer customer = customerdao.getCustomerInformation(CustomerID);
 
         float balance = customer.getBalance();
@@ -226,7 +230,7 @@ public class AdminController {
             mv.setViewName("redirect:/Admin/DeleteAccount");
         } else {
             if (customerdao.deleteCustomer(customer)) {
-                session.setAttribute("AdminCIDInput", null); //after finish with assisting customer, make it null.
+                session.removeAttribute("AdminCIDInput"); //after finish with assisting customer, remove customer id. 
                 redirectAttributes.addFlashAttribute("message", "Account Deleted Successfully! Please let the customer know that the leftover funds will be delivered via mail.");
                 mv.setViewName("redirect:/Admin/VerifyInformation");
             } else {
@@ -242,7 +246,7 @@ public class AdminController {
     public ModelAndView FinishUpdates(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
-        session.setAttribute("AdminCIDInput", null); //after finish with assisting customer, make it null.
+        session.removeAttribute("AdminCIDInput"); //after finish with assisting customer, remove customer id. 
         mv.setViewName("redirect:/Admin/VerifyInformation");
         redirectAttributes.addFlashAttribute("message", "Previous customer information is cleared.");
         return mv;

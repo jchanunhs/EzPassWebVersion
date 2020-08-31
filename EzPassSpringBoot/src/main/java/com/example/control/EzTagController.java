@@ -1,8 +1,9 @@
 package com.example.control;
 
 import com.example.dao.EzTagDAO;
+import com.example.service.EzTagService;
 import com.example.model.EzTag;
-import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,8 @@ public class EzTagController {
         String Username = (String) session.getAttribute("Username");
         String CustomerID = (String) session.getAttribute("CustomerID");
         if (Username != null && CustomerID != null) {  //check if user has logged in successfully and created profile
-            EzTagDAO eztagdao = new EzTagDAO();
-            ArrayList<EzTag> eztaglist = eztagdao.getAllCustomerTag(CustomerID);
+            EzTagDAO eztagdao = new EzTagService();
+            List<EzTag> eztaglist = eztagdao.getAllCustomerTag(CustomerID);
             mv.addObject("eztaglist", eztaglist);
             mv.setViewName("EzTag");
         } else { //user not authenticated, redirect to index page
@@ -40,7 +41,7 @@ public class EzTagController {
 
         String TC = request.getParameter("TagCode");
         String TT = request.getParameter("TagType");
-        EzTagDAO tagdao = new EzTagDAO();
+        EzTagDAO tagdao = new EzTagService();
         EzTag tag = new EzTag();
         tag.setCustomerID(CustomerID);
         tag.setTagCode(TC);
@@ -63,7 +64,7 @@ public class EzTagController {
         String CustomerID = (String) session.getAttribute("CustomerID");
 
         String TC = request.getParameter("TagCode");
-        EzTagDAO eztagdao = new EzTagDAO();
+        EzTagDAO eztagdao = new EzTagService();
         EzTag eztag = new EzTag();
         eztag.setTagCode(TC);
         eztag.setCustomerID(CustomerID);

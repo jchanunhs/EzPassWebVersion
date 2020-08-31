@@ -2,6 +2,8 @@ package com.example.control;
 
 import com.example.dao.AccountDAO;
 import com.example.dao.CustomerDAO;
+import com.example.service.AccountService;
+import com.example.service.CustomerService;
 import com.example.model.Account;
 import com.example.model.Customer;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +36,7 @@ public class HomeController {
         String Username = (String) session.getAttribute("Username");
         String CustomerID = (String) session.getAttribute("CustomerID");
         if (Username != null && CustomerID != null) {  //check if user has logged in successfully and created profile
-            CustomerDAO customerdao = new CustomerDAO();
+            CustomerDAO customerdao = new CustomerService();
             Customer customer = customerdao.getCustomerInformation(CustomerID);
             mv.addObject("customer", customer);
             mv.setViewName("Profile");
@@ -52,11 +54,11 @@ public class HomeController {
         ModelAndView mv = new ModelAndView();
         String Username = request.getParameter("Username");
         String Password = request.getParameter("Password");
-        AccountDAO accountdao = new AccountDAO();
+        AccountDAO accountdao = new AccountService();
         Account account = accountdao.getAccountInformation(Username, Password);
 
         if (account.getUsername() != null && account.getPassword() != null && account.getCustomerID() != null) { //sign in successful and create profile
-            CustomerDAO customerdao = new CustomerDAO();
+            CustomerDAO customerdao = new CustomerService();
             Customer customer = customerdao.getCustomerInformation(account.getCustomerID()); //get customer information from customer id
             //save username for change password. save customerid to access customer information
             session.setAttribute("Username", Username);
@@ -92,7 +94,7 @@ public class HomeController {
         ModelAndView mv = new ModelAndView();
         String Username = request.getParameter("Username");
         String Password = request.getParameter("Password");
-        AccountDAO accountdao = new AccountDAO();
+        AccountDAO accountdao = new AccountService();
         Account account = new Account();
         account.setUsername(Username);
         account.setPassword(Password);
@@ -133,7 +135,8 @@ public class HomeController {
         String Zip = request.getParameter("Zip");
         String Phone = request.getParameter("Phone");
         String Email = request.getParameter("Email");
-        CustomerDAO customerdao = new CustomerDAO();
+        
+        CustomerDAO customerdao = new CustomerService();
         Customer customer = new Customer();
         customer.setName(Name);
         customer.setStreet(Street);
@@ -145,6 +148,7 @@ public class HomeController {
 
         if (customerdao.createProfile(customer, Username)) {
             redirectAttributes.addFlashAttribute("message", "Profile created successfully! Please relog to your account!");
+            session.removeAttribute("Username");
             session.invalidate();
         } else {
             redirectAttributes.addFlashAttribute("message", "Error: Created profile failed unexpectly! If this occurs multiple times please contact help desk.");
@@ -153,15 +157,17 @@ public class HomeController {
         return mv;
     }
 
-    
-
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public ModelAndView LogOut(HttpServletRequest request, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
         ModelAndView mv = new ModelAndView();
         if (session.getAttribute("AdminID") != null) { //check if it's admin logging out
+            session.removeAttribute("AdminID");
+            session.removeAttribute("AdminCIDInput");
             mv.setViewName("redirect:/Admin/Login");
         } else {
+            session.removeAttribute("Username");
+            session.removeAttribute("CustomerID");
             mv.setViewName("redirect:/index");
         }
         session.invalidate();

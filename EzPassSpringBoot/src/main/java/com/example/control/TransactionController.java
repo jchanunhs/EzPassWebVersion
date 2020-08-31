@@ -1,8 +1,9 @@
 package com.example.control;
 
 import com.example.dao.TransactionDAO;
+import com.example.service.TransactionService;
 import com.example.model.Transaction;
-import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,8 @@ public class TransactionController {
         String Username = (String) session.getAttribute("Username");
         String CustomerID = (String) session.getAttribute("CustomerID");
         if (Username != null && CustomerID != null) {  //check if user has logged in successfully and created profile
-            TransactionDAO transactiondao = new TransactionDAO();
-            ArrayList<Transaction> transactionlist = transactiondao.getAllTransactions(CustomerID);
+            TransactionDAO transactiondao = new TransactionService();
+            List<Transaction> transactionlist = transactiondao.getAllTransactions(CustomerID);
             mv.addObject("transactionlist", transactionlist);
             mv.setViewName("Transactions");
         } else { //user not authenticated, redirect to index page
@@ -43,8 +44,8 @@ public class TransactionController {
             mv.setViewName("redirect:/transaction");
         } else {
             //get transactions based on date
-            TransactionDAO transactiondao = new TransactionDAO();
-            ArrayList<Transaction> transactionlist = transactiondao.getTransactions(CustomerID, before, after);
+            TransactionDAO transactiondao = new TransactionService();
+            List<Transaction> transactionlist = transactiondao.getTransactions(CustomerID, before, after);
             mv.addObject("transactionlist", transactionlist);
             mv.setViewName("Transactions");
         }

@@ -4,6 +4,10 @@ import com.example.dao.CustomerDAO;
 import com.example.dao.EzTagDAO;
 import com.example.dao.TransactionDAO;
 import com.example.dao.VehicleDAO;
+import com.example.service.CustomerService;
+import com.example.service.EzTagService;
+import com.example.service.TransactionService;
+import com.example.service.VehicleService;
 import com.example.model.Customer;
 import com.example.model.EzTag;
 import com.example.model.Transaction;
@@ -49,26 +53,26 @@ public class PayTollController {
         int TollLaneNumber = Integer.parseInt(TollLane);
 
         //process customer balance
-        CustomerDAO customerdao = new CustomerDAO();
+        CustomerDAO customerdao = new CustomerService();
         Customer customer = customerdao.getCustomerInformation(CustomerID);
         float OldBalance = customer.getBalance(); //get current balance from customer
         float NewBalance = OldBalance - TollAmount;
 
         //check if tag belongs to customer
-        EzTagDAO eztagdao = new EzTagDAO();
+        EzTagDAO eztagdao = new EzTagService();
         EzTag eztag = new EzTag();
         eztag.setCustomerID(CustomerID);
         eztag.setTagCode(TagCode);
 
         //check if vehicle belongs both to the customer and tagcode
-        VehicleDAO vehicledao = new VehicleDAO();
+        VehicleDAO vehicledao = new VehicleService();
         Vehicle vehicle = new Vehicle();
         vehicle.setLicensePlateNumber(LicensePlateNumber);
         vehicle.setTagCode(TagCode);
         vehicle.setCustomerID(CustomerID);
 
         //record transaction
-        TransactionDAO transactiondao = new TransactionDAO();
+        TransactionDAO transactiondao = new TransactionService();
         Transaction transaction = new Transaction();
         transaction.setTagCode(TagCode);
         transaction.setTollAmount(TollAmount);

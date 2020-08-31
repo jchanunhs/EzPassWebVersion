@@ -3,10 +3,13 @@ package com.example.control;
 import com.example.dao.AccountDAO;
 import com.example.dao.CreditCardDAO;
 import com.example.dao.CustomerDAO;
+import com.example.service.AccountService;
+import com.example.service.CreditCardService;
+import com.example.service.CustomerService;
 import com.example.model.Account;
 import com.example.model.CreditCard;
 import com.example.model.Customer;
-import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -25,10 +28,10 @@ public class ProfileController {
         String Username = (String) session.getAttribute("Username");
         String CustomerID = (String) session.getAttribute("CustomerID");
         if (Username != null && CustomerID != null) {  //check if user has logged in successfully and created profile
-            CustomerDAO customerdao = new CustomerDAO(); //get current balance
+            CustomerDAO customerdao = new CustomerService(); //get current balance
             Customer customer = customerdao.getCustomerInformation(CustomerID);
-            CreditCardDAO creditcarddao = new CreditCardDAO(); //get recharge transaction
-            ArrayList<CreditCard> creditcardlist = creditcarddao.getAllTransactions(CustomerID);
+            CreditCardDAO creditcarddao = new CreditCardService(); //get recharge transaction
+            List<CreditCard> creditcardlist = creditcarddao.getAllTransactions(CustomerID);
             mv.addObject("creditcardlist", creditcardlist);
             mv.addObject("customer", customer);
             mv.setViewName("Recharge");
@@ -52,12 +55,12 @@ public class ProfileController {
         String Credit = request.getParameter("Credit");
         float CreditAmount = Float.parseFloat(Credit);
         //get customer current balance
-        CustomerDAO customerdao = new CustomerDAO();
+        CustomerDAO customerdao = new CustomerService();
         Customer customer = customerdao.getCustomerInformation(CustomerID);
         float OldBalance = customer.getBalance(); //get old balance and add credit amount to it
         float NewBalance = OldBalance + CreditAmount;
         //add transaction
-        CreditCardDAO creditcarddao = new CreditCardDAO();
+        CreditCardDAO creditcarddao = new CreditCardService();
         CreditCard creditcard = new CreditCard();
         creditcard.setCardNumber(CardNumber);
         creditcard.setName(Name);
@@ -100,7 +103,7 @@ public class ProfileController {
         
         String OldPassword = request.getParameter("OldPassword");
         String NewPassword = request.getParameter("NewPassword");
-        AccountDAO accountdao = new AccountDAO();
+        AccountDAO accountdao = new AccountService();
         Account account = new Account();
         account.setUsername(Username);
         account.setPassword(OldPassword);
