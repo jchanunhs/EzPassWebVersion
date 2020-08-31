@@ -1,7 +1,7 @@
 # Ez Pass Application (Web Version)
 Web-based version of the EzPassApplication and was created using Spring Boot and Java EE.
 
-Technologies used for front end: JSP to generate HTML and Javascript to check if the forms were submitted properly.
+Technologies used for front end: JSP to generate HTML pages. CSS. Javascript. JQuery UI. 
 
 Technologies used for back end: Java (Data access object provides access to SQL Server). Some methods in the DAO may return true or false based on whether the query execution was successful or not.
 
