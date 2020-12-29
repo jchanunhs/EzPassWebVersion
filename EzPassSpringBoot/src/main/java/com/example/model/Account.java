@@ -5,7 +5,6 @@ public class Account {
     private String CustomerID;
     private String Username;
     private String Password;
-    private String Name;
 
     public Account() {
         
