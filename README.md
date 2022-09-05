@@ -1,7 +1,6 @@
 # Ez Pass Application (Web Version)
-Web-based version of the EzPassApplication and was created using Spring Boot and Java EE.
-
 ## Purpose of this web application is to learn how to build a full stack application and upgrade the web application from Java Servlets to Spring MVC
+Web-based version of the EzPassApplication and was created using Spring Boot and Java EE.
 
 Technologies used for front end: JSP to generate HTML pages. CSS. Javascript. JQuery UI. 
 
